@@ -1,4 +1,4 @@
-package kr.co.collie.mgr.main;
+package kr.co.collie.mgr.main.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
