@@ -11,7 +11,7 @@
 </style>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="/collie_user/common/css/common.css">
+<link rel="stylesheet" type="text/css" href="/mgr/common/css/common.css">
 
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -21,7 +21,6 @@
 <script type="text/javascript">
 $(function(){
 });//ready
-
 </script>
 </head>
 <body>
@@ -31,6 +30,7 @@ $(function(){
 	<c:import url="/header.do" /> 
 
 	<div id="container">
+		
 	</div>
 </div>
 
