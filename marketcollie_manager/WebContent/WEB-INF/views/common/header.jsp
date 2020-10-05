@@ -2,13 +2,8 @@
     pageEncoding="UTF-8"
     info="로그인 완료 후 관리자 메인 페이지"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<style>
-#logo {text-align: center; margin: 2rem;}
-.navbar-collie {background-color: #17462B; color:#ffffff; text-align:center; padding-left: 50px; padding-right: 50px; padding-top: 15px; padding-bottom: 15px;}
- a:link { color: #ffffff; text-decoration: none;}
- a:visited { color: #ffffff; text-decoration: none;}
- a:hover { color: #ffffff; text-decoration: underline;}
-</style>
+
+
 <div id="header" style="font-family: 'NanumBarunGothic'">
 	<ul class="nav justify-content-end">
 		<c:if test="${empty mgr_info}">
