@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	<mapper namespace="kr.co.collie.user.qna">
-	<insert id="insertQna" parameterType="kr.co.collie.user.qna.vo.QnaAddVO">
-	insert into qna(qna_num,member_num, qna_subject, qna_content)
-	values(seq_qna_num.nextval, #{member_num},#{qna_subject},#{qna_content})
-	</insert>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.collie.mgr.qna">
+	<select id="selectQnaList" resultType="kr.co.collie.mgr.qna.domain.MgrQnaListDomain">
+		select qna_num, id, qna_subject, qna_flag
+		from qna qna, member mem
+		where qna.member_num = mem.member_num
+	</select>
 	
-	</mapper>
+	<select id="selectQnaDetail" parameterType="int" resultType="kr.co.collie.mgr.qna.domain.MgrQnaDetailDomain">
+		select id, email, phone, qna_subject, qna_content, qna_reply, qna_flag
+		from qna qna, member mem
+		where (qna.member_num = mem.member_num) and qna_num = #{qna_num}
+	</select>
+	
+	<update id="updateQnaReply" parameterType="kr.co.collie.mgr.qna.vo.MgrModifyQnaReplyVO">
+		update qna
+		set qna_reply=#{qna_reply}, qna_flag='Y'
+		where qna_num=#{qna_num}
+	</update>
+</mapper>
