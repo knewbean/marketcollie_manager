@@ -30,6 +30,9 @@ public class MgrQnaService {
 	
 	public boolean modifyQnaReply(MgrModifyQnaReplyVO mmqrVO) {
 		MgrQnaDAO mqDAO = new MgrQnaDAO();
+		if(mmqrVO.getQna_reply().trim().length() > 0) {
+			mmqrVO.setQna_reply("Y");
+		}
 		int result = mqDAO.updateQnaReply(mmqrVO);
 		return result != 0;
 	}
