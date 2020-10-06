@@ -29,7 +29,14 @@ $(function(){
 	<c:import url="/header.do" /> 
 
 	<div id="container">
-		카테고리관리이ㅣ이이이ㅣ이이이이ㅣㅣㅣ
+		
+		<c:forEach var="cate" items="${ cate_list }">
+		<c:out value="${ cate.cate_num }"/>
+		<c:out value="${ cate.cate_name }"/><br/>
+		</c:forEach>
+		
+		<c:out value="${ paging }" escapeXml="false"/>
+		
 	</div>
 </div>
 
