@@ -10,7 +10,20 @@ import kr.co.collie.mgr.qna.domain.MgrQnaListDomain;
 import kr.co.collie.mgr.qna.vo.MgrModifyQnaReplyVO;
 
 public class MgrQnaDAO {
+	
+	private static MgrQnaDAO mqDAO;
 
+	private MgrQnaDAO() {
+	}
+	
+	public static MgrQnaDAO getInstance() {
+		if(mqDAO == null) {
+			mqDAO = new MgrQnaDAO();
+		}
+		return mqDAO;
+	}
+	
+	
 	/**
 	 * 사용자의 모든 문의사항을 조회한다.
 	 * @return

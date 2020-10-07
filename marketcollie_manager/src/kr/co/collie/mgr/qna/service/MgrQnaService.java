@@ -16,22 +16,20 @@ public class MgrQnaService {
 	 */
 	public List<MgrQnaListDomain> getAllQna() {
 		List<MgrQnaListDomain> list = null;
-		MgrQnaDAO mqDAO = new MgrQnaDAO();
-		list = mqDAO.selectAllQna();
+		list = MgrQnaDAO.getInstance().selectAllQna();
 		return list;
 	}
 	
 	public MgrQnaDetailDomain getQnaDetail(int qna_num) {
 		MgrQnaDetailDomain mqdd = null;
-		MgrQnaDAO mqDAO = new MgrQnaDAO();
-		mqdd = mqDAO.selectQnaDetail(qna_num);
+		mqdd = MgrQnaDAO.getInstance().selectQnaDetail(qna_num);
 		return mqdd;
 	}
 	
 	public boolean modifyQnaReply(MgrModifyQnaReplyVO mmqrVO) {
-		MgrQnaDAO mqDAO = new MgrQnaDAO();
+		MgrQnaDAO mqDAO = MgrQnaDAO.getInstance();
 		if(mmqrVO.getQna_reply().trim().length() > 0) {
-			mmqrVO.setQna_reply("Y");
+			mmqrVO.setQna_flag("Y");
 		}
 		int result = mqDAO.updateQnaReply(mmqrVO);
 		return result != 0;
