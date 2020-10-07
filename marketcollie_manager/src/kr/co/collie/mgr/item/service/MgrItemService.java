@@ -13,11 +13,10 @@ import kr.co.collie.mgr.item.vo.SearchItemVO;
 public class MgrItemService {
 	
 	public List<MgrItemListDomain> getSearchItem(SearchItemVO siVO){
+		
 		List<MgrItemListDomain> list = null;
 		MgrItemDAO miDAO = MgrItemDAO.getInstance();
 		miDAO.selectItemList(siVO);
-		
-		
 		
 		return list;
 	}//getSearchItem
@@ -37,6 +36,10 @@ public class MgrItemService {
 	
 	public boolean addItem(MgrItemAddVO miaVO) {
 		boolean flag = false;
+		
+		MgrItemDAO miDAO = MgrItemDAO.getInstance();
+		flag = miDAO.insertItem(miaVO) != 0;
+		
 		
 		return flag;
 	}//addItem

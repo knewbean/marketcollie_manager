@@ -8,6 +8,22 @@
 	
 	</select>
   
+  <insert id="insertItem" parameterType="kr.co.collie.mgr.item.vo.MgrItemAddVO">
+  insert into item(ITEM_NUM, CATE_NUM, ITEM_NAME, ITEM_STOCK, ITEM_PRICE, ITEM_UNIT, ITEM_WEIGHT,
+								ITEM_GUIDE, ITEM_TITLE, ITEM_SUBTITLE, ITEM_DETAIL, ITEM_IMG)
+  values(seq_item_num.nextval, #{ CATE_NUM } , #{ ITEM_NAME }, #{ ITEM_STOCK }, #{ ITEM_PRICE }, #{ ITEM_UNIT }, #{ITEM_WEIGHT },
+								#{ ITEM_GUIDE }, #{ ITEM_TITLE }, #{ ITEM_SUBTITLE }, #{ ITEM_DETAIL }, #{ ITEM_IMG } )
+  </insert>
+  
+  <select id="selectItemDetail" resultType="kr.co.collie.mgr.item.domain.MgrItemDetailDomain">
+  
+  	select ca.cate_num, it.item_price, it.item_stock, ca.cate_name, it.item_name, it.item_unit,
+		it.item_weight, it.item_img, it.item_guide, it.item_title, it.item_subtitle, it.item_detail, im.detail_img
+	from item it, image im, category ca
+	where it.cate_num = ca.cate_num and im.item_num = it.item_num
+  	
+  </select>
+  
   <resultMap id="itemListDomain" type="kr.co.collie.user.item.domain.ItemListDomain" >
   	<result column="ITEM_NUM" property="item_num"/>
   	<result column="ITEM_PRICE" property="item_price"/>

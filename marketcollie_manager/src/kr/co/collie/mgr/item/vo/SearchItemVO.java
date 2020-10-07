@@ -1,7 +1,7 @@
 package kr.co.collie.mgr.item.vo;
 
 public class SearchItemVO {
-	private String category, searc_loc, search_word;
+	private String category, search_loc, search_word;
 
 	public String getCategory() {
 		return category;
@@ -11,12 +11,12 @@ public class SearchItemVO {
 		this.category = category;
 	}
 
-	public String getSearc_loc() {
-		return searc_loc;
+	public String getSearch_loc() {
+		return search_loc;
 	}
 
-	public void setSearc_loc(String searc_loc) {
-		this.searc_loc = searc_loc;
+	public void setSearch_loc(String search_loc) {
+		this.search_loc = search_loc;
 	}
 
 	public String getSearch_word() {

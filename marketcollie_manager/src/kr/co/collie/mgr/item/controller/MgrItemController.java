@@ -24,17 +24,21 @@ public class MgrItemController {
 		
 		model.addAttribute("item_list", item_list);
 		
-		return "";
+		return "item_list";
 	}//searchItem
 	
 	@RequestMapping(value = "/mgr/item/detail.do")
-	public String getItemDetail(String s, Model model) {
+	public String getItemDetail(String item_num, Model model) {
+		
+		
 		
 		return "";
 	}//getItemDetail
 	
 	@RequestMapping(value = "/mgr/item/add_form.do")
 	public String addItemForm(Model model) {
+		
+		
 		
 		return "";
 	}//addItemForm
@@ -60,7 +64,9 @@ public class MgrItemController {
 	@RequestMapping(value = "/mgr/item/add_item.do")
 	public String addItem(MgrItemAddVO miaVO) {
 		
-		return "";
+		boolean flag = new MgrItemService().addItem(miaVO);
+		
+		return "add_item";
 	}//addItem
 	
 	@RequestMapping(value = "/mgr/item/modify_item.do")

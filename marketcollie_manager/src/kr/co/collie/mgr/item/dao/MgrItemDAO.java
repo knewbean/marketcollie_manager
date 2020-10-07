@@ -52,6 +52,11 @@ public class MgrItemDAO {
 	public int insertItem(MgrItemAddVO miaVO) {
 		int cnt =0;
 		
+		SqlSession ss = GetCollieHandler.getInstance().getSqlSession();
+		cnt = ss.insert("insertItem", miaVO);
+		ss.commit();
+		ss.close();
+		
 		return cnt;
 	}//insertItem
 	
