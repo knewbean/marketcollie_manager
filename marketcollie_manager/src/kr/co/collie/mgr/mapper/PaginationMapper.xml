@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.collie.mgr.pagination">
+
+	<select id="selectTotalCnt" parameterType="kr.co.collie.mgr.pagination.TotalCntVO" resultType="int">
+		select count(*)
+		from ${ table_name }
+		<if test="col_name neq null">
+		<where>
+		${ col_name } = #{ col_value }
+		</where>
+		</if>
+	</select>
+	
+</mapper>

@@ -21,7 +21,7 @@ public class MgrMainController {
 		String url = null;
 		// 로그인 정보 유효성 검증 
 		if(mlVO != null) {//로그인 정보가 있으면 관리자 메인 페이지로 이동
-			url = "redirect:/main.do";
+			url = "redirect:/category/list.do";
 		} else {//로그인 정보가 없으면 다시 로그인 페이지로 이동
 			url = "redirect:/index.do";
 		}
