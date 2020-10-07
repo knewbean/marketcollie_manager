@@ -22,5 +22,6 @@
   	<mapper resource="kr/co/collie/mgr/mapper/PaginationMapper.xml"/>
   	<mapper resource="kr/co/collie/mgr/mapper/CategoryMapper.xml"/>
   	<mapper resource="kr/co/collie/mgr/mapper/MemberMapper.xml"/>
+  	<mapper resource="kr/co/collie/mgr/mapper/MainMapper.xml"/>
   </mappers>
 </configuration>
