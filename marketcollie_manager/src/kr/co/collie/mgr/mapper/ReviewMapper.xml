@@ -2,4 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.collie.mgr.review">
 
+	<!-- 상품리뷰 목록을 불러오는 일 column_name : item_num -->
+	<!-- /////////수정 필요///////// -->
+	<select id="selectReviewList" parameterType="kr.co.collie.mgr.pagination.RangeVO" resultType="kr.co.collie.mgr.review.domain.MgrReviewListDomain">
+		select review_num, review_subject, id, input_date
+		from(select r.review_num, r.review_subject, m.id, r.input_date, row_number() over(order by r.review_num desc) rnum
+				from review r, member m
+				where r.member_num=m.member_num and ${ column_name } = #{ column_value })
+		where rnum between #{ start_num } and #{ end_num }
+	</select>
+	
+	<!-- 상품리뷰 상세내용을 확인하는 일 -->
+	<select id="selectReviewDetail" parameterType="int" resultType="kr.co.collie.mgr.review.domain.MgrReviewDetailDomain">
+		select r.review_num, m.id, r.review_subject, r.review_content
+		from review r, member m
+		where r.member_num = m.member_num and r.review_num = #{ review_num }
+	</select>
+	
+	<!-- 상품리뷰를 삭제하는 일 -->
+	<delete id="deleteReview" parameterType="int">
+		delete from review
+		where review_num = #{ review_num }
+	</delete>
+	
 </mapper>

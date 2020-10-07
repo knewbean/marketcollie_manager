@@ -2,4 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.collie.mgr.itemqna">
  
+	<!-- 상품문의 목록을 불러오는 일 -->
+	
+	<!-- 상품문의 상세내용을 확인하는 일 -->
+	<select id="selectItemQnaDetail" parameterType="int" resultType="kr.co.collie.mgr.itemqna.domain.MgrItemQnaDetailDomain">
+		select id, email, phone, item_qna_subject, item_qna_content, item_qna_reply
+		from member m, item_qna iq
+		where iq.member_num = m.member_num and iq.item_qna_num = #{ item_qna_num }
+	</select>
+	
+	<!-- 상품문의 답변을 등록 및 수정하는 일 -->
+	<update id="updateItemQnaReply" parameterType="kr.co.collie.mgr.itemqna.vo.MgrItemQnaUpdateVO">
+		update item_qna
+		set item_qna_flag = 'Y', item_qna_reply = #{ item_qna_reply }, reply_date = sysdate
+		where item_qna_num = #{ item_qna_num }
+	</update>
+	
 </mapper>

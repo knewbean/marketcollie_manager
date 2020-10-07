@@ -5,6 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import kr.co.collie.mgr.review.domain.MgrReviewDetailDomain;
+import kr.co.collie.mgr.review.service.MgrReviewService;
 import kr.co.collie.mgr.review.vo.MgrReviewVO;
 
 @Controller
@@ -32,6 +35,9 @@ public class MgrReviewController {
 	 */
 	@RequestMapping(value="/review/detail.do", method=GET)
 	public String viewReviewDetail(int review_num, Model model) {
+		MgrReviewService mrs = new MgrReviewService();
+		MgrReviewDetailDomain mrdd = mrs.viewReviewDetail(review_num);
+		model.addAttribute("review_detail", mrdd);
 		
 		return "review/review_detail";
 	}//viewReviewDetail
@@ -42,11 +48,12 @@ public class MgrReviewController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/review/delete_review.do", method=GET)
-	public boolean removeReview(int review_num, Model model) {
-		boolean removeFlag = false;
+	@RequestMapping(value="/review/delete_review.do", method=POST)
+	public String removeReview(int review_num) {
+		MgrReviewService mrs = new MgrReviewService();
+		boolean flag = mrs.removeReview(review_num); //실패하면 에러페이지로 보내기 ExceptionHandler
 		
-		return removeFlag;
+		return "review/review_list";
 	}//removeReview
 	
 }//class

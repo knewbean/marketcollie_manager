@@ -10,11 +10,12 @@
 <link rel="stylesheet" type="text/css" href="/mgr/common/css/common.css">
 
 <style type="text/css">
-.review-subtitle {color:#5E7170; margin: 0px auto; width:70%; text-align: center; font-weight: bold; font-size:1.5rem; padding-top:3rem; margin-top: 30px}
-.review-tab-div {margin: 0px auto; width:70%; padding: 1rem; margin-top: 30px}
+.review-subtitle {color:#5E7170; margin: 0px auto; width:70%; text-align: center; font-weight: bold; font-size:1.5rem; padding-top:3rem; margin-top: 30px }
+.review-tab-div {margin: 0px auto; width:70%; padding: 1rem; margin-top: 30px }
 .table{ width: 800px; margin: 0px auto }
-.thead-collie {color:#285943; background-color: #77AF9C; border-color: #77AF9C; text-align:center; font-weight: bold}
-.tbody-collie { border-color: none;}
+.thead-collie {color:#285943; background-color: #77AF9C; border-color: #77AF9C; text-align:center; font-weight: bold; width: 200px; vertical-align: middle !important }
+.tbody-collie { border-color: none; }
+.review_value{ width: 600px; resize: none; vertical-align: middle !important }
 #btnDiv{ width: 230px; margin: 0px auto }
 .btn-primary{ background-color: #5E7170; border-color: #5E7170; margin:0px auto; margin-top: 50px; width: 100px; padding: 8px  }
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus{ background-color: #5E7170 !important; }
@@ -28,6 +29,23 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(function(){
+	$("#delBtn").click(function(){
+		var param = $("form[name=delForm]").serialize();
+		if( confirm("해당 후기를 삭제하시겠습니까?") ){
+			$.ajax({
+				url : "../review/delete_review.do",
+				type : "POST",
+				data : param,
+				error : function(xhr){
+					alert("error : " + xhr.status + " / " + xhr.statusText);
+				},
+				success : function(data){
+					alert("후기가 삭제되었습니다.");
+					location.href = "../review/list.do?current_page="+${ param.current_page };
+				}//data
+			});//ajax			
+		}//end if
+	});//click
 });//ready
 
 </script>
@@ -47,19 +65,21 @@ $(function(){
 				  <tbody class="tbody-collie">
 				    <tr>
 				      <td class="thead-collie">번호</td>
-				      <td>1</td>
+				      <td class="review_value">${ review_detail.review_num }</td>
 				    </tr>
 				    <tr>
 				      <td class="thead-collie">아이디</td>
-				      <td>gildong</td>
+				      <td class="review_value">${ review_detail.id }</td>
 				    </tr>
 				    <tr>
 				      <td class="thead-collie">제목</td>
-				      <td>브로콜리</td>
+				      <td class="review_value">${ review_detail.review_subject }</td>
 				    </tr>
 				    <tr>
 				      <td class="thead-collie">내용</td>
-				      <td>브로콜리 맛있네요 ㅎ</td>
+				      <td class="review_value">
+				      <textarea class="review_value" rows="3"  cols="50" readonly="readonly">${ review_detail.review_content }</textarea>
+				      </td>
 				    </tr>
 				  </tbody>
 				 </table>
@@ -67,8 +87,10 @@ $(function(){
 			<div id="btnDiv">
 				<button type="button" class="btn btn-primary" onclick="javascript:history.back();">뒤로</button>
 				<button type="button" class="btn btn-primary" id="delBtn">삭제</button>
-			</div>			
-			<input type="hidden" name="review_num" value=""/>
+			</div>		
+			<form id="delForm" name="delForm">
+				<input type="hidden" name="review_num" value="${ review_detail.review_num }"/>
+			</form>	
 	</div>
 </div>
 

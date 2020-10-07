@@ -23,5 +23,7 @@
   	<mapper resource="kr/co/collie/mgr/mapper/CategoryMapper.xml"/>
   	<mapper resource="kr/co/collie/mgr/mapper/MemberMapper.xml"/>
   	<mapper resource="kr/co/collie/mgr/mapper/MainMapper.xml"/>
+  	<mapper resource="kr/co/collie/mgr/mapper/ReviewMapper.xml"/>
+  	<mapper resource="kr/co/collie/mgr/mapper/ItemqnaMapper.xml"/>
   </mappers>
 </configuration>
