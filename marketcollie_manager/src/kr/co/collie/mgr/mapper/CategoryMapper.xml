@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.collie.mgr.category">
+
+	<select id="selectCategoryList" parameterType="kr.co.collie.mgr.pagination.RangeVO" resultType="kr.co.collie.mgr.category.domain.CategoryListDomain">
+		select cate_num, cate_name
+		from(select cate_num, cate_name, row_number() over(order by cate_num) rnum
+			from category)
+		where rnum between #{ start_num } and #{ end_num }
+	</select>
+	
+</mapper>

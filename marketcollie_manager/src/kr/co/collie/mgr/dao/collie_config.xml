@@ -19,5 +19,8 @@
   <!-- 실행할 쿼리문을 가진 XML 설정 -->
   <mappers>
   	<mapper resource="kr/co/collie/mgr/mapper/QnaMapper.xml"/>
+  	<mapper resource="kr/co/collie/mgr/mapper/PaginationMapper.xml"/>
+  	<mapper resource="kr/co/collie/mgr/mapper/CategoryMapper.xml"/>
+  	<mapper resource="kr/co/collie/mgr/mapper/MemberMapper.xml"/>
   </mappers>
 </configuration>
