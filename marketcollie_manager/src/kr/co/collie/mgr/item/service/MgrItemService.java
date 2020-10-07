@@ -17,11 +17,6 @@ public class MgrItemService {
 		List<MgrItemListDomain> list = null;
 		MgrItemDAO miDAO = MgrItemDAO.getInstance();
 		miDAO.selectItemList(siVO);
-<<<<<<< HEAD
-		 
-		
-=======
->>>>>>> refs/heads/phg
 		
 		return list;
 	}//getSearchItem
