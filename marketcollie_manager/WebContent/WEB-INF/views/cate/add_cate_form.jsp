@@ -17,6 +17,7 @@
 .tbody-collie {text-align:center;}
 .btn-div {margin: 0px auto; width:400px; padding: 10px 0px 10px 0px; text-align: right;}
 .collieBtnMain{ border: 1px solid #77AF9C; padding: 10px 10px 10px 10px; margin-top: 5px; margin-bottom: 5px; color: #285943; font-size: 15px; background-color: #77AF9C }
+.collieText{ width: 300px; padding: 5px; font-size: 15px; }
 </style>
 
 <link rel="stylesheet" type="text/css" href="/mgr/common/css/common.css">
@@ -27,51 +28,26 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(function(){
+	
+	$("#cateAddBtn").click(function(){
+		
+		if($("#cate_name").val().trim()==""){
+			alert("카테고리 이름을 입력해주세요");
+			$("#cate_name").focus();
+			return;
+		}//end if
+		if($("#cate_name").val().replace(/[ㄱ-힣A-Za-z]/g, "") != ""){
+			alert("카테고리 이름은 한글 또는 영문(대,소문자)만 입력 가능합니다.");
+			$("#cate_name").val("");
+			$("#cate_name").focus();
+			return;
+		}//end if
+		
+		$("#cateAddFrm").submit();
+		
+	});//click
+	
 });//ready
-
-function movePage(current_page){
-	
-	$.ajax({
-		url:"move_cate_list.do",
-		type:"POST",
-		data:"current_page="+current_page,
-		dataType:"JSON",
-		error:function(xhr){
-			alert("에러");
-			console.log(xhr.status+" / "+xhr.statusText);
-		},
-		success:function(jsonObj){
-	      	if(jsonObj.flag=="success"){
-	      		
-	      		var tab='<table class="table">';
-	      		tab+='<thead class="thead-collie">';
-	      		tab+='<tr>';
-	      		tab+='<th style="width: 150px; ">번호</th>';
-	      		tab+='<th style="width: 250px; ">이름</th>';
-	      		tab+='</tr>';
-	      		tab+='</thead>';
-	      		tab+='<tbody class="tbody-collie">';
-	      		$.each(jsonObj.cate_list,function(i, json){
-		      		tab+='<tr>';
-		      		tab+='<th>';
-		      		tab+=json.cate_num;
-		      		tab+='</th>';
-		      		tab+='<td>';
-		      		tab+=json.cate_name;
-		      		tab+='</td>';
-		      		tab+='</tr>';
-	      		});//each
-	      		
-	      		tab+='</tbody>';
-	      		tab+='</table>';
-	      		
-	      		$("#cateTableDiv").html(tab);
-	      		$("#pagination").html(jsonObj.paging);
-	      	}//end if
-		}//success
-	});//ajax
-	
-}//movePage
 
 </script>
 </head>
@@ -84,30 +60,27 @@ function movePage(current_page){
 	<div id="container">
 		
 		<div class="subtitle">
-			카테고리 관리
+			카테고리 추가
 		</div>
 		
 		<div class="tab-div" id="cateTableDiv">
 			<table class="table">
-			  <thead class="thead-collie">
-			    <tr>
-			      <th style="width: 150px; ">번호</th>
-			      <th style="width: 250px; ">이름</th>
-			    </tr>
-			  </thead>
 			  <tbody class="tbody-collie">
-			  	<c:forEach var="cate" items="${ cate_list }">
-				    <tr>
-				      <th><c:out value="${ cate.cate_num }"/></th>
-				      <td><c:out value="${ cate.cate_name }"/></td>
-				    </tr>
-			  	</c:forEach>
+			    <tr>
+			      <th style="width: 200px; padding-top: 18px">이름</th>
+			      <td style="width: 200px; ">
+			      <form action="add_cate_process.do" method="post" id="cateAddFrm">
+			      <input type="text" id="cate_name" name="cate_name" class="collieText"/>
+			      <input type="text" hidden="hidden"/>
+			      </form>
+			      </td>
+			    </tr>
 			 </tbody>
 			</table>
 		</div>
 		
 		<div class="btn-div">
-		<input type="button" value="카테고리 추가" class="collieBtnMain" onclick="javascript:location.href='add_cate_form.do'">
+		<input type="button" value="추가" id="cateAddBtn" class="collieBtnMain">
 		</div>
 		
 		<div id="pagination">

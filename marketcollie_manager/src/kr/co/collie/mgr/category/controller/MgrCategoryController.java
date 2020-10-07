@@ -47,4 +47,21 @@ public class MgrCategoryController {
 		return json;
 	}//moveCategoryList
 	
+	@RequestMapping(value="/category/add_cate_form.do", method=GET)
+	public String addCatgoryForm() {
+		
+		return "cate/add_cate_form";
+	}//addCategoryForm
+	
+	@RequestMapping(value="/category/add_cate_process.do", method=POST)
+	public String addCatgoryProcess(String cate_name) {
+		String url="";
+		
+		if(new MgrCategoryService().addCategory(cate_name)) {
+			url="redirect:list.do";
+		};
+		
+		return url;
+	}//addCategoryForm
+	
 }//class

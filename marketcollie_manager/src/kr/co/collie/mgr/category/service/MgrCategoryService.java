@@ -1,5 +1,6 @@
 package kr.co.collie.mgr.category.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -52,5 +53,18 @@ public class MgrCategoryService {
 		
 		return json.toJSONString();
 	}//moveCategoryList
+	
+	public boolean addCategory(String cateName) {
+		boolean flag=false;
+		
+		try {
+			MgrCategoryDAO.getInstance().insertCategory(cateName);
+			flag=true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return flag;
+	}//addCatrgory
 	
 }//class

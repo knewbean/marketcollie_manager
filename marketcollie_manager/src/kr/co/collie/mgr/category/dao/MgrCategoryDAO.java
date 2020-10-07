@@ -1,5 +1,6 @@
 package kr.co.collie.mgr.category.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -31,5 +32,16 @@ public class MgrCategoryDAO {
 		
 		return list;
 	}//selectCategoryList
+	
+	public void insertCategory(String cateName) throws SQLException {
+		
+		SqlSession ss=GetCollieHandler.getInstance().getSqlSession();
+		int cnt=ss.insert("insertCategory", cateName);
+		if(cnt==1) {
+			ss.commit();
+		}//end if
+		ss.close();
+		
+	}//insertCategory
 	
 }//class

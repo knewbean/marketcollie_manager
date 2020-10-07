@@ -5,9 +5,9 @@
 	<select id="selectTotalCnt" parameterType="kr.co.collie.mgr.pagination.TotalCntVO" resultType="int">
 		select count(*)
 		from ${ table_name }
-		<if test="col_name neq null">
+		<if test="column_name neq null">
 		<where>
-		${ col_name } = #{ col_value }
+		${ column_name } = #{ column_value }
 		</where>
 		</if>
 	</select>
