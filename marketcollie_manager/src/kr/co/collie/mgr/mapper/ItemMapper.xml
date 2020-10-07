@@ -5,7 +5,6 @@
 	<select id="selectItemList" resultType="MgrItemListDomain" parameterType="kr.co.collie.mgr.item.vo.SeachItemVO">
 	select item_num, price, cate_name, item_name, item_unit, item_weight, input_date
 	from item
-	
 	</select>
   
   <insert id="insertItem" parameterType="kr.co.collie.mgr.item.vo.MgrItemAddVO">
