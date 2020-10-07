@@ -2,57 +2,58 @@ package kr.co.collie.mgr.pagination;
 
 public class PageVO {
 	
-	public int currentPage, prePage, nextPage, startPage, endPage;
+	public int current_page, pre_page, next_page, start_page, end_page;
 
 	public PageVO() {
 	}
 
-	public PageVO(int currentPage, int prePage, int nextPage, int startPage, int endPage) {
-		this.currentPage = currentPage;
-		this.prePage = prePage;
-		this.nextPage = nextPage;
-		this.startPage = startPage;
-		this.endPage = endPage;
+	public PageVO(int current_page, int pre_page, int next_page, int start_page, int end_page) {
+		super();
+		this.current_page = current_page;
+		this.pre_page = pre_page;
+		this.next_page = next_page;
+		this.start_page = start_page;
+		this.end_page = end_page;
 	}
 
-	public int getCurrentPage() {
-		return currentPage;
+	public int getCurrent_page() {
+		return current_page;
 	}
 
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
+	public void setCurrent_page(int current_page) {
+		this.current_page = current_page;
 	}
 
-	public int getPrePage() {
-		return prePage;
+	public int getPre_page() {
+		return pre_page;
 	}
 
-	public void setPrePage(int prePage) {
-		this.prePage = prePage;
+	public void setPre_page(int pre_page) {
+		this.pre_page = pre_page;
 	}
 
-	public int getNextPage() {
-		return nextPage;
+	public int getNext_page() {
+		return next_page;
 	}
 
-	public void setNextPage(int nextPage) {
-		this.nextPage = nextPage;
+	public void setNext_page(int next_page) {
+		this.next_page = next_page;
 	}
 
-	public int getStartPage() {
-		return startPage;
+	public int getStart_page() {
+		return start_page;
 	}
 
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
+	public void setStart_page(int start_page) {
+		this.start_page = start_page;
 	}
 
-	public int getEndPage() {
-		return endPage;
+	public int getEnd_page() {
+		return end_page;
 	}
 
-	public void setEndPage(int endPage) {
-		this.endPage = endPage;
+	public void setEnd_page(int end_page) {
+		this.end_page = end_page;
 	}
 	
 }//class

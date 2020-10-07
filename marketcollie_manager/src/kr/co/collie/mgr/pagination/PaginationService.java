@@ -2,6 +2,12 @@ package kr.co.collie.mgr.pagination;
 
 public class PaginationService {
 	
+	/**
+	 * 테이블명, 컬럼명, 컬럼값을 저장하는 TotalCntVO를 매개변수로 받아 조건에 맞는 행의 수를 구하는 method
+	 * tcVO 중 테이블명은 반드시 값을 가지고 있어야하고, 컬럼명과 컬럼값은 null이어도 된다.
+	 * @param tcVO
+	 * @return
+	 */
 	public int getTotalCnt(TotalCntVO tcVO) {
 		int cnt=0;
 		
@@ -10,77 +16,100 @@ public class PaginationService {
 		return cnt;
 	}//getTotalCnt
 	
+	/**
+	 * 한 페이지에서 보여줄 게시글의 수 (10개)
+	 * @return
+	 */
 	public int pageScale() {
-		int pageScale=10;
+		int page_scale=10;
 		
-		return pageScale;
+		return page_scale;
 	}//pageScale
 	
-	public int startNum( int currentPage ) {
-		int pageScale=pageScale();
-		int startNum=(currentPage-1)*pageScale+1 ;
-		return startNum;
+	/**
+	 * 현재 페이지를 받아 게시글의 시작번호를 구하는 method
+	 * @param currentPage
+	 * @return
+	 */
+	public int startNum( int current_page ) {
+		int page_scale=pageScale();
+		int start_num=(current_page-1)*page_scale+1 ;
+		return start_num;
 	}//startNum
 	
-	public int  endNum( int currentPage ) {
-		int pageScale=pageScale();
-		int endNum=((currentPage-1)*pageScale+1)+pageScale-1;
-		return endNum;
+	/**
+	 * 현재 페이지를 받아 게시글의 끝번호를 구하는 method
+	 * @param currentPage
+	 * @return
+	 */
+	public int  endNum( int current_page ) {
+		int page_scale=pageScale();
+		int end_num=((current_page-1)*page_scale+1)+page_scale-1;
+		return end_num;
 	}//startNum
 	
-	public PageVO calcPaging(int currentPage, int totalCnt) {
+	/**
+	 * 현재 페이지와 테이블명, 컬럼명, 컬럼값을 저장하는 TotalCntVO를 매개변수로 받아 
+	 * 이전페이지, 다음페이지, 시작페이지, 끝페이지를 구하는 method
+	 * @param currentPage
+	 * @param totalCnt
+	 * @return
+	 */
+	public PageVO calcPaging(int current_page, TotalCntVO tcVO) {
 		PageVO pVO=null;
+		int total_cnt=getTotalCnt(tcVO);
 		
-		int pageScale=pageScale();
-		int totalPage=(int)Math.ceil((double)totalCnt/pageScale);
+		int page_scale=pageScale();
+		int total_page=(int)Math.ceil((double)total_cnt/page_scale);
 		
-		int pageRange=5;
-		int startPage=((currentPage-1)/pageRange)*pageRange+1;
-		int endPage=startPage+pageRange-1;
-		if(totalPage < endPage) {
-			endPage = totalPage;
+		int page_range=5;
+		int start_page=((current_page-1)/page_range)*page_range+1;
+		int end_page=start_page+page_range-1;
+		if(total_page < end_page) {
+			end_page = total_page;
 		}//end if
 		
-		System.out.println("==========================totalCnt : "+totalCnt);
-		System.out.println("==========================pageScale : "+pageScale);
-		System.out.println("==========================totalPage : "+totalPage);
-		System.out.println("==========================pageRange : "+pageRange);
-		System.out.println("==========================startPage : "+startPage);
-		System.out.println("==========================endPage : "+endPage);
+		int pre_page=current_page - 1;
+		int next_page=current_page + 1;
 		
-		int prePage=currentPage - 1;
-		int nextPage=currentPage + 1;
-		
-		if( prePage < 1 ) { //"이전" 버튼을 비활성화하는 조건
-			prePage=currentPage;
+		if( pre_page < 1 ) { //"이전" 버튼을 비활성화하는 조건
+			pre_page=current_page;
 		}//end if
 		
-		if( endPage<nextPage ){ //"다음" 버튼을 비활성화하는 조건
-			nextPage=currentPage;
+		if( end_page<next_page ){ //"다음" 버튼을 비활성화하는 조건
+			next_page=current_page;
 		}//end if
 		
-		pVO=new PageVO(currentPage, prePage, nextPage, startPage, endPage);
+		pVO=new PageVO(current_page, pre_page, next_page, start_page, end_page);
 		
 		return pVO;
 	}//calcPage
 	
+	/**
+	 * 현재 페이지와 테이블명, 컬럼명, 컬럼값을 저장하는 TotalCntVO를 매개변수로 받아 
+	 * 게시글 밑에 추가되는 페이지네이션 view 코드를 String으로 리턴해주는 method
+	 * 사용하시는 분은 이거 String으로 받아서 Model에 넣어서 view페이지에서 
+	 * <c:out var="${ model에 넣은 이름 }" escapeXml="false"/> 로 쓰시면 페이지네이션이 생깁니다아
+	 * @param currentPage
+	 * @param tcVO
+	 * @return
+	 */
 	public String getPagination(int currentPage, TotalCntVO tcVO) {
 		StringBuilder view =new StringBuilder();
-		int totalCnt=getTotalCnt(tcVO);
-		PageVO pVO=calcPaging(currentPage, totalCnt);
+		PageVO pVO=calcPaging(currentPage, tcVO);
 		
 		view.append("<nav aria-label='Page navigation example'>\n")
 		.append("<ul class='pagination justify-content-center'>\n")
 		.append("<li class='page-item");
-		if(pVO.getPrePage() <= 1) {
+		if(pVO.getPre_page() < 1) {
 			view.append(" disabled'>\n");
 		}else {
 			view.append(" active'>\n");
 		}//end else
 		view.append("<a class='page-link'");
-		if( pVO.getPrePage() > 1) {
+		if( pVO.getPre_page() >= 1) {
 			view.append(" onclick='movePage(")
-			.append(pVO.getPrePage())
+			.append(pVO.getPre_page())
 			.append(")'"); 
 		}//end if
 		view.append(" aria-label='Previous'>\n")
@@ -88,12 +117,10 @@ public class PaginationService {
 		.append("</a>\n")
 		.append("</li>\n");
 		
-		System.out.println("===========================startpage: "+pVO.getStartPage());
-		System.out.println("===========================endpage: "+pVO.getEndPage());
-		for(int i=pVO.getStartPage(); i<=pVO.getEndPage(); i++) {
+		for(int i=pVO.getStart_page(); i<=pVO.getEnd_page(); i++) {
 			view.append("<li class=\"page-item\">")
 			.append("<a class='page-link'");
-			if( pVO.getCurrentPage() != i) {
+			if( pVO.getCurrent_page() != i) {
 				view.append(" onclick='movePage(")
 				.append(i)
 				.append(")'"); 
@@ -105,15 +132,15 @@ public class PaginationService {
 		}//end for
 		
 		view.append("<li class='page-item");
-		if(pVO.getEndPage() < pVO.getNextPage()) {
+		if(pVO.getEnd_page() < pVO.getNext_page()) {
 			view.append(" disabled'>\n");
 		}else {
 			view.append(" active'>\n");
 		}//end else
 		view.append("<a class='page-link'");
-		if( pVO.getEndPage() >= pVO.getNextPage()) {
+		if( pVO.getEnd_page() >= pVO.getNext_page()) {
 			view.append(" onclick='movePage(")
-			.append(pVO.getNextPage())
+			.append(pVO.getNext_page())
 			.append(")'"); 
 		}//end if
 		view.append(" aria-label='Next'>\n")
