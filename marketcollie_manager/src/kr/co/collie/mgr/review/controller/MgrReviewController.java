@@ -1,14 +1,20 @@
 package kr.co.collie.mgr.review.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.co.collie.mgr.pagination.PaginationService;
+import kr.co.collie.mgr.pagination.RangeVO;
 import kr.co.collie.mgr.review.domain.MgrReviewDetailDomain;
+import kr.co.collie.mgr.review.domain.MgrReviewListDomain;
 import kr.co.collie.mgr.review.service.MgrReviewService;
-import kr.co.collie.mgr.review.vo.MgrReviewVO;
 
 @Controller
 public class MgrReviewController {
@@ -21,11 +27,37 @@ public class MgrReviewController {
 	 * @return
 	 */
 	@RequestMapping(value="/review/list.do", method=GET)
-//	public String getReviewList(MgrReviewVO mrVO, int currentPage, Model model) {
-	public String getReviewList(MgrReviewVO mrVO, Model model) {
+	public String getReviewList(int item_num, Model model) {
+		MgrReviewService mrs = new MgrReviewService();
+		
+		int current_page = 1;
+		RangeVO rVO = new RangeVO(current_page, "item_num", String.valueOf(item_num));
+		List<MgrReviewListDomain> list = mrs.getReviewList(rVO);
+		model.addAttribute("review_list", list);
+		
+		//pagination
+		int total_cnt = mrs.getReviewListCnt(rVO);
+		PaginationService ps = new PaginationService();
+		String pagination = ps.getPagination(current_page, total_cnt);
+		model.addAttribute("paging", pagination);
 		
 		return "review/review_list";
 	}//getReviewList
+	
+	/**
+	 * 페이지네이션
+	 * @param item_num
+	 * @param current_page
+	 * @return
+	 */
+	@RequestMapping(value="/review/move_review_list.do", method=POST, produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String moveReviewList(int item_num, int current_page) {
+		String json = null;
+		json = new MgrReviewService().moveReviewList(item_num, current_page);
+				
+		return json;
+	}//moveReviewList
 	
 	/**
 	 * 상품리뷰 상세내용을 확인하는 일

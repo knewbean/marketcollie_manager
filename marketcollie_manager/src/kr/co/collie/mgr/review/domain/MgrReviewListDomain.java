@@ -2,7 +2,7 @@ package kr.co.collie.mgr.review.domain;
 
 public class MgrReviewListDomain {
 	private int review_num;
-	private String id, review_subejct, input_date;
+	private String id, review_subject, input_date;
 	
 	public int getReview_num() {
 		return review_num;
@@ -10,8 +10,8 @@ public class MgrReviewListDomain {
 	public String getId() {
 		return id;
 	}
-	public String getReview_subejct() {
-		return review_subejct;
+	public String getReview_subject() {
+		return review_subject;
 	}
 	public String getInput_date() {
 		return input_date;
@@ -22,8 +22,8 @@ public class MgrReviewListDomain {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public void setReview_subejct(String review_subejct) {
-		this.review_subejct = review_subejct;
+	public void setReview_subject(String review_subject) {
+		this.review_subject = review_subject;
 	}
 	public void setInput_date(String input_date) {
 		this.input_date = input_date;

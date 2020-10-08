@@ -3,13 +3,20 @@
 <mapper namespace="kr.co.collie.mgr.review">
 
 	<!-- 상품리뷰 목록을 불러오는 일 column_name : item_num -->
-	<!-- /////////수정 필요///////// -->
 	<select id="selectReviewList" parameterType="kr.co.collie.mgr.pagination.RangeVO" resultType="kr.co.collie.mgr.review.domain.MgrReviewListDomain">
 		select review_num, review_subject, id, input_date
 		from(select r.review_num, r.review_subject, m.id, r.input_date, row_number() over(order by r.review_num desc) rnum
 				from review r, member m
 				where r.member_num=m.member_num and ${ column_name } = #{ column_value })
 		where rnum between #{ start_num } and #{ end_num }
+	</select>
+	
+	<!-- 상품리뷰 목록 개수를 세는 일 -->
+	<select id="selectReviewListCnt" parameterType="kr.co.collie.mgr.pagination.RangeVO" resultType="int">
+		select count(*)
+		from(select r.review_num, r.review_subject, m.id, r.input_date, row_number() over(order by r.review_num desc) rnum
+				from review r, member m
+				where r.member_num=m.member_num and ${ column_name } = #{ column_value })
 	</select>
 	
 	<!-- 상품리뷰 상세내용을 확인하는 일 -->

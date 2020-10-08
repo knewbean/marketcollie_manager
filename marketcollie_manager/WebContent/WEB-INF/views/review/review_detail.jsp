@@ -41,12 +41,16 @@ $(function(){
 				},
 				success : function(data){
 					alert("후기가 삭제되었습니다.");
-					location.href = "../review/list.do?current_page="+${ param.current_page };
+					location.replace("../review/list.do?item_num="+${ param.item_num });
 				}//data
 			});//ajax			
 		}//end if
 	});//click
 });//ready
+
+function moveToBack(item_num, current_page){
+	location.href = "../review/list.do?item_num="+item_num+"&current_page="+current_page;
+}//moveToBack
 
 </script>
 </head>
@@ -85,7 +89,7 @@ $(function(){
 				 </table>
 			</div>
 			<div id="btnDiv">
-				<button type="button" class="btn btn-primary" onclick="javascript:history.back();">뒤로</button>
+				<button type="button" class="btn btn-primary" id="backBtn" onclick="moveToBack(${ param.item_num },${ param.current_page });">뒤로</button>
 				<button type="button" class="btn btn-primary" id="delBtn">삭제</button>
 			</div>		
 			<form id="delForm" name="delForm">

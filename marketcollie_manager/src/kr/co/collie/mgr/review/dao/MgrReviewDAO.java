@@ -1,9 +1,13 @@
 package kr.co.collie.mgr.review.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.collie.mgr.dao.GetCollieHandler;
+import kr.co.collie.mgr.pagination.RangeVO;
 import kr.co.collie.mgr.review.domain.MgrReviewDetailDomain;
+import kr.co.collie.mgr.review.domain.MgrReviewListDomain;
 
 public class MgrReviewDAO {
 	
@@ -18,6 +22,34 @@ public class MgrReviewDAO {
 		}//end if
 		return mrDAO;
 	}//getInstance
+	
+	/**
+	 * 상품리뷰 목록을 불러오는 일
+	 * @param item_num
+	 * @return
+	 */
+	public List<MgrReviewListDomain> selectReviewList(RangeVO rVO){
+		List<MgrReviewListDomain> list = null;
+		SqlSession ss = GetCollieHandler.getInstance().getSqlSession();
+		list = ss.selectList("kr.co.collie.mgr.review.selectReviewList", rVO);
+		ss.close();
+		
+		return list;
+	}//selectReviewList
+	
+	/**
+	 * 상품리뷰 목록 개수를 세는 일
+	 * @param rVO
+	 * @return
+	 */
+	public int selectReviewListCnt(RangeVO rVO) {
+		int cnt = 0;
+		SqlSession ss = GetCollieHandler.getInstance().getSqlSession();
+		cnt = ss.selectOne("kr.co.collie.mgr.review.selectReviewListCnt", rVO);
+		ss.close();
+		
+		return cnt;
+	}//selectReviewListCnt
 	
 	/**
 	 * 상품리뷰 상세내용을 확인하는 일
@@ -50,9 +82,9 @@ public class MgrReviewDAO {
 	
 	public static void main(String[] args) {
 		MgrReviewDAO mrDAO = new MgrReviewDAO();
-		int review_num = 1;
+		RangeVO rVO = new RangeVO(1, "item_num", "1");
 		
-		System.out.println(mrDAO.selectReviewDetail(review_num));
+		System.out.println(mrDAO.selectReviewListCnt(rVO));
 	}//main	
 	
 }//class

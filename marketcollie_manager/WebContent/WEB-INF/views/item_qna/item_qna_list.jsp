@@ -15,7 +15,7 @@
 .thead-collie {color:#285943; background-color: #77AF9C; border-color: #77AF9C; text-align:center;}
 .tbody-collie {text-align:center;}
 #btnDiv{ width: 100px; margin: 0px auto }
-.btn-primary{ background-color: #5E7170; border-color: #5E7170; margin:0px auto; margin-top: 20px; width: 100px; padding: 8px  }
+.btn-primary{ background-color: #5E7170; border-color: #5E7170; margin:0px auto; margin-top: 30px; width: 100px; padding: 8px  }
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus{ background-color: #5E7170 !important; }
 .pagination{ width:280px; margin: 0px auto; margin-top: 60px}
 .page-link{ color: #333 !important }
