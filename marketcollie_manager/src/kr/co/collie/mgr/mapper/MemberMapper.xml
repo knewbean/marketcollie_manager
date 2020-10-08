@@ -2,4 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.collie.mgr.member">
 	
+	<select id="selectMemberList" parameterType="kr.co.collie.mgr.pagination.RangeVO" resultType="kr.co.collie.mgr.member.domain.MgrMemberListDomain">
+	select member_num, id, name, phone, to_char(input_date, 'yyyy-mm-dd') input_date
+	from(select member_num, id, name, phone, input_date, row_number() over(order by member_num) rnum
+		from member
+		where member_flag = 'Y')
+	where rnum between #{ start_num } and #{ end_num }
+	</select>
+	
+	<select id="selectMemberDetail" parameterType="int" resultType="kr.co.collie.mgr.member.domain.MgrMemberDetailDomain">
+	select member_num, id, name, email, phone, zipcode, addr, addr_detail, to_char(input_date, 'yyyy-mm-dd') input_date
+	from member
+	where member_num= #{ member_num } and member_flag = 'Y'
+	</select>
+	
 </mapper>

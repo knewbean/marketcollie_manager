@@ -7,10 +7,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <style type="text/css">
+
+.subtitle {color:#77AF9C; margin: 0px auto; width:70%; text-align: center; font-weight: bold; font-size:1.5rem; padding-top:3rem;}
+.tab-div {margin: 0px auto; width:60%; padding: 1rem;}
+.table{ width: 720px; margin: 0px auto; }
+.thead-collie {color:#285943; background-color: #77AF9C; border-color: #77AF9C; text-align:center;}
+.tbody-collie {text-align:center;}
+.btn-div {margin: 0px auto; width:400px; padding: 10px 0px 10px 0px; text-align: right;}
+.collieBtnMain{ border: 1px solid #77AF9C; padding: 10px 10px 10px 10px; margin-top: 5px; margin-bottom: 5px; color: #285943; font-size: 15px; background-color: #77AF9C }
 </style>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="/mgr/common/css/common.css">
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -20,6 +28,69 @@
 <script type="text/javascript">
 $(function(){
 });//ready
+
+function movePage(current_page){
+	
+	$.ajax({
+		url:"move_list.do",
+		type:"POST",
+		data:"current_page="+current_page,
+		dataType:"JSON",
+		error:function(xhr){
+			alert("에러");
+			console.log(xhr.status+" / "+xhr.statusText);
+		},
+		success:function(jsonObj){
+	      	if(jsonObj.flag=="success"){
+	      		
+	      		var tab='<table class="table">';
+	      		tab+='<thead class="thead-collie">';
+	      		tab+='<tr>';
+	      		tab+='<th style="width: 70px; ">번호</th>';
+	      		tab+='<th style="width: 200px; ">아이디</th>';
+	      		tab+='<th style="width: 150px; ">이름</th>';
+	      		tab+='<th style="width: 150px; ">휴대폰</th>';
+	      		tab+='<th style="width: 150px; ">가입일자</th>';
+	      		tab+='</tr>';
+	      		tab+='</thead>';
+	      		tab+='<tbody class="tbody-collie">';
+	      		$.each(jsonObj.mem_list,function(i, json){
+		      		tab+='<tr style="cursor: pointer;" onclick="showMemDetail('+json.member_num+')">';
+		      		tab+='<th>';
+		      		tab+=json.member_num;
+		      		tab+='</th>';
+		      		tab+='<td>';
+		      		tab+=json.id;
+		      		tab+='</td>';
+		      		tab+='<td>';
+		      		tab+=json.name;
+		      		tab+='</td>';
+		      		tab+='<td>';
+		      		tab+=json.phone;
+		      		tab+='</td>';
+		      		tab+='<td>';
+		      		tab+=json.input_date;
+		      		tab+='</td>';
+		      		tab+='</tr>';
+	      		});//each
+	      		
+	      		tab+='</tbody>';
+	      		tab+='</table>';
+	      		
+	      		$("#memTableDiv").html(tab);
+	      		$("#pagination").html(jsonObj.paging);
+	      	}//end if
+		}//success
+	});//ajax
+	
+}//movePage
+
+function showMemDetail(member_num){
+	
+	location.href="detail.do?member_num="+member_num;
+	
+}//showMemDetail
+
 </script>
 </head>
 <body>
@@ -29,7 +100,40 @@ $(function(){
 	<c:import url="/header.do" /> 
 
 	<div id="container">
-		멤버관리이ㅣ이이이ㅣ이이이이ㅣㅣㅣ
+		
+		<div class="subtitle">
+			회원 관리
+		</div>
+		
+		<div class="tab-div" id="memTableDiv">
+			<table class="table">
+			  <thead class="thead-collie">
+			    <tr>
+			      <th style="width: 70px; ">번호</th>
+			      <th style="width: 200px; ">아이디</th>
+			      <th style="width: 150px; ">이름</th>
+			      <th style="width: 150px; ">휴대폰</th>
+			      <th style="width: 150px; ">가입일자</th>
+			    </tr>
+			  </thead>
+			  <tbody class="tbody-collie">
+			  	<c:forEach var="mem" items="${ member_list }">
+				    <tr style="cursor: pointer;" onclick="showMemDetail(${ mem.member_num })">
+				      <th><c:out value="${ mem.member_num }"/></th>
+				      <td><c:out value="${ mem.id }"/></td>
+				      <td><c:out value="${ mem.name }"/></td>
+				      <td><c:out value="${ mem.phone }"/></td>
+				      <td><c:out value="${ mem.input_date }"/></td>
+				    </tr>
+			  	</c:forEach>
+			 </tbody>
+			</table>
+		</div>
+		
+		<div id="pagination">
+		<c:out value="${ paging }" escapeXml="false"/>
+		</div>
+		
 	</div>
 </div>
 
