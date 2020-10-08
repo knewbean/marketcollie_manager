@@ -31,7 +31,7 @@ $(function(){
 	<div id="header_menu">
 	<nav class="navbar navbar-collie">
 	  <a class="navbar-brand" href="/mgr/category/list.do">카테고리 관리</a>
-	  <a class="navbar-brand" href="#">상품 관리</a>
+	  <a class="navbar-brand" href="/mgr/item/item_list.do">상품 관리</a>
 	  <a class="navbar-brand" href="#">주문 관리</a>
 	  <a class="navbar-brand" href="/mgr/qna/list.do">1:1 문의 관리</a>
 	  <a class="navbar-brand" href="/mgr/member/list.do">회원 관리</a>
