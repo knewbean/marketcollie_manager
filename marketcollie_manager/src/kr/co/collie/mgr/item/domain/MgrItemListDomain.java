@@ -3,7 +3,7 @@ package kr.co.collie.mgr.item.domain;
 public class MgrItemListDomain {
 
 	private int item_num, item_price;
-	private String cate_name, item_name, item_unit, item_weight, input_date;
+	private String cate_name, item_stock,item_name, item_unit, item_weight, input_date;
 	
 	
 	public int getItem_num() {
@@ -47,6 +47,12 @@ public class MgrItemListDomain {
 	}
 	public void setInput_date(String input_date) {
 		this.input_date = input_date;
+	}
+	public String getItem_stock() {
+		return item_stock;
+	}
+	public void setItem_stock(String item_stock) {
+		this.item_stock = item_stock;
 	}
 	
 }

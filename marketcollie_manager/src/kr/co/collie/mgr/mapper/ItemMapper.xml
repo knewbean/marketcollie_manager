@@ -2,10 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.collie.mgr.item">
 
-	<select id="selectItemList" resultType="MgrItemListDomain" parameterType="kr.co.collie.mgr.item.vo.SeachItemVO">
-	select item_num, price, cate_name, item_name, item_unit, item_weight, input_date
-	from item
-	</select>
+	<select id="selectItemList" resultType="kr.co.collie.mgr.item.domain.MgrItemListDomain" parameterType="kr.co.collie.mgr.item.vo.SearchItemVO">
+		SELECT ITEM_NUM, ITEM_PRICE, CATE_NUM, CATE_NAME, ITEM_NAME, ITEM_UNIT, ITEM_WEIGHT, INPUT_DATE
+		FROM(SELECT I.ITEM_NUM, I.ITEM_PRICE, C.CATE_NUM, C.CATE_NAME, I.ITEM_NAME, I.ITEM_UNIT, 
+					I.ITEM_WEIGHT, TO_CHAR(I.INPUT_DATE,'YYYY-MM-DD') INPUT_DATE
+			 FROM ITEM I, CATEGORY C
+			 WHERE I.CATE_NUM=C.CATE_NUM)
+		<where>
+			<if test='!category.equals("") &amp;&amp; category!=null'>
+				cate_name = #{category}
+			</if>
+			<if test='!search_word.equals("") &amp;&amp; search_word!=null'>
+			<trim prefix="and" prefixOverrides="and">
+				item_name like '%'||#{search_word}||'%'
+			</trim>
+			</if>
+		</where>
+		</select>
   
   <insert id="insertItem" parameterType="kr.co.collie.mgr.item.vo.MgrItemAddVO">
   insert into item(ITEM_NUM, CATE_NUM, ITEM_NAME, ITEM_STOCK, ITEM_PRICE, ITEM_UNIT, ITEM_WEIGHT,

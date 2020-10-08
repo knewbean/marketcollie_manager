@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import kr.co.collie.mgr.item.domain.MgrItemListDomain;
 import kr.co.collie.mgr.item.service.MgrItemService;
@@ -17,14 +19,13 @@ import kr.co.collie.mgr.item.vo.SearchItemVO;
 @Controller
 public class MgrItemController {
 	
-	@RequestMapping(value="/mgr/item/search_item.do")
+	@RequestMapping(value="/item/item_list.do", method = {GET,POST})
 	public String searchItem(SearchItemVO siVO, String s, Model model) {
+		List<MgrItemListDomain> list = new MgrItemService().getSearchItem(siVO);
 		
-		List<MgrItemListDomain> item_list = new MgrItemService().getSearchItem(siVO);
+		model.addAttribute("item_list", list);
 		
-		model.addAttribute("item_list", item_list);
-		
-		return "item_list";
+		return "/item/item_list";
 	}//searchItem
 	
 	@RequestMapping(value = "/mgr/item/detail.do")
