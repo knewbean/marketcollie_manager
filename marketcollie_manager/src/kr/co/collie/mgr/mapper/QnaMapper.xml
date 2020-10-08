@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.collie.mgr.qna">
-	<select id="selectQnaList" resultType="kr.co.collie.mgr.qna.domain.MgrQnaListDomain">
-		select qna_num, id, qna_subject, qna_flag
-		from qna qna, member mem
-		where qna.member_num = mem.member_num
+	<select id="selectQnaList" parameterType="kr.co.collie.mgr.pagination.RangeVO" resultType="kr.co.collie.mgr.qna.domain.MgrQnaListDomain">
+		select qna_num, id, qna_subject, qna_flag, rnum
+		from(
+			select qna_num, id, qna_subject, qna_flag, row_number() over(order by qna_num) rnum
+			from qna qna, member mem
+			where qna.member_num = mem.member_num
+		) where rnum between #{start_num} and #{end_num}
 	</select>
 	
 	<select id="selectQnaDetail" parameterType="int" resultType="kr.co.collie.mgr.qna.domain.MgrQnaDetailDomain">

@@ -1,10 +1,12 @@
 package kr.co.collie.mgr.main.dao;
 
+import java.security.NoSuchAlgorithmException;
+
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.collie.mgr.dao.GetCollieHandler;
-import kr.co.collie.mgr.main.domain.MgrLoginDomain;
 import kr.co.collie.mgr.main.vo.MgrLoginVO;
+import kr.co.sist.util.cipher.DataEncrypt;
 
 public class MgrMainDAO {
 
@@ -24,24 +26,23 @@ public class MgrMainDAO {
 	 * 
 	 * MEMBER 테이블에서 아이디, 비밀번호와 일치하는 레코드의 MEMBER_FLAG의 컬럼 값을 조회한다. 
 	 * 
-	 * @param loginVO 관리자 아이디 비밀번호를 가진 VO
-	 * @return member_flag 반환
+	 * @param loginVO
+	 * @return 관리자 id 반환
 	 */
-	public MgrLoginDomain selectMgrLogin(MgrLoginVO loginVO) {
-		MgrLoginDomain mgrDomain = null;
-		
+	public String selectMgrLogin(MgrLoginVO loginVO) {
+		String mgrId = null;
 		SqlSession ss = GetCollieHandler.getInstance().getSqlSession();
-		mgrDomain = ss.selectOne("selectMgrId", loginVO);
+		mgrId = ss.selectOne("selectMgrId", loginVO);
 		ss.close();
-		return mgrDomain;
+		return mgrId;
 	}
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NoSuchAlgorithmException {
 		MgrLoginVO loginVO = new MgrLoginVO();
-		loginVO.setId("test1");
-		loginVO.setPass("1234");
-		MgrLoginDomain mld = MgrMainDAO.getInstance().selectMgrLogin(loginVO);
+		loginVO.setId("admin1");
+		loginVO.setPass(DataEncrypt.messageDigest("MD5", "1111"));
+		String mld = MgrMainDAO.getInstance().selectMgrLogin(loginVO);
 		System.out.println(mld);
 	}
 }

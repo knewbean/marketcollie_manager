@@ -15,6 +15,8 @@
 .qna-subtitle {color:#77AF9C; margin: 0px auto; width:70%; text-align: center; font-weight: bold; font-size:1.5rem; padding-top:3rem;}
 .thead-collie {color:#285943; background-color: #77AF9C; border-color: #77AF9C; text-align:center;}
 .tbody-collie {text-align:center;}
+.active {cursor:pointer;}
+.page-item.active .page-link {background-color:#17462B; border-color:#17462B;}
 </style>
 
 <!-- Google CDN -->
@@ -29,6 +31,63 @@ $(function(){
 function gotoDetail(qna_num){
 	location.href="detail.do?qna_num="+qna_num;
 }
+
+function movePage(current_page){
+	$.ajax({
+		url:"move_list.do",
+		type:"POST",
+		data:"current_page="+current_page,//where절이 있는경우 &을 사용하여 쿼리스트링 추가
+		dataType:"JSON",
+		error:function(xhr){
+			alert("에러");
+			console.log(xhr.status+" / "+xhr.statusText);
+		},
+		success:function(jsonObj){
+	      	if(jsonObj.flag=="success"){
+	      		//테이블을 그린다
+	      		var tab='<table class="table">';
+	      		tab+='<thead class="thead-collie">';
+	      		tab+='<tr>';
+	      		tab+='<th scope="col" style="width:10%">번호</th>';
+			    tab+='<th scope="col" style="width:60%">제목</th>';
+			    tab+='<th scope="col" style="width:20%">아이디</th>';
+			    tab+='<th scope="col" style="width:10%">답변여부</th>';
+	      		tab+='</tr>';
+	      		tab+='</thead>';
+	      		tab+='<tbody class="tbody-collie">';
+	      		$.each(jsonObj.qna_list,function(i, json){
+		      		tab+='<tr style="cursor:pointer" onclick="gotoDetail('+(i+1)+');">';
+		      		tab+='<th scope="row">';
+		      		tab+=(i+1);
+		      		tab+='</th>';
+		      		tab+='<td>'
+		      		tab+=json.qna_subject;
+		      		tab+='</td>';
+		      		tab+='<td>';
+		      		tab+=json.id;
+		      		tab+='</td>';
+		      		tab+='<td>';
+		      		if(json.qna_flag != 'Y') {
+			      		tab+='X';
+		      		} else {
+		      			tab+='O'
+		      		}
+		      		tab+='</td>';
+		      		tab+='</tr>';
+	      		});//each
+	      		
+	      		tab+='</tbody>';
+	      		tab+='</table>';
+	      		//새로 그린 테이블을 div에 넣는다
+	      		$("#qnaTabDiv").html(tab);
+			//페이지네이션을 그리는 코드는 따로 작성할 필요 없이 바로 div에 넣으면 된다.
+	      		$("#pagination").html(jsonObj.paging);
+	      	}//end if
+		}//success
+	});//ajax
+	
+}//movePage
+
 </script>
 </head>
 <body style="font-family: 'NanumBarunGothic'">
@@ -41,14 +100,14 @@ function gotoDetail(qna_num){
 		<div class="qna-subtitle">
 			<img src="../common/images/icons/icon_qna_32.png"> 문의사항 목록
 		</div>
-		<div class="qna-tab-div">
+		<div class="qna-tab-div" id="qnaTabDiv">
 			<table class="table">
 			  <thead class="thead-collie">
 			    <tr>
-			      <th scope="col">번호</th>
-			      <th scope="col">제목</th>
-			      <th scope="col">아이디</th>
-			      <th scope="col">답변여부</th>
+			      <th scope="col" style="width:10%">번호</th>
+			      <th scope="col" style="width:60%">제목</th>
+			      <th scope="col" style="width:20%">아이디</th>
+			      <th scope="col" style="width:10%">답변여부</th>
 			    </tr>
 			  </thead>
 			  <tbody class="tbody-collie">
@@ -63,6 +122,11 @@ function gotoDetail(qna_num){
 			 </tbody>
 			</table>
 		</div>
+		
+		<div id="pagination">
+			<c:out value="${paging}" escapeXml="false" />
+		</div>
+		
 	</div>
 </div>
 

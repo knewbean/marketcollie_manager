@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import kr.co.collie.mgr.main.domain.MgrLoginDomain;
 import kr.co.collie.mgr.main.service.MgrMainService;
 import kr.co.collie.mgr.main.vo.MgrLoginVO;
 
@@ -30,20 +29,10 @@ public class MgrMainController {
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
 	public String login(MgrLoginVO mlVO, Model model) throws NoSuchAlgorithmException {
 		MgrMainService mms = new MgrMainService();
-		MgrLoginDomain loginDomain = mms.loginMgr(mlVO);
-		
-		String mgr_id = "";
-		boolean isManager = false;
-		if(loginDomain != null) {
-			if(!"".equals(loginDomain.getMember_flag()) && !loginDomain.getMember_flag().equalsIgnoreCase("y")) {
-				isManager = true;
-			}
-			mgr_id = loginDomain.getId();
+		String mgrId = mms.loginMgr(mlVO);
+		if(mgrId != null) {
+			model.addAttribute("mgr_id", mgrId);
 		}
-		
-		model.addAttribute("mgr_id", mgr_id); //검색된 결과가 없으면 null
-		model.addAttribute("isManager", isManager); //manager면 true, 아니면 false
-		
 		return "main/login_process";
 	}
 	

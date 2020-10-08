@@ -4,8 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 $(function(){
-	if(${mgr_id eq ''} || '${mgr_id}' == '') { 
-		location.href="index.do";
+	if('${mgr_id}' == '') {
+		location.href="/mgr/index.do";
 		return;
 	}
 });

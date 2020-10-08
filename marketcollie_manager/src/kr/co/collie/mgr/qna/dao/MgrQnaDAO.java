@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.collie.mgr.dao.GetCollieHandler;
+import kr.co.collie.mgr.pagination.RangeVO;
 import kr.co.collie.mgr.qna.domain.MgrQnaDetailDomain;
 import kr.co.collie.mgr.qna.domain.MgrQnaListDomain;
 import kr.co.collie.mgr.qna.vo.MgrModifyQnaReplyVO;
@@ -26,15 +27,17 @@ public class MgrQnaDAO {
 	
 	/**
 	 * 사용자의 모든 문의사항을 조회한다.
+	 * @param rVO 
 	 * @return
 	 */
-	public List<MgrQnaListDomain> selectAllQna() {
+	public List<MgrQnaListDomain> selectAllQna(RangeVO rVO) {
 		List<MgrQnaListDomain> list = null;
 		SqlSession ss = GetCollieHandler.getInstance().getSqlSession();
-		list = ss.selectList("selectQnaList");
+		list = ss.selectList("selectQnaList", rVO);
 		ss.close();
 		return list;
 	}
+	
 	
 	
 	/**

@@ -12,15 +12,9 @@
 
 <script type="text/javascript">
 $(function(){
-	console.log('${mgr_id}');
-	if(${mgr_id ne ''} && '${mgr_id}' != null) { 
-		if(!${isManager}) {
-			alert("관리자가 아닙니다. 아이디와 비밀번호를 확인해주세요.");
-			history.back();	
-		} else {
-			alert('${mgr_id}님 어서오세요.');
-			location.href="category/list.do";
-		}
+	if('${mgr_id}' != '' && '${not empty mgr_id}') { 
+		alert('${mgr_id}님 어서오세요.');
+		location.href="category/list.do";
 	} else {
 		alert("아이디와 비밀번호를 확인해주세요.");
 		history.back();

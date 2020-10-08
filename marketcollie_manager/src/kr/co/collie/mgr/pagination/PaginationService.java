@@ -147,8 +147,15 @@ public class PaginationService {
 		.append("</li>\n");
 		
 		for(int i=pVO.getStart_page(); i<=pVO.getEnd_page(); i++) {
-			view.append("<li class=\"page-item\">")
-			.append("<a class='page-link'");
+			//class active 추가 css 사용시 아래와 같이 사용
+			//.page-item.active {background-color:#17462B; border-color:#17462B;}
+			view.append("<li class=\"page-item");
+			if( pVO.getCurrent_page() != i) {
+				view.append(" active");
+			}
+			view.append("\">");
+			
+			view.append("<a class='page-link'");
 			if( pVO.getCurrent_page() != i) {
 				view.append(" onclick='movePage(")
 				.append(i)
