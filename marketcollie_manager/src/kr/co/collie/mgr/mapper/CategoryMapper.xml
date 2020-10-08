@@ -9,4 +9,9 @@
 		where rnum between #{ start_num } and #{ end_num }
 	</select>
 	
+	<insert id="insertCategory" parameterType="String">
+		insert into category(cate_num, cate_name)
+		values(seq_cate_num.nextval, #{ cate_name })
+	</insert>
+	
 </mapper>
