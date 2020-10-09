@@ -47,7 +47,7 @@ $(function(){
 				},
 				success : function(data){
 					alert("답변이 등록되었습니다.");
-					location.href = "../item_qna/list.do?current_page="+${ param.current_page };
+					location.href = "../item_qna/list.do?item_num="+${ param.item_num }+"&current_page="+${ param.current_page };
 				}//data
 			});//ajax			
 		}//end if

@@ -10,15 +10,18 @@
 <link rel="stylesheet" type="text/css" href="/mgr/common/css/common.css">
 
 <style type="text/css">
-.review-subtitle {color:#5E7170; margin: 0px auto; width:70%; text-align: center; font-weight: bold; font-size:1.5rem; padding-top:3rem; margin-top: 30px}
-.review-tab-div {margin: 0px auto; width:70%; padding: 1rem; margin-top: 10px}
+#container{ min-height: 900px }
+.item-qna-subtitle {color:#5E7170; margin: 0px auto; width:70%; text-align: center; font-weight: bold; font-size:1.5rem; padding-top:3rem; margin-top: 30px}
+.item-qna-tab-div {margin: 0px auto; width:70%; padding: 1rem; margin-top: 10px}
+.table{ width: 1000px; margin: 0px auto }
 .thead-collie {color:#285943; background-color: #77AF9C; border-color: #77AF9C; text-align:center;}
 .tbody-collie {text-align:center;}
 #btnDiv{ width: 100px; margin: 0px auto }
 .btn-primary{ background-color: #5E7170; border-color: #5E7170; margin:0px auto; margin-top: 30px; width: 100px; padding: 8px  }
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus{ background-color: #5E7170 !important; }
 .pagination{ width:280px; margin: 0px auto; margin-top: 60px}
-.page-link{ color: #333 !important }
+.active {cursor:pointer;}
+.page-item.active .page-link {background-color:#17462B; border-color:#17462B;}
 </style>
 
 <!-- Google CDN -->
@@ -31,9 +34,56 @@ $(function(){
 
 });//ready
 
-function gotoDetail(review_num){
-	location.href="detail.do?review_num="+review_num;
-}
+function gotoDetail(current_page, item_qna_num){
+	if( current_page == '' ){
+		var current_page = 1;
+	}//end if
+	location.href="detail.do?item_num="+${ param.item_num }+"&current_page="+current_page+"&item_qna_num="+item_qna_num;
+}//gotoDetail
+
+function movePage(current_page, item_num){
+	item_num = ${ param.item_num };
+	$.ajax({
+		url : "move_item_qna_list.do",
+		type : "POST",
+		data : "item_num="+${ param.item_num }+"&current_page="+current_page,
+		dataType : "json",
+		error : function(xhr){
+			alert("item : " +item_num);
+			alert("cur : " +current_page);
+			alert("error : " + xhr.status + " / " + xhr.statusText);	
+			console.log(xhr);
+		},
+		success : function(jsonObj){
+			if( jsonObj.flag == "success" ){
+				var output = '<table class="table"><thead class="thead-collie">';
+				output += '<tr><th scope="col" style="width: 200px">번호</th>';
+				output += '<th scope="col" style="width: 400px">제목</th>';
+				output += '<th scope="col" style="width: 200px">아이디</th>';
+				output += '<th scope="col" style="width: 200px">답변여부</th></tr></thead>';
+				output += '<tbody class="tbody-collie">';
+				
+				$.each(jsonObj.item_qna_list, function(i, json){
+					output += '<tr style="cursor:pointer" onclick="gotoDetail(' + current_page + ',' + json.item_qna_num + ');">';
+					output += '<th scope="row">' + json.item_qna_num + '</th>';
+					output += '<td>' + json.item_qna_subject + '</td>';
+					output += '<td>' + json.id + '</td>';
+					output += '<td>' + json.item_qna_flag + '</td></tr>';
+				});//each
+				
+				output += '</tbody></table>';
+				$("#item-qna-tab-div").html(output);
+				
+				$("#pagination").html(jsonObj.paging);
+			}//end if
+		}//success
+	});//ajax
+}//movePage
+
+function moveToBack(item_num){
+	location.href = "../item/item_detail.do?item_num="+item_num;
+}//moveToBack
+
 </script>
 </head>
 <body style="font-family: 'NanumBarunGothic'">
@@ -43,72 +93,36 @@ function gotoDetail(review_num){
 	<c:import url="/header.do" /> 
 
 	<div id="container">
-		<div class="review-subtitle">
+		<div class="item-qna-subtitle">
 			상품문의 목록
 		</div>
-		<div class="review-tab-div">
+		<div class="item-qna-tab-div" id="item-qna-tab-div">
 			<table class="table">
 			  <thead class="thead-collie">
 			    <tr>
-			      <th scope="col">번호</th>
-			      <th scope="col">제목</th>
-			      <th scope="col">아이디</th>
-			      <th scope="col">답변여부</th>
+			      <th scope="col" style="width: 200px">번호</th>
+			      <th scope="col" style="width: 400px">제목</th>
+			      <th scope="col" style="width: 200px">아이디</th>
+			      <th scope="col" style="width: 200px">답변여부</th>
 			    </tr>
 			  </thead>
 			  <tbody class="tbody-collie">
-				    <tr style="cursor:pointer" onclick="gotoDetail();">
-				      <th scope="row">1</th>
-				      <td>브로콜리 한개밖에안왔는데요?</td>
-				      <td>gildong</td>
-				      <td>N</td>
+				  <c:forEach var="iql" items="${ item_qna_list }">
+				    <tr style="cursor:pointer" onclick="gotoDetail('${ param.current_page }',${ iql.item_qna_num });">
+				      <th scope="row">${ iql.item_qna_num }</th>
+				      <td>${ iql.item_qna_subject }</td>
+				      <td>${ iql.id }</td>
+				      <td>${ iql.item_qna_flag }</td>
 				    </tr>
-				    <tr style="cursor:pointer" onclick="gotoDetail();">
-				      <th scope="row">2</th>
-				      <td>환불요청합니다.</td>
-				      <td>test1</td>
-				      <td>Y</td>
-				    </tr>
-				    <tr style="cursor:pointer" onclick="gotoDetail();">
-				      <th scope="row">1</th>
-				      <td>브로콜리 한개밖에안왔는데요?</td>
-				      <td>gildong</td>
-				      <td>N</td>
-				    </tr>
-				    <tr style="cursor:pointer" onclick="gotoDetail();">
-				      <th scope="row">2</th>
-				      <td>환불요청합니다.</td>
-				      <td>test1</td>
-				      <td>Y</td>
-				    </tr>
-				    <tr style="cursor:pointer" onclick="gotoDetail();">
-				      <th scope="row">2</th>
-				      <td>환불요청합니다.</td>
-				      <td>test1</td>
-				      <td>Y</td>
-				    </tr>
+				  </c:forEach>
 			 </tbody>
 			</table>
 		</div>
 		<div id="btnDiv">
-			<button type="button" class="btn btn-primary" id="btn" onclick="javascript:history.back();">뒤로</button>
+			<button type="button" class="btn btn-primary" id="btn" onclick="moveToBack(${ param.item_num });">뒤로</button>
 		</div>
 		<div id="pagination">
-		<nav aria-label="...">
-		  <ul class="pagination">
-		    <li class="page-item disabled">
-		      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-		    </li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item active" aria-current="page">
-		      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-		    </li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item">
-		      <a class="page-link" href="#">Next</a>
-		    </li>
-		  </ul>
-		</nav>
+			<c:out value="${ paging }" escapeXml="false"/>
 		</div>
 	</div>
 </div>

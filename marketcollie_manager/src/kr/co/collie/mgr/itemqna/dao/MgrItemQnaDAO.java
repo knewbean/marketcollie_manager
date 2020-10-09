@@ -1,10 +1,14 @@
 package kr.co.collie.mgr.itemqna.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.collie.mgr.dao.GetCollieHandler;
 import kr.co.collie.mgr.itemqna.domain.MgrItemQnaDetailDomain;
+import kr.co.collie.mgr.itemqna.domain.MgrItemQnaListDomain;
 import kr.co.collie.mgr.itemqna.vo.MgrItemQnaUpdateVO;
+import kr.co.collie.mgr.pagination.RangeVO;
 
 public class MgrItemQnaDAO {
 	
@@ -19,6 +23,34 @@ public class MgrItemQnaDAO {
 		}//end if
 		return miqDAO;
 	}//getInstance
+	
+	/**
+	 * 상품문의 목록을 불러오는 일
+	 * @param rVO
+	 * @return
+	 */
+	public List<MgrItemQnaListDomain> selectItemQnaList(RangeVO rVO){
+		List<MgrItemQnaListDomain> list = null;
+		SqlSession ss = GetCollieHandler.getInstance().getSqlSession();
+		list = ss.selectList("kr.co.collie.mgr.itemqna.selectItemQnaList", rVO);
+		ss.close();
+		
+		return list;
+	}//selectItemQnaList
+	
+	/**
+	 * 상품문의 목록 개수를 세는 일
+	 * @param rVO
+	 * @return
+	 */
+	public int selectItemQnaListCnt(RangeVO rVO) {
+		int cnt = 0;
+		SqlSession ss = GetCollieHandler.getInstance().getSqlSession();
+		cnt = ss.selectOne("kr.co.collie.mgr.itemqna.selectItemQnaListCnt", rVO);
+		ss.close();
+		
+		return cnt;
+	}//selectItemQnaListCnt
 	
 	/**
 	 * 상품문의 상세내용을 확인하는 일
@@ -51,11 +83,9 @@ public class MgrItemQnaDAO {
 	
 	public static void main(String[] args) {
 		MgrItemQnaDAO miqDAO = new MgrItemQnaDAO();
-		MgrItemQnaUpdateVO miquVO = new MgrItemQnaUpdateVO();
-		miquVO.setItem_qna_num(25);
-		miquVO.setItem_qna_reply("없어");
+		RangeVO rVO = new RangeVO(1, "item_num", String.valueOf(1));
 		
-		System.out.println(miqDAO.UpdateItemQnaReply(miquVO));
+		System.out.println(miqDAO.selectItemQnaListCnt(rVO));
 	}//main
 	
 }//class

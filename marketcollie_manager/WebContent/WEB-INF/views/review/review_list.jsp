@@ -42,11 +42,11 @@ function gotoDetail(current_page, review_num){
 	location.href="detail.do?item_num="+${ param.item_num }+"&current_page="+current_page+"&review_num="+review_num;
 }//gotoDetail
 
-function movePage(current_page){
+function movePage(current_page, item_num){
 	$.ajax({
 		url : "move_review_list.do",
 		type : "POST", 
-		data : "item_num="+1+"&current_page="+current_page,
+		data : "item_num="+ ${ param.item_num } +"&current_page="+current_page,
 		dataType : "JSON",
 		error : function(xhr){
 			alert("error : " + xhr.status + " / " + xhr.statusText);
@@ -120,7 +120,6 @@ function moveToBack(){
 		</div>
 		<div id="pagination">
 			<c:out value="${ paging }" escapeXml="false"/>
-			<input type="hidden" name="item_num" value="${ param.item_num }"/>
 		</div>
 	</div>
 </div>

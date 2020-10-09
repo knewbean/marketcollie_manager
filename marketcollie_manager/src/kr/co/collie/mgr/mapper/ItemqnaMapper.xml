@@ -3,6 +3,21 @@
 <mapper namespace="kr.co.collie.mgr.itemqna">
  
 	<!-- 상품문의 목록을 불러오는 일 -->
+	<select id="selectItemQnaList" parameterType="kr.co.collie.mgr.pagination.RangeVO" resultType="kr.co.collie.mgr.itemqna.domain.MgrItemQnaListDomain">
+		select item_qna_num, item_qna_subject, id, item_qna_flag
+		from(select iq.item_qna_num, iq.item_qna_subject, m.id, iq.item_qna_flag, row_number()over(order by iq.item_qna_num desc) rnum
+				from item_qna iq, member m
+				where iq.member_num = m.member_num and ${ column_name } = #{ column_value })
+		where rnum between #{ start_num } and #{ end_num }
+	</select>
+	
+	<!-- 상품문의 목록 개수를 세는 일 -->
+	<select id="selectItemQnaListCnt" parameterType="kr.co.collie.mgr.pagination.RangeVO" resultType="int">
+		select count(*)
+		from(select iq.item_qna_num, iq.item_qna_subject, m.id, iq.item_qna_flag, row_number()over(order by iq.item_qna_num desc) rnum
+				from item_qna iq, member m
+				where iq.member_num = m.member_num and ${ column_name } = #{ column_value })
+	</select>
 	
 	<!-- 상품문의 상세내용을 확인하는 일 -->
 	<select id="selectItemQnaDetail" parameterType="int" resultType="kr.co.collie.mgr.itemqna.domain.MgrItemQnaDetailDomain">
