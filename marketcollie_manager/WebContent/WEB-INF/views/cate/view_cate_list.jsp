@@ -17,6 +17,10 @@
 .tbody-collie {text-align:center;}
 .btn-div {margin: 0px auto; width:400px; padding: 10px 0px 10px 0px; text-align: right;}
 .collieBtnMain{ border: 1px solid #77AF9C; padding: 10px 10px 10px 10px; margin-top: 5px; margin-bottom: 5px; color: #285943; font-size: 15px; background-color: #77AF9C }
+
+.active {cursor:pointer;}
+.page-item.active .page-link {background-color:#fff; border-color:#77AF9C;  color:#77AF9C; border-radius: 0}
+.page-item.disabled .page-link {background-color:#fff; border-color:#77AF9C; color:#77AF9C; border-radius: 0}
 </style>
 
 <link rel="stylesheet" type="text/css" href="/mgr/common/css/common.css">

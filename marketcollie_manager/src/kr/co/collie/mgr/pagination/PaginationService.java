@@ -69,18 +69,18 @@ public class PaginationService {
 			end_page = total_page;
 		}//end if
 		
-		int pre_page=current_page - 1;
-		int next_page=current_page + 1;
+		int pre_page=start_page - page_range;
+		int next_page=start_page + page_range;
 		
 		if( pre_page < 1 ) { //"이전" 버튼을 비활성화하는 조건
-			pre_page=current_page;
+			pre_page=-1;
 		}//end if
 		
-		if( end_page<next_page ){ //"다음" 버튼을 비활성화하는 조건
-			next_page=current_page;
+		if( total_page<next_page ){ //"다음" 버튼을 비활성화하는 조건
+			next_page=-1;
 		}//end if
 		
-		pVO=new PageVO(current_page, pre_page, next_page, start_page, end_page);
+		pVO=new PageVO(current_page, pre_page, next_page, start_page, end_page, total_page);
 		
 		return pVO;
 	}//calcPage
@@ -98,18 +98,18 @@ public class PaginationService {
 			end_page = total_page;
 		}//end if
 		
-		int pre_page=current_page - 1;
-		int next_page=current_page + 1;
+		int pre_page=start_page - page_range;
+		int next_page=start_page + page_range;
 		
 		if( pre_page < 1 ) { //"이전" 버튼을 비활성화하는 조건
-			pre_page=current_page;
+			pre_page=-1;
 		}//end if
 		
-		if( end_page<next_page ){ //"다음" 버튼을 비활성화하는 조건
-			next_page=current_page;
+		if( total_page < next_page ){ //"다음" 버튼을 비활성화하는 조건
+			next_page=-1;
 		}//end if
 		
-		pVO=new PageVO(current_page, pre_page, next_page, start_page, end_page);
+		pVO=new PageVO(current_page, pre_page, next_page, start_page, end_page, total_page);
 		
 		return pVO;
 	}//calcPage
@@ -130,13 +130,13 @@ public class PaginationService {
 		view.append("<nav aria-label='Page navigation example'>\n")
 		.append("<ul class='pagination justify-content-center'>\n")
 		.append("<li class='page-item");
-		if(pVO.getPre_page() < 1) {
+		if(pVO.getPre_page() == -1) {
 			view.append(" disabled'>\n");
 		}else {
 			view.append(" active'>\n");
 		}//end else
 		view.append("<a class='page-link'");
-		if( pVO.getPre_page() >= 1) {
+		if( pVO.getPre_page() != -1) {
 			view.append(" onclick='movePage(")
 			.append(pVO.getPre_page())
 			.append(")'"); 
@@ -160,7 +160,9 @@ public class PaginationService {
 				view.append(" onclick='movePage(")
 				.append(i)
 				.append(")'"); 
-			}//end if
+			}else {
+				view.append(" style='background-color:#77AF9C; border-color:#77AF9C; color:#fff'");
+			}//end else
 			view.append(">\n")
 			.append(i)
 			.append("</a>\n")
@@ -168,13 +170,13 @@ public class PaginationService {
 		}//end for
 		
 		view.append("<li class='page-item");
-		if(pVO.getEnd_page() < pVO.getNext_page()) {
+		if(pVO.getNext_page()==-1) {
 			view.append(" disabled'>\n");
 		}else {
 			view.append(" active'>\n");
 		}//end else
 		view.append("<a class='page-link'");
-		if( pVO.getEnd_page() >= pVO.getNext_page()) {
+		if( pVO.getNext_page()!=-1 ) {
 			view.append(" onclick='movePage(")
 			.append(pVO.getNext_page())
 			.append(")'"); 
@@ -202,17 +204,19 @@ public class PaginationService {
 		view.append("<nav aria-label='Page navigation example'>\n")
 		.append("<ul class='pagination justify-content-center'>\n")
 		.append("<li class='page-item");
-		if(pVO.getPre_page() < 1) {
+		if(pVO.getPre_page() == -1) {
 			view.append(" disabled'>\n");
 		}else {
 			view.append(" active'>\n");
 		}//end else
 		view.append("<a class='page-link'");
-		if( pVO.getPre_page() >= 1) {
+		if( pVO.getPre_page() != -1) {
 			view.append(" onclick='movePage(")
 			.append(pVO.getPre_page())
 			.append(")'"); 
-		}//end if
+		}else {
+			view.append(" style='background-color:#77AF9C; border-color:#77AF9C; color:#fff'");
+		}//end else
 		view.append(" aria-label='Previous'>\n")
 		.append("<span aria-hidden='true'>&laquo;</span>\n")
 		.append("</a>\n")
@@ -233,13 +237,13 @@ public class PaginationService {
 		}//end for
 		
 		view.append("<li class='page-item");
-		if(pVO.getEnd_page() < pVO.getNext_page()) {
+		if(pVO.getNext_page() == -1) {
 			view.append(" disabled'>\n");
 		}else {
 			view.append(" active'>\n");
 		}//end else
 		view.append("<a class='page-link'");
-		if( pVO.getEnd_page() >= pVO.getNext_page()) {
+		if( pVO.getNext_page() != -1) {
 			view.append(" onclick='movePage(")
 			.append(pVO.getNext_page())
 			.append(")'"); 
