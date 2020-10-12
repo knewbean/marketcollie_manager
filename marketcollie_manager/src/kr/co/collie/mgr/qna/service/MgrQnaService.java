@@ -57,6 +57,7 @@ public class MgrQnaService {
 //			for(int i=0; i<list.size(); i++) {
 			for(MgrQnaListDomain mqld : list) {
 				jsonObj=new JSONObject();
+				jsonObj.put("qna_num", mqld.getQna_num());
 				jsonObj.put("qna_subject",mqld.getQna_subject());
 				jsonObj.put("qna_flag",mqld.getQna_flag());
 				jsonObj.put("id",mqld.getId());

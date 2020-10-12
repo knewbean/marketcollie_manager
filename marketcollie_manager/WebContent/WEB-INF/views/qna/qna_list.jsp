@@ -56,7 +56,7 @@ function movePage(current_page){
 	      		tab+='</thead>';
 	      		tab+='<tbody class="tbody-collie">';
 	      		$.each(jsonObj.qna_list,function(i, json){
-		      		tab+='<tr style="cursor:pointer" onclick="gotoDetail('+(i+1)+');">';
+		      		tab+='<tr style="cursor:pointer" onclick="gotoDetail('+(json.qna_num)+');">';
 		      		tab+='<th scope="row">';
 		      		tab+=(i+1);
 		      		tab+='</th>';

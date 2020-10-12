@@ -18,7 +18,7 @@
 	
 	<update id="updateQnaReply" parameterType="kr.co.collie.mgr.qna.vo.MgrModifyQnaReplyVO">
 		update qna
-		set qna_reply=#{qna_reply}, qna_flag=#{qna_flag}
+		set qna_reply=#{qna_reply}, qna_flag=#{qna_flag}, reply_date=sysdate
 		where qna_num=#{qna_num}
 	</update>
 </mapper>
