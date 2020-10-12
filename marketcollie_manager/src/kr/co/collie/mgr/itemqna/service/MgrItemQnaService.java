@@ -62,11 +62,10 @@ public class MgrItemQnaService {
 				temp.put("item_qna_num", miqld.getItem_qna_num());
 				temp.put("item_qna_subject", miqld.getItem_qna_subject());
 				temp.put("id", miqld.getId());
-				temp.put("item_qna_flag", miqld.getItem_qna_flag());
+				temp.put("item_qna_flag", String.valueOf(miqld.getItem_qna_flag()));
 				jsonArr.add(temp);
 			}//end for
 			json.put("item_qna_list", jsonArr);
-			
 			int total_cnt = MgrItemQnaDAO.getInstance().selectItemQnaListCnt(rVO);
 			String pagination = new PaginationService().getPagination(current_page, total_cnt);
 			json.put("paging", pagination);
@@ -74,7 +73,7 @@ public class MgrItemQnaService {
 		
 		json.put("flag", flag);
 		
-		return json.toJSONString();
+		return json.toJSONString(); 
 	}//moveItemQnaList
 	
 	/**

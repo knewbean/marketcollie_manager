@@ -81,11 +81,4 @@ public class MgrItemQnaDAO {
 		return cnt;
 	}//UpdateItemQnaReply
 	
-	public static void main(String[] args) {
-		MgrItemQnaDAO miqDAO = new MgrItemQnaDAO();
-		RangeVO rVO = new RangeVO(1, "item_num", String.valueOf(1));
-		
-		System.out.println(miqDAO.selectItemQnaListCnt(rVO));
-	}//main
-	
 }//class

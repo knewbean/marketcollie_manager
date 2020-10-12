@@ -45,17 +45,14 @@ function movePage(current_page, item_num){
 	item_num = ${ param.item_num };
 	$.ajax({
 		url : "move_item_qna_list.do",
-		type : "POST",
-		data : "item_num="+${ param.item_num }+"&current_page="+current_page,
+		type : "GET",
+		data : "item_num=${ param.item_num }&current_page="+current_page,
 		dataType : "json",
 		error : function(xhr){
-			alert("item : " +item_num);
-			alert("cur : " +current_page);
 			alert("error : " + xhr.status + " / " + xhr.statusText);	
-			console.log(xhr);
 		},
 		success : function(jsonObj){
-			if( jsonObj.flag == "success" ){
+			 if( jsonObj.flag == "success" ){
 				var output = '<table class="table"><thead class="thead-collie">';
 				output += '<tr><th scope="col" style="width: 200px">번호</th>';
 				output += '<th scope="col" style="width: 400px">제목</th>';
@@ -76,6 +73,7 @@ function movePage(current_page, item_num){
 				
 				$("#pagination").html(jsonObj.paging);
 			}//end if
+			
 		}//success
 	});//ajax
 }//movePage

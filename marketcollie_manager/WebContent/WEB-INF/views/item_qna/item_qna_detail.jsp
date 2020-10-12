@@ -54,6 +54,10 @@ $(function(){
 	});//click
 });//ready
 
+function moveToBack(item_num, current_page){
+	location.href = "../item_qna/list.do?item_num="+item_num+"&current_page="+current_page;
+}//moveToBack
+
 </script>
 </head>
 <body style="font-family: 'NanumBarunGothic'">
@@ -104,7 +108,7 @@ $(function(){
 			</div>
 			</form>	
 			<div id="btnDiv">
-				<button type="button" class="btn btn-primary" onclick="javascript:history.back();">뒤로</button>
+				<button type="button" class="btn btn-primary" onclick="moveToBack(${ param.item_num }, ${ param.current_page });">뒤로</button>
 				<button type="button" class="btn btn-primary" id="updateBtn">
 					<c:if test="${ empty item_qna_detail.item_qna_reply }">등록</c:if>
 					<c:if test="${ not empty item_qna_detail.item_qna_reply }">수정</c:if>

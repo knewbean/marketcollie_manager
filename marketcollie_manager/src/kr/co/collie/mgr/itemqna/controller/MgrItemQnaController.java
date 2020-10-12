@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.collie.mgr.itemqna.domain.MgrItemQnaDetailDomain;
 import kr.co.collie.mgr.itemqna.domain.MgrItemQnaListDomain;
@@ -20,6 +21,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import java.util.List;
 
 @Controller
+//@RestController
 public class MgrItemQnaController {
 	
 	/**
@@ -51,12 +53,12 @@ public class MgrItemQnaController {
 	 * @param current_page
 	 * @return
 	 */
-	@RequestMapping(value="/item_qna/move_item_qna_list.do", method=POST, produces="application/json;charset=UTF-8")
+	@RequestMapping(value="/item_qna/move_item_qna_list.do", method=GET, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String moveItemQnaList(int item_num, int current_page) {
 		String json = null;
 		json = new MgrItemQnaService().moveItemQnaList(item_num, current_page);
-		System.out.println(json);
+		
 		return json;
 	}//moveItemQnaList
 	

@@ -80,11 +80,4 @@ public class MgrReviewDAO {
 		return cnt;
 	}//deleteReview
 	
-	public static void main(String[] args) {
-		MgrReviewDAO mrDAO = new MgrReviewDAO();
-		RangeVO rVO = new RangeVO(1, "item_num", "1");
-		
-		System.out.println(mrDAO.selectReviewListCnt(rVO));
-	}//main	
-	
 }//class
