@@ -30,18 +30,22 @@ public class MgrItemQnaController {
 	 * @return
 	 */
 	@RequestMapping(value="/item_qna/list.do", method=GET)
-	public String getItemQnaList(int item_num, Model model) {
+	public String getItemQnaList(int item_num, String current_page, Model model) throws NumberFormatException {
 		List<MgrItemQnaListDomain> list = null;
 		
-		int current_page = 1;
-		RangeVO rVO = new RangeVO(current_page, "item_num", String.valueOf(item_num));
+		if( current_page == null ) {
+			current_page = "1";
+		}//end if
+		int currentPage=Integer.parseInt(current_page);
+
+		RangeVO rVO = new RangeVO(currentPage, "item_num", String.valueOf(item_num));
 		list = new MgrItemQnaService().getItemQnaList(rVO);
 		model.addAttribute("item_qna_list", list);
 		
 		//페이지네이션
 		int total_cnt = 0;
 		total_cnt = new MgrItemQnaService().getItemQnaListCnt(rVO);
-		String pagination = new PaginationService().getPagination(current_page, total_cnt);
+		String pagination = new PaginationService().getPagination(currentPage, total_cnt);
 		model.addAttribute("paging", pagination);
 		
 		return "item_qna/item_qna_list";

@@ -27,18 +27,22 @@ public class MgrReviewController {
 	 * @return
 	 */
 	@RequestMapping(value="/review/list.do", method=GET)
-	public String getReviewList(int item_num, Model model) {
+	public String getReviewList(int item_num, String current_page, Model model) {
 		MgrReviewService mrs = new MgrReviewService();
 		
-		int current_page = 1;
-		RangeVO rVO = new RangeVO(current_page, "item_num", String.valueOf(item_num));
+		if( current_page == null ) {
+			current_page = "1";
+		}//end if
+		int currentPage = Integer.parseInt(current_page);
+		
+		RangeVO rVO = new RangeVO(currentPage, "item_num", String.valueOf(item_num));
 		List<MgrReviewListDomain> list = mrs.getReviewList(rVO);
 		model.addAttribute("review_list", list);
 		
 		//pagination
 		int total_cnt = mrs.getReviewListCnt(rVO);
 		PaginationService ps = new PaginationService();
-		String pagination = ps.getPagination(current_page, total_cnt);
+		String pagination = ps.getPagination(currentPage, total_cnt);
 		model.addAttribute("paging", pagination);
 		
 		return "review/review_list";

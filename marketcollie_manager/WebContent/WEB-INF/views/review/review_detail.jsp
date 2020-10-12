@@ -41,7 +41,7 @@ $(function(){
 				},
 				success : function(data){
 					alert("후기가 삭제되었습니다.");
-					location.replace("../review/list.do?item_num="+${ param.item_num });
+					location.replace("../review/list.do?item_num=${ param.item_num }&current_page=${ param.current_page }");
 				}//data
 			});//ajax			
 		}//end if
