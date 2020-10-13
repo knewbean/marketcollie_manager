@@ -26,5 +26,6 @@
   	<mapper resource="kr/co/collie/mgr/mapper/ReviewMapper.xml"/>
   	<mapper resource="kr/co/collie/mgr/mapper/ItemqnaMapper.xml"/>
   	<mapper resource="kr/co/collie/mgr/mapper/ItemMapper.xml"/>
+  	<mapper resource="kr/co/collie/mgr/mapper/OrderMapper.xml"/>
   </mappers>
 </configuration>

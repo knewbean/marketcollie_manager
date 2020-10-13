@@ -29,21 +29,21 @@
 <script type="text/javascript">
 $(function(){
 	
-	$("#cateAddBtn").click(function(){
+	$("#modifyBtn").click(function(){
 		
-		if($("#cate_name").val().trim()==""){
-			alert("카테고리 이름을 입력해주세요");
-			$("#cate_name").focus();
+		if($("#invoice_no").val().trim()==""){
+			alert("운송장번호를 입력해주세요");
+			$("#invoice_no").focus();
 			return;
 		}//end if
-		if($("#cate_name").val().replace(/[ㄱ-힣A-Za-z]/g, "") != ""){
-			alert("카테고리 이름은 한글 또는 영문(대,소문자)만 입력 가능합니다.");
-			$("#cate_name").val("");
-			$("#cate_name").focus();
+		if($("#invoice_no").val().replace(/[0-9]/g, "") != ""){
+			alert("운송장번호는 숫자만 입력 가능합니다.");
+			$("#invoice_no").val("");
+			$("#invoice_no").focus();
 			return;
 		}//end if
 		
-		$("#cateAddFrm").submit();
+		$("#modifyBtn").submit();
 		
 	});//click
 	
@@ -60,27 +60,47 @@ $(function(){
 	<div id="container">
 		
 		<div class="subtitle">
-			카테고리 추가
+			배송상태 변경
 		</div>
 		
 		<div class="tab-div" id="cateTableDiv">
+	      <form action="add_cate_process.do" method="post" id="cateAddFrm">
+	      <input type="hidden" name="order_num" value="${ param.order_num }"/>
 			<table class="table">
 			  <tbody class="tbody-collie">
 			    <tr>
-			      <th style="width: 200px; padding-top: 18px">이름</th>
+			    <th style="width: 250px; padding-top: 18px">주문번호</th>
+			    <td><c:out value="${ param.order_num }"/></td>
+			    </tr>
+			    <tr>
+			    <th style="width: 250px; padding-top: 18px">배송상태</th>
+			    <td><c:out value="${ param.order_num }"/></td>
+			    </tr>
+			    <tr>
+			      <th style="width: 250px; padding-top: 18px">택배사</th>
 			      <td style="width: 200px; ">
-			      <form action="add_cate_process.do" method="post" id="cateAddFrm">
-			      <input type="text" id="cate_name" name="cate_name" class="collieText"/>
-			      <input type="text" hidden="hidden"/>
-			      </form>
+			      <select name="company">
+			      	<option value="01">우체국택배</option>
+			      	<option value="04">대한통운</option>
+			      	<option value="05">한진택배</option>
+			      	<option value="06">로젠택배</option>
+			      	<option value="08">롯데택배</option>
+			      </select>
+			      </td>
+			    </tr>
+			    <tr>
+			      <th style="padding-top: 18px">운송장번호</th>
+			      <td>
+			      <input type="text" id="invoice_no" name="invoice_no"/>
 			      </td>
 			    </tr>
 			 </tbody>
 			</table>
+	      </form>
 		</div>
 		
 		<div class="btn-div">
-		<input type="button" value="추가" id="cateAddBtn" class="collieBtnMain">
+		<input type="button" value="변경" id="modifyBtn" class="collieBtnMain">
 		</div>
 		
 	</div>

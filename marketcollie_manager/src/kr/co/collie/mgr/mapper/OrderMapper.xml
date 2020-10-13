@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.collie.mgr.order">
+
+	<select id="selectOrderList" parameterType="kr.co.collie.mgr.pagination.RangeVO" resultType="kr.co.collie.mgr.order.domain.MgrOrderListDomain">
+	select order_num, member_num, total_price, to_char(input_date, 'yyyy-mm-dd') input_date, shipping_flag
+	from(select order_num, member_num, total_price, input_date, shipping_flag, row_number() over(order by order_num desc) rnum
+	from order_form o)
+	where rnum between #{ start_num } and #{ end_num }
+	</select>
+	
+</mapper>
