@@ -9,7 +9,7 @@ import kr.co.collie.mgr.dao.GetCollieHandler;
 import kr.co.collie.mgr.item.domain.MgrItemListDomain;
 import kr.co.collie.mgr.item.vo.MgrItemAddVO;
 import kr.co.collie.mgr.item.vo.MgrItemModifyVO;
-import kr.co.collie.mgr.item.vo.SearchItemVO;
+import kr.co.collie.mgr.pagination.ItemRangeVO;
 
 public class MgrItemDAO {
 	
@@ -26,20 +26,33 @@ public class MgrItemDAO {
 		return miDAO;
 	}//getInstance
 	
-	public List<MgrItemListDomain> selectItemList(SearchItemVO siVO){
-		
+	public List<MgrItemListDomain> selectItemList(ItemRangeVO irVO){
 		
 		List<MgrItemListDomain> list = null;
 		
 		SqlSession ss =  GetCollieHandler.getInstance().getSqlSession();
-		list=ss.selectList("selectItemList", siVO);
+		list=ss.selectList("selectItemList", irVO);
 		ss.close();
 		
 		return list;
 	}//selectItemList
 	
-	public List<CategoryListDomain> selectCategoryList(){
+	public int selectItemListCnt(ItemRangeVO irVO) {
+		int cnt=0;
+		
+		SqlSession ss=GetCollieHandler.getInstance().getSqlSession();
+		cnt=ss.selectOne("selectItemListCnt",irVO);
+		ss.close();
+		
+		return cnt;
+	}//selectItemListCnt
+	
+	public List<CategoryListDomain> selectCategory(){
 		List<CategoryListDomain> list = null;
+		
+		SqlSession ss = GetCollieHandler.getInstance().getSqlSession();
+		list = ss.selectList("selectCategory");
+		ss.close();
 		
 		return list;
 	}//selectCategoryList

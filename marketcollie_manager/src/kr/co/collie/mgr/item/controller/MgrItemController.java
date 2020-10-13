@@ -1,5 +1,8 @@
 package kr.co.collie.mgr.item.controller;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,26 +10,56 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.collie.mgr.category.domain.CategoryListDomain;
 import kr.co.collie.mgr.item.domain.MgrItemListDomain;
 import kr.co.collie.mgr.item.service.MgrItemService;
 import kr.co.collie.mgr.item.vo.MgrItemAddVO;
 import kr.co.collie.mgr.item.vo.MgrItemModifyVO;
-import kr.co.collie.mgr.item.vo.SearchItemVO;
+import kr.co.collie.mgr.pagination.ItemRangeVO;
+import kr.co.collie.mgr.pagination.PaginationService;
 
 @Controller
 public class MgrItemController {
 	
-	@RequestMapping(value="/item/item_list.do", method = {GET,POST})
-	public String searchItem(SearchItemVO siVO, String s, Model model) {
-		List<MgrItemListDomain> list = new MgrItemService().getSearchItem(siVO);
+	@RequestMapping(value="/item/item_list.do", method = {GET,POST} )
+	public String SearchItem(Model model) {
+		int current_page=1;
+		ItemRangeVO irVO=new ItemRangeVO(current_page);
+		
+		MgrItemService mis=new MgrItemService();
+		
+		List<MgrItemListDomain> list = mis.getAllCate(irVO);
+		List<CategoryListDomain> cateList = mis.getCategory();
+		
+		int totalCnt=mis.getTotalCnt(irVO);
+		String pagination=new PaginationService().getPagination(current_page, totalCnt);
 		
 		model.addAttribute("item_list", list);
+		model.addAttribute("paging",pagination);
+		model.addAttribute("cate_list",cateList);
 		
 		return "/item/item_list";
 	}//searchItem
+	
+	@RequestMapping(value = "/item/item_search_list.do",method =GET , produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String SearchItemList(String current_page, String cate_name, String search_word) throws NumberFormatException {
+		String json="";
+		if(current_page==null || "".equals(current_page) || "undefined".equals(current_page)) {
+			current_page="1";
+		}//end if
+		
+		int currentPage=Integer.parseInt(current_page);
+		ItemRangeVO irVO=new ItemRangeVO(currentPage, cate_name, search_word);
+		MgrItemService mis= new MgrItemService();
+		
+		json=mis.getSearchItem(irVO, currentPage);
+		
+		return json;
+	}//
+	
 	
 	@RequestMapping(value = "/mgr/item/detail.do")
 	public String getItemDetail(String item_num, Model model) {
