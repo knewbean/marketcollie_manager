@@ -214,22 +214,26 @@ public class PaginationService {
 			view.append(" onclick='movePage(")
 			.append(pVO.getPre_page())
 			.append(")'"); 
-		}else {
-			view.append(" style='background-color:#77AF9C; border-color:#77AF9C; color:#fff'");
-		}//end else
+		}//end if
 		view.append(" aria-label='Previous'>\n")
 		.append("<span aria-hidden='true'>&laquo;</span>\n")
 		.append("</a>\n")
 		.append("</li>\n");
 		
 		for(int i=pVO.getStart_page(); i<=pVO.getEnd_page(); i++) {
-			view.append("<li class=\"page-item\">")
-			.append("<a class='page-link'");
+			view.append("<li class=\"page-item");
+			if( pVO.getCurrent_page() != i) {
+				view.append(" active");
+			}
+			view.append("\">");
+			view.append("<a class='page-link'");
 			if( pVO.getCurrent_page() != i) {
 				view.append(" onclick='movePage(")
 				.append(i)
 				.append(")'"); 
-			}//end if
+			}else {
+				view.append(" style='background-color:#77AF9C; border-color:#77AF9C; color:#fff'");
+			}//end else
 			view.append(">\n")
 			.append(i)
 			.append("</a>\n")

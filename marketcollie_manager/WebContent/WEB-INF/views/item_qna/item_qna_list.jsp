@@ -21,7 +21,6 @@
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus{ background-color: #5E7170 !important; }
 .pagination{ width:280px; margin: 0px auto; margin-top: 60px}
 .active {cursor:pointer;}
-.page-item.active .page-link {background-color:#17462B; border-color:#17462B;}
 </style>
 
 <!-- Google CDN -->
