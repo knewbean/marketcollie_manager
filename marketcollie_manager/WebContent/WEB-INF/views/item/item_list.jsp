@@ -13,7 +13,7 @@
 <style type="text/css">
 #contentwrap{display: flex; flex-direction:column; justify-content: center; width: 100%}
 
-.item-tab-div {margin: 0px auto; width:70%; padding: 1rem;}
+.item-tab-div {margin: 0px auto; width:70%; padding: 1rem; display: flex;}
 .item-subtitle {color:#77AF9C; margin: 0px auto; width:70%; text-align: center; font-weight: bold; font-size:1.5rem; padding-top:3rem;}
 .thead-collie {color:#285943; background-color: #77AF9C; border-color: #77AF9C; text-align:center;}
 .tbody-collie {text-align:center;}
@@ -22,7 +22,10 @@
    	   	padding-top: 20px;}
 .type {	height: 40px;}
 .collieBtnMain{ border: 1px solid #77AF9C; padding: 10px 10px 10px 10px;color: #285943; font-size: 15px; background-color: #77AF9C }
-
+.collieBtnItem{ border: 1px solid #77AF9C; text-align:center; padding: 10px 10px 10px 10px;color: #285943; font-size: 15px; background-color: #77AF9C }
+.collieBtnR{ border: 1px solid #77AF9C; text-align:center; color: #285943; font-size: 18px; background-color: #77AF9C }
+.itemName{width: 450px;}
+.btn
 #searchBox{	display:flex; 
 			margin-left: inherit;
     		padding-top: 20px}
@@ -31,7 +34,12 @@
     		 margin-right: 5px;
     		 margin-left: 5px; }
 #searchBtn{	height: 40px;
-			margin-right: 20px;}	
+			margin-right: 20px;}
+#addDiv { width: 70%;
+   		  margin: 0px auto;
+		  text-align: right;
+		  margin-bottom: 50px;
+}	
 </style>
 
 <!-- Google CDN -->
@@ -41,17 +49,13 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(function(){
+	
+	
+	
 });//ready
+	
 
 function searchItem(current_page){
-	
-	if($("#search_word").val().trim()==""){
-		alert("검색어를 입력해주세요"); 
-		$("#search_word").focus();
-
-		return;
-		}//end if
-	
 	
 	var cate_name = $("#cate_name option:selected").val();
 	var search_word = $("#search_word").val();
@@ -71,28 +75,30 @@ function searchItem(current_page){
 				var table='<table class="table">';
 					table+='<thead class="thead-collie">';
 					table+='<tr>';
-					table+='<th scope="col">카테고리</th>';
-					table+='<th scope="col">상품번호</th>';
-					table+='<th scope="col">상품명</th>';
-					table+='<th scope="col">가격</th>';
-					table+='<th scope="col">중량/용량</th>';
-					table+='<th scope="col">판매단위</th>';
-					table+='<th scope="col">재고</th>';
-					table+='<th scope="col">등록날짜</th>';
+					table+='<th scope="col" style="width:116px ">카테고리</th>';
+					table+='<th scope="col" style="width:111px ">상품번호</th>';
+					table+='<th scope="col" style="width:457px">상품명</th>';
+					table+='<th scope="col" style="width:100px">가격</th>';
+					table+='<th scope="col" style="width: 150px">중량/용량</th>';
+					table+='<th scope="col" style="width:117px">판매단위</th>';
+					table+='<th scope="col" style="width: 80px">재고</th>';
+					table+='<th scope="col" style="width: 169px">등록날짜</th>';
+					table+='<th scope="col" style="width: 103px"></th>';
 					table+='</tr>';
 					table+='</thead>';
 					table+='<tbody class="tbody-collie">';
 					
 					$.each(jsonObj.item_list, function(i,json) {
-						table+='<tr style="cursor:pointer" onclick="togoDetail('+json.item_num+')">';
+						table+='<tr>';
 						table+='<td>'+json.cate_name+'</td>';
 						table+='<td>'+json.item_num+'</td>';
-						table+='<td>'+json.item_name+'</td>';
+						table+='<td style="cursor:pointer" onclick="togoDetail('+json.item_num+')">'+json.item_name+'</td>';
 						table+='<td>'+json.item_price+'</td>';
 						table+='<td>'+json.item_weight+'</td>';
 						table+='<td>'+json.item_unit+'</td>';
 						table+='<td>'+json.item_stock+'</td>';
 						table+='<td>'+json.input_date+'</td>';
+						table+='<td class="btn"><input type="button" id="reviewBtn" value="상품후기" class="collieBtnR" onclick="itemReview(${item.item_num})" ></td>';
 						table+='</tr>';
 					})//each						
 					
@@ -113,6 +119,17 @@ function movePage(current_page){
 function togoDetail(item_num){
 	location.href="detail.do?item_num="+item_num;
 }
+
+function addItem() {
+	location.href="add_form.do";
+	
+}
+
+function itemReview(item_num) {
+		location.href="#";
+}
+
+
 </script>
 </head>
 <body style="font-family: 'NanumBarunGothic'">
@@ -138,13 +155,13 @@ function togoDetail(item_num){
 					</select>
 			</div>
 			
-			<div id="searchBox">
+			<div id="searchBox" style="display:flex; ">
 				<select class="form-control .type" style="width: 120px; margin-top: 1px">
 					<option>상품 이름</option>
 				</select>
 				
 				<input type="text" id="search_word" name="search_word" class="form-control">
-				<input type="button" id="searchBtn" class="collieBtnMain" value="검색" onclick="searchItem(${ param.currnet_page })">
+				<input type="button" id="searchBtn" class="collieBtnMain" value="검색" onclick="searchItem(${ empty param.currnet_page ? '1':param.currnet_page })">
 			</div>			
 		</div>
 		
@@ -152,36 +169,39 @@ function togoDetail(item_num){
 			<table class="table">
 			  <thead class="thead-collie">
 			    <tr>
-			      <th scope="col">카테고리</th>
-			      <th scope="col">상품번호</th>
-			      <th scope="col">상품명</th>
-			      <th scope="col">가격</th>
-			      <th scope="col">중량/용량</th>
-			      <th scope="col">판매단위</th>
-			      <th scope="col">재고</th>
-			      <th scope="col">등록날짜</th>
+			      <th scope="col" style="width:116px ">카테고리</th>
+			      <th scope="col" style="width:111px ">상품번호</th>
+			      <th scope="col" style="width:457px">상품명</th>
+			      <th scope="col" style="width:100px ">가격</th>
+			      <th scope="col" style="width: 150px">중량/용량</th>
+			      <th scope="col" style="width:117px ">판매단위</th>
+			      <th scope="col" style="width: 80px">재고</th>
+			      <th scope="col" style="width: 169px">등록날짜</th>
+			      <th scope="col" style="width: 103px"></th>
 			    </tr>
 			  </thead>
 			  <tbody class="tbody-collie">
 			  	<c:forEach var="item" items="${ item_list}">
-				    <tr style="cursor=pointer" onclick="togoDetail(${ item.item_num })">
+				    <tr>
 				      <td><c:out value="${item.cate_name}"/></td>
 				      <td><c:out value="${item.item_num}"/></td>
-				      <td><c:out value="${item.item_name}"/></td>
+				      <td style="cursor:pointer" onclick="togoDetail(${ item.item_num })"><c:out value="${item.item_name}"/></td>
 				      <td><c:out value="${item.item_price}"/></td>
 				      <td><c:out value="${item.item_weight}"/></td>
 				      <td><c:out value="${item.item_unit}"/></td>
 				      <td><c:out value="${item.item_stock}"/></td>
 				      <td><c:out value="${item.input_date}"/></td>
-				     
+				      <td class="btn"><input type="button" id="reviewBtn" value="상품후기" class="collieBtnR" onclick="itemReview(${item.item_num})" ></td>
 				    </tr>
 			  	</c:forEach>
 			 </tbody>
 			</table>
 			
 			<div>
-			
 			</div>
+		</div>
+		<div id="addDiv">
+			<input type="button" id="addBtn" value="등록" class="collieBtnItem" onclick="addItem()" >
 		</div>
 		
 		<div id="pagination">
