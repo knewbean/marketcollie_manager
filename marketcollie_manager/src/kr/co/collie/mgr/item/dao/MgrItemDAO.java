@@ -6,7 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 
 import kr.co.collie.mgr.category.domain.CategoryListDomain;
 import kr.co.collie.mgr.dao.GetCollieHandler;
+import kr.co.collie.mgr.item.domain.MgrItemDetailDomain;
 import kr.co.collie.mgr.item.domain.MgrItemListDomain;
+import kr.co.collie.mgr.item.vo.MgrDetailItemVO;
 import kr.co.collie.mgr.item.vo.MgrItemAddVO;
 import kr.co.collie.mgr.item.vo.MgrItemModifyVO;
 import kr.co.collie.mgr.pagination.ItemRangeVO;
@@ -57,10 +59,16 @@ public class MgrItemDAO {
 		return list;
 	}//selectCategoryList
 	
-	public MgrItemListDomain selectItemDetail(String string) {
-		MgrItemListDomain mild = null;
+	public MgrItemDetailDomain selectItemDetail(int item_num) {
+		MgrItemDetailDomain midd = null;
 		
-		return mild;
+		SqlSession ss = GetCollieHandler.getInstance().getSqlSession();
+		midd= ss.selectOne("selectItemDetail", item_num); //세부항목조회
+		List<String> list = ss.selectList("selectItemDetailImage", item_num); //세부항목의 n개의 이미지 조회
+		midd.setDetail_img(list); //조회된 n개의 이미지를 세부항목에 추가
+		ss.close();
+		
+		return midd;
 	}//selectItemDetail
 	
 	public int insertItem(MgrItemAddVO miaVO) {
@@ -77,14 +85,65 @@ public class MgrItemDAO {
 	public int updateItem(MgrItemModifyVO mimVO) {
 		int cnt=0;
 		
+		SqlSession ss = GetCollieHandler.getInstance().getSqlSession();
+		cnt = ss.update("updateItem",mimVO);
+		if(cnt!=0) {
+			ss.delete("deleteItem", mimVO.getItem_num());
+			ss.commit();
+		}else {
+			ss.rollback();
+		}//end if
+		ss.close();
+		
 		return cnt;
 	}//updateItem
 	
-	public int deleteItem(int aa) {
-		int cnt=0;
+	public int updateDetailImg( MgrItemModifyVO mmVO) {
+		int cnt = 0;
+		
+		SqlSession ss = GetCollieHandler.getInstance().getSqlSession();
+		MgrDetailItemVO mdiVO=new MgrDetailItemVO();
+		mdiVO.setItem_num(mmVO.getItem_num());
+		
+		for(int i=0; i<mmVO.getDetail_img().length; i++) {
+			mdiVO.setDetail_img(mmVO.getDetail_img()[i]);
+			ss.insert("modifyItem", mdiVO);
+			cnt++;
+		}//end for
+		
+		ss.commit();
+		ss.close();
 		
 		return cnt;
-	}//deleteItem
+	}//updateDetailImg
+	
+	public static void main(String[] args) {
+		
+		MgrItemModifyVO mimVO=new MgrItemModifyVO();
+		mimVO.setItem_num(61);
+		String[] detail_img = {"sda","asd"};
+		mimVO.setDetail_img(detail_img);
+		//MgrDetailItemVO mdiVO = new MgrDetailItemVO();
+		//mdiVO.setItem_num(62);
+//		mdiVO.setDetail_img(detail_img);
+		
+		System.out.println(MgrItemDAO.getInstance().updateDetailImg(mimVO));
+		
+		
+		//System.out.println(MgrItemDAO.getInstance().selectItemDetail(2));
+	}
+	
+	
+	
+	/*
+	 * public int deleteItem(int item_num ) { int cnt=0;
+	 * 
+	 * SqlSession ss = GetCollieHandler.getInstance().getSqlSession(); cnt =
+	 * ss.delete("deleteItem", item_num); ss.commit(); ss.close();
+	 * 
+	 * return cnt; }//deleteItem
+	 */	
+	//}//updateItem
 	
 	
 }//class

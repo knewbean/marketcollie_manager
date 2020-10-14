@@ -1,20 +1,27 @@
 package kr.co.collie.mgr.item.vo;
 
 public class MgrItemModifyVO {
-	private int cate_num, price, item_stock;
+	private int item_num, cate_num, item_price, item_stock;
 	private String item_name, item_unit, item_weight, item_img, item_guide, item_title, item_subtitle, item_detail;
 	private String[] detail_img;
+	
+	public int getItem_num() {
+		return item_num;
+	}
+	public void setItem_num(int item_num) {
+		this.item_num = item_num;
+	}
 	public int getCate_num() {
 		return cate_num;
 	}
 	public void setCate_num(int cate_num) {
 		this.cate_num = cate_num;
 	}
-	public int getPrice() {
-		return price;
+	public int getItem_price() {
+		return item_price;
 	}
-	public void setPrice(int price) {
-		this.price = price;
+	public void setItem_price(int item_price) {
+		this.item_price = item_price;
 	}
 	public int getItem_stock() {
 		return item_stock;

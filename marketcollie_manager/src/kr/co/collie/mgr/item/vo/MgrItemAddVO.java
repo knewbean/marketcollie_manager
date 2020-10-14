@@ -1,21 +1,32 @@
 package kr.co.collie.mgr.item.vo;
 
+import java.util.Arrays;
+
 public class MgrItemAddVO {
 	
-	private int cate_num, price, item_stock;
+	private int item_num, cate_num, item_price, item_stock;
 	private String item_name, item_unit, item_weight, item_img, item_guide, item_title, item_subtitle, item_detail;
 	private String[] detail_img;
+	
+	
+	public int getItem_num() {
+		return item_num;
+	}
+	public void setItem_num(int item_num) {
+		this.item_num = item_num;
+	}
 	public int getCate_num() {
 		return cate_num;
 	}
 	public void setCate_num(int cate_num) {
 		this.cate_num = cate_num;
 	}
-	public int getPrice() {
-		return price;
+	
+	public int getItem_price() {
+		return item_price;
 	}
-	public void setPrice(int price) {
-		this.price = price;
+	public void setItem_price(int item_price) {
+		this.item_price = item_price;
 	}
 	public int getItem_stock() {
 		return item_stock;
@@ -77,5 +88,15 @@ public class MgrItemAddVO {
 	public void setDetail_img(String[] detail_img) {
 		this.detail_img = detail_img;
 	}
+	@Override
+	public String toString() {
+		return "MgrItemAddVO [item_num=" + item_num + ", cate_num=" + cate_num + ", item_price=" + item_price
+				+ ", item_stock=" + item_stock + ", item_name=" + item_name + ", item_unit=" + item_unit
+				+ ", item_weight=" + item_weight + ", item_img=" + item_img + ", item_guide=" + item_guide
+				+ ", item_title=" + item_title + ", item_subtitle=" + item_subtitle + ", item_detail=" + item_detail
+				+ ", detail_img=" + Arrays.toString(detail_img) + "]";
+	}
+	
+	
 	
 }
