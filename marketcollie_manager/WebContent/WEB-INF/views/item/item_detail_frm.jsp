@@ -236,7 +236,7 @@ function delForm(){
 	<jsp:include page="/header.do" />
 	
 	<div id="container">
-	<div style="margin-left:550px ; font-size: 22px">상품 등록</div> 
+	<div style="margin-left:550px ; font-size: 22px">상품 조회</div> 
 	<hr style="border: 1px solid #333">
 		<div style="border: 1px solid #333" >
 		<div>
@@ -305,7 +305,6 @@ function delForm(){
 		<div style="margin-left: 650px; margin-top: 150px">
 			<input type="hidden" name="count" value="0"/>
 			<!-- 파라미터로 item_num 받아놓은거 -->
-			<input type="hidden" name="item_num" value="${ param.item_num }"/>
 			<input type="button" id="modifyBtn" value="수정"/> 
 			<div style="margin-left: 400px; margin-top: 120px"><input type="button" value="사진추가" onclick="addForm()"/></div>
 		</div>

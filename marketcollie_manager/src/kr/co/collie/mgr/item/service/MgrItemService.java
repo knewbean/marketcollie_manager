@@ -83,8 +83,12 @@ public class MgrItemService {
 	}
 	
 	
-	public MgrItemDetailDomain getItemDetail(int i) {
+	public MgrItemDetailDomain getItemDetail(int item_num) {
 		MgrItemDetailDomain midd = null;
+		
+		MgrItemDAO miDAO = MgrItemDAO.getInstance();
+		
+		midd = miDAO.selectItemDetail(item_num);
 		
 		return midd;
 	}//getItemDetail

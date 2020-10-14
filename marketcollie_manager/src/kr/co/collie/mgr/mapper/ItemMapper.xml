@@ -35,19 +35,55 @@
 	FROM CATEGORY
 	</select> 
   
-  <insert id="insertItem" parameterType="kr.co.collie.mgr.item.vo.MgrItemAddVO">
-  insert into item(ITEM_NUM, CATE_NUM, ITEM_NAME, ITEM_STOCK, ITEM_PRICE, ITEM_UNIT, ITEM_WEIGHT,
-								ITEM_GUIDE, ITEM_TITLE, ITEM_SUBTITLE, ITEM_DETAIL, ITEM_IMG)
-  values(seq_item_num.nextval, #{ CATE_NUM } , #{ ITEM_NAME }, #{ ITEM_STOCK }, #{ ITEM_PRICE }, #{ ITEM_UNIT }, #{ITEM_WEIGHT },
-								#{ ITEM_GUIDE }, #{ ITEM_TITLE }, #{ ITEM_SUBTITLE }, #{ ITEM_DETAIL }, #{ ITEM_IMG } )
-  </insert>
+   <insert id="insertItem" parameterType="kr.co.collie.mgr.item.vo.MgrItemAddVO" >
+  insert all
+	into item(Item_num, cate_num, item_name, item_stock, item_price, item_unit, item_weight, item_guide, item_title, item_subtitle, item_detail, item_img)
+  values(seq_item_num.nextval, #{ cate_num } , #{ item_name }, #{ item_stock }, #{ item_price }, #{ item_unit }, #{ item_weight },
+								#{ item_guide }, #{ item_title }, #{ item_subtitle }, #{ item_detail }, #{ item_img } )
+								
+	<foreach item="detail_img" collection="detail_img" >
+		into image( item_num, detail_img )  
+		values( seq_item_num.currval, #{ detail_img } )      
+	</foreach>
+		select 1 from dual
+    </insert>
+    
+  <update id="updateItem" parameterType="kr.co.collie.mgr.item.vo.MgrItemModifyVO">
   
-  <select id="selectItemDetail" resultType="kr.co.collie.mgr.item.domain.MgrItemDetailDomain">
+  update item
+  set  cate_num = #{ cate_num } , item_name = #{ item_name }, item_stock = #{ item_stock }, item_price = #{ item_price },
+  							item_unit =  #{ item_unit }, item_weight = #{ item_weight },
+							item_guide = #{ item_guide }, item_title = #{ item_title }, item_subtitle = #{ item_subtitle },
+							item_detail =  #{ item_detail }, item_img =#{ item_img }
+  where item_num = #{ item_num }
+  </update>
   
-  	select ca.cate_num, it.item_price, it.item_stock, ca.cate_name, it.item_name, it.item_unit,
-		it.item_weight, it.item_img, it.item_guide, it.item_title, it.item_subtitle, it.item_detail, im.detail_img
-	from item it, image im, category ca
-	where it.cate_num = ca.cate_num and im.item_num = it.item_num
-  	
+  <delete id="deleteItem" parameterType="int">
+  delete from image
+  where item_num=#{ item_num }
+  </delete>
+  
+    <insert id="modifyItem" parameterType="kr.co.collie.mgr.item.vo.MgrDetailItemVO" >
+    		insert into image( item_num, detail_img ) 
+    		values( #{ item_num }, #{ detail_img } )
+    </insert>
+  
+  <select id="selectItemDetail" parameterType="int" resultType="kr.co.collie.mgr.item.domain.MgrItemDetailDomain">
+select it.item_num ,ca.cate_num, it.item_price, it.item_stock, ca.cate_name, it.item_name, it.item_unit,
+		it.item_weight, it.item_img, it.item_guide, it.item_title, it.item_subtitle, it.item_detail
+	from item it, category ca
+	where (it.cate_num = ca.cate_num) and it.item_num=#{ item_num } 
   </select>
+  <select id="selectItemDetailImage" parameterType="int" resultType="String">
+	select detail_img
+	from image
+	where item_num=#{ item_num } 
+	and detail_img like 'tab%'
+	union all
+	select detail_img
+	from image
+	where item_num=#{ item_num } 
+	and detail_img not like 'tab%'
+  </select>
+  
 </mapper>
