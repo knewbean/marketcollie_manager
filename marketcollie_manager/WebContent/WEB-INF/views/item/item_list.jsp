@@ -126,7 +126,7 @@ function addItem() {
 }
 
 function itemReview(item_num) {
-		location.href="#";
+		location.href="../review/list.do?item_num="+item_num;
 }
 
 
