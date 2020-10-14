@@ -305,6 +305,7 @@ function delForm(){
 		<div style="margin-left: 650px; margin-top: 150px">
 			<input type="hidden" name="count" value="0"/>
 			<!-- 파라미터로 item_num 받아놓은거 -->
+			<input type="hidden"  name="item_num" value="${ param.item_num }" />
 			<input type="button" id="modifyBtn" value="수정"/> 
 			<div style="margin-left: 400px; margin-top: 120px"><input type="button" value="사진추가" onclick="addForm()"/></div>
 		</div>
