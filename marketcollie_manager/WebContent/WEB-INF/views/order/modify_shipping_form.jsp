@@ -43,7 +43,7 @@ $(function(){
 			return;
 		}//end if
 		
-		$("#modifyBtn").submit();
+		$("#cateAddFrm").submit();
 		
 	});//click
 	
@@ -64,8 +64,9 @@ $(function(){
 		</div>
 		
 		<div class="tab-div" id="cateTableDiv">
-	      <form action="add_cate_process.do" method="post" id="cateAddFrm">
+	      <form action="add_cate_process.do?currnet_page=${param.current_page}" method="post" id="cateAddFrm">
 	      <input type="hidden" name="order_num" value="${ param.order_num }"/>
+	      <input type="hidden" name="current_page" value="${ current_page }"/>
 			<table class="table">
 			  <tbody class="tbody-collie">
 			    <tr>
@@ -74,24 +75,24 @@ $(function(){
 			    </tr>
 			    <tr>
 			    <th style="width: 250px; padding-top: 18px">배송상태</th>
-			    <td><c:out value="${ param.order_num }"/></td>
+			    <td><c:out value="${ shipping.shipping_flag }"/></td>
 			    </tr>
 			    <tr>
 			      <th style="width: 250px; padding-top: 18px">택배사</th>
 			      <td style="width: 200px; ">
 			      <select name="company">
-			      	<option value="01">우체국택배</option>
-			      	<option value="04">대한통운</option>
-			      	<option value="05">한진택배</option>
-			      	<option value="06">로젠택배</option>
-			      	<option value="08">롯데택배</option>
+			      	<option value="01"<c:if test="${ shipping.company eq '01' }"> selected="selected"</c:if>>우체국택배</option>
+			      	<option value="04"<c:if test="${ shipping.company eq '04' }"> selected="selected"</c:if>>대한통운</option>
+			      	<option value="05"<c:if test="${ shipping.company eq '05' }"> selected="selected"</c:if>>한진택배</option>
+			      	<option value="06"<c:if test="${ shipping.company eq '06' }"> selected="selected"</c:if>>로젠택배</option>
+			      	<option value="08"<c:if test="${ shipping.company eq '08' }"> selected="selected"</c:if>>롯데택배</option>
 			      </select>
 			      </td>
 			    </tr>
 			    <tr>
 			      <th style="padding-top: 18px">운송장번호</th>
 			      <td>
-			      <input type="text" id="invoice_no" name="invoice_no"/>
+			      <input type="text" id="invoice_no" name="invoice_no" value="${ shipping.invoice_no }"/>
 			      </td>
 			    </tr>
 			 </tbody>

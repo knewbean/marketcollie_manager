@@ -7,6 +7,8 @@ import org.json.simple.JSONObject;
 
 import kr.co.collie.mgr.order.dao.MgrOrderDAO;
 import kr.co.collie.mgr.order.domain.MgrOrderListDomain;
+import kr.co.collie.mgr.order.domain.MgrOrderShippingDomain;
+import kr.co.collie.mgr.order.vo.MgrOrderShippingVO;
 import kr.co.collie.mgr.pagination.PaginationService;
 import kr.co.collie.mgr.pagination.RangeVO;
 import kr.co.collie.mgr.pagination.TotalCntVO;
@@ -55,5 +57,24 @@ public class MgrOrderService {
 		
 		return json.toJSONString();
 	}//moveCategoryList
+	
+	public MgrOrderShippingDomain getOrderShipping(int orderNum) {
+		MgrOrderShippingDomain mosd=null;
+		
+		mosd=MgrOrderDAO.getInstance().selectOrderShipping(orderNum);
+		
+		return mosd;
+	}//getOrderShipping
+	
+	public boolean modifyOrderShipping(MgrOrderShippingVO mosVO) {
+		boolean flag=false;
+		
+		int cnt=MgrOrderDAO.getInstance().updateOrderShipping(mosVO);
+		if(cnt==1) {
+			flag=true;
+		}//end if
+		
+		return flag;
+	}//modifyOrderShipping
 	
 }//class

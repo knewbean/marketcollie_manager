@@ -9,4 +9,16 @@
 	where rnum between #{ start_num } and #{ end_num }
 	</select>
 	
+	<select id="selectOrderShipping" parameterType="int" resultType="kr.co.collie.mgr.order.domain.MgrOrderShippingDomain">
+	select shipping_flag, company, invoice_no
+	from order_form
+	where order_num=#{ order_num }
+	</select>
+	
+	<insert id="updateOrderShipping" parameterType="kr.co.collie.mgr.order.vo.MgrOrderShippingVO">
+	update order_form
+	set shipping_flag='Y', company=#{company}, invoice_no=#{invoice_no}
+	where order_num=#{ order_num }
+	</insert>
+	
 </mapper>

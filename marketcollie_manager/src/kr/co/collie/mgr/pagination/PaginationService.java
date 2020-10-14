@@ -21,7 +21,7 @@ public class PaginationService {
 	 * @return
 	 */
 	public int pageScale() {
-		int page_scale=10;
+		int page_scale=1;
 		
 		return page_scale;
 	}//pageScale

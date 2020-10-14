@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 
 import kr.co.collie.mgr.dao.GetCollieHandler;
 import kr.co.collie.mgr.order.domain.MgrOrderListDomain;
+import kr.co.collie.mgr.order.domain.MgrOrderShippingDomain;
+import kr.co.collie.mgr.order.vo.MgrOrderShippingVO;
 import kr.co.collie.mgr.pagination.RangeVO;
 
 public class MgrOrderDAO {
@@ -31,5 +33,28 @@ public class MgrOrderDAO {
 		
 		return list;
 	}//selectOrderList
+	
+	public MgrOrderShippingDomain selectOrderShipping(int orderNum) {
+		MgrOrderShippingDomain mosd=null;
+		
+		SqlSession ss=GetCollieHandler.getInstance().getSqlSession();
+		mosd=ss.selectOne("selectOrderShipping", orderNum);
+		ss.close();
+		
+		return mosd;
+	}//selectOrderShipping
+	
+	public int updateOrderShipping(MgrOrderShippingVO mosVO) {
+		int cnt=0;
+		
+		SqlSession ss=GetCollieHandler.getInstance().getSqlSession();
+		cnt=ss.update("updateOrderShipping", mosVO);
+		if(cnt==1) {
+			ss.commit();
+		}//end if
+		ss.close();
+		
+		return cnt;
+	}//updateOrderShipping
 	
 }//class

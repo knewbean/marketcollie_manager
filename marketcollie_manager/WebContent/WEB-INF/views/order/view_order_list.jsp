@@ -35,12 +35,13 @@
 $(function(){
 });//ready
 
+var c_page=1;
 function movePage(current_page){
-	
+	c_page=	current_page;
 	$.ajax({
 		url:"move_order_list.do",
 		type:"POST",
-		data:"current_page="+current_page,
+		data:"current_page="+c_page,
 		dataType:"JSON",
 		error:function(xhr){
 			alert("에러");
@@ -96,8 +97,7 @@ function movePage(current_page){
 }//movePage
 
 function modifyShipping(orderNum){
-	
-	location.href="modify_shipping_form.do?order_num="+orderNum;
+	location.href="modify_shipping_form.do?order_num="+orderNum+"&current_page="+c_page;
 	
 }//modifyShipping
 
@@ -130,7 +130,9 @@ function modifyShipping(orderNum){
 			  <tbody class="tbody-collie">
 			  	<c:forEach var="order" items="${ order_list }">
 				    <tr>
-				      <td><c:out value="${ order.order_num }"/></td>
+				      <td>
+				      <c:out value="${ order.order_num }"/>
+				      </td>
 				      <td><c:out value="${ order.member_num }"/></td>
 				      <td><fmt:formatNumber pattern="#,###" value="${ order.total_price }"/></td>
 				      <td><c:out value="${ order.shipping_flag }"/></td>
