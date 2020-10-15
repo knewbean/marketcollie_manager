@@ -11,6 +11,9 @@
  
 <style type="text/css">
 #container{ width: 70%; margin: 0px auto; min-height: 700px; margin-top:50px; }
+.collieBtnMain{ border: 1px solid #77AF9C; padding: 25px 25px 25px 25px; text-align:right;  margin-left:50px ; color: #285943; font-size: 24px; background-color: #77AF9C; }
+.collie_font {color:#285943; border-color: #77AF9C; }
+
 </style>
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -28,15 +31,17 @@ $(function(){
 
 <div id="wrap">
 	
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<jsp:include page="/header.do" />
 	
 	<div id="container">
-		<div style="text-align: center; font-size: 40px; color:#285943; border-color: #77AF9C;">
+	<hr style="border: 3px solid #285943; background-color:#285943 "/>
+		<div style="margin-top: 150px ; margin-bottom: 150px; text-align: center; font-size: 30px; color:#285943; border-color: #77AF9C; margin-left: 50px" class="collie_font">
 			아이템 등록이 완료되었습니다.
 		</div>
-		<div style="text-align: center; ">
-		<input type="button" value="메인으로" />
+		<div style="text-align: center; margin-top: 150px; margin-bottom: 150px ">
+		<input type="button" value="메인으로" class="collieBtnMain" onclick="location.href='../category/list.do'" />
 		</div>
+	<hr style="border: solid 3px #285943; background-color:#285943 "/>
 	</div>
 	
 	
