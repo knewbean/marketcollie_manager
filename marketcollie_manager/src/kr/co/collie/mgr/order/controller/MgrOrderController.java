@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.collie.mgr.order.domain.MgrOrderDetailDomain;
 import kr.co.collie.mgr.order.domain.MgrOrderListDomain;
 import kr.co.collie.mgr.order.domain.MgrOrderShippingDomain;
 import kr.co.collie.mgr.order.service.MgrOrderService;
@@ -63,7 +63,7 @@ public class MgrOrderController {
 		return "order/modify_shipping_form";
 	}//modifyShipping
 	
-	@RequestMapping(value="/order/add_cate_process.do", method=POST)
+	@RequestMapping(value="/order/modify_shipping_process.do", method=POST)
 	public String modifyShipping(MgrOrderShippingVO mosVO) {
 		String url="";
 		
@@ -75,4 +75,13 @@ public class MgrOrderController {
 		return url;
 	}//modifyShipping
 	
+	@RequestMapping(value="/order/detail.do", method=GET)
+	public String viewOrderDetail(int order_num, String current_page, Model model) {
+		MgrOrderDetailDomain modd=new MgrOrderService().getOrderDetail(order_num);
+		
+		model.addAttribute("order_detail", modd);
+		model.addAttribute("current_page", current_page);
+		
+		return "order/view_order_detail";
+	}//modifyShipping
 }//class

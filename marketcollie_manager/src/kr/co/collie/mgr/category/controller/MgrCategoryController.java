@@ -5,8 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.collie.mgr.category.domain.CategoryListDomain;
+import kr.co.collie.mgr.category.domain.MgrCategoryDomain;
 import kr.co.collie.mgr.category.service.MgrCategoryService;
+import kr.co.collie.mgr.category.vo.MgrModifyCateVO;
 import kr.co.collie.mgr.pagination.PaginationService;
 import kr.co.collie.mgr.pagination.RangeVO;
 import kr.co.collie.mgr.pagination.TotalCntVO;
@@ -25,7 +26,7 @@ public class MgrCategoryController {
 		//처음 리스트가 불릴때는 1페이지이므로 current_page를 1로 준다
 		int current_page=1;
 		RangeVO rVO=new RangeVO(current_page); //RangeVO에 현재페이지를 넘겨주면 조회해야할 리스트의 시작번호, 끝번호를 초기화한다
-		List<CategoryListDomain> list=new MgrCategoryService().getCategoryList(rVO); //RangeVO로 글의 리스트를 조회
+		List<MgrCategoryDomain> list=new MgrCategoryService().getCategoryList(rVO); //RangeVO로 글의 리스트를 조회
 		
 		TotalCntVO tcVO=new TotalCntVO();
 		tcVO.setTable_name("category");
@@ -59,7 +60,27 @@ public class MgrCategoryController {
 		
 		if(new MgrCategoryService().addCategory(cate_name)) {
 			url="redirect:list.do";
-		};
+		}//end if
+		
+		return url;
+	}//addCategoryForm
+	
+	@RequestMapping(value="/category/modify_cate_form.do", method=GET)
+	public String modifyCatgoryForm(String cate_num, Model model) throws NumberFormatException {
+		int cateNum=Integer.parseInt(cate_num);
+		String cateName=new MgrCategoryService().getCategory(cateNum);
+		model.addAttribute("cate_name", cateName);
+		
+		return "cate/modify_cate_form";
+	}//addCategoryForm
+	
+	@RequestMapping(value="/category/modify_cate_process.do", method=POST)
+	public String modifyCatgoryProcess(MgrModifyCateVO mmcVO) {
+		String url="";
+		
+		if(new MgrCategoryService().modifyCategory(mmcVO)) {
+			url="redirect:list.do";
+		}//end if
 		
 		return url;
 	}//addCategoryForm

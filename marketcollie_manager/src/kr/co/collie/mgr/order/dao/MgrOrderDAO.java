@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.collie.mgr.dao.GetCollieHandler;
+import kr.co.collie.mgr.order.domain.MgrOrderDetailDomain;
+import kr.co.collie.mgr.order.domain.MgrOrderItemDomain;
 import kr.co.collie.mgr.order.domain.MgrOrderListDomain;
 import kr.co.collie.mgr.order.domain.MgrOrderShippingDomain;
 import kr.co.collie.mgr.order.vo.MgrOrderShippingVO;
@@ -56,5 +58,17 @@ public class MgrOrderDAO {
 		
 		return cnt;
 	}//updateOrderShipping
+	
+	public MgrOrderDetailDomain selectOrderDetail(int orderNum) {
+		MgrOrderDetailDomain modd=null;
+		List<MgrOrderItemDomain> list=null;
+		
+		SqlSession ss=GetCollieHandler.getInstance().getSqlSession();
+		modd=ss.selectOne("selectOrderDetail",orderNum);
+		list=ss.selectList("selectOrderItem",orderNum);
+		modd.setOrder_item(list);
+		
+		return modd;
+	}//selectOrderDetail
 	
 }//class

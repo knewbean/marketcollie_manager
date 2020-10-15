@@ -4,8 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import kr.co.collie.mgr.category.domain.CategoryListDomain;
+import kr.co.collie.mgr.category.domain.MgrCategoryDomain;
 import kr.co.collie.mgr.dao.GetCollieHandler;
+import kr.co.collie.mgr.item.domain.MgrCateListDomain;
 import kr.co.collie.mgr.item.domain.MgrItemDetailDomain;
 import kr.co.collie.mgr.item.domain.MgrItemListDomain;
 import kr.co.collie.mgr.item.vo.MgrDetailItemVO;
@@ -49,11 +50,11 @@ public class MgrItemDAO {
 		return cnt;
 	}//selectItemListCnt
 	
-	public List<CategoryListDomain> selectCategory(){
-		List<CategoryListDomain> list = null;
+	public List<MgrCateListDomain> selectCategory(){
+		List<MgrCateListDomain> list = null;
 		
 		SqlSession ss = GetCollieHandler.getInstance().getSqlSession();
-		list = ss.selectList("selectCategory");
+		list = ss.selectList("kr.co.collie.mgr.item.selectCategory");
 		ss.close();
 		
 		return list;
@@ -105,34 +106,5 @@ public class MgrItemDAO {
 		
 		return cnt;
 	}//updateItem
-	
-	public static void main(String[] args) {
-		
-		MgrItemModifyVO mimVO=new MgrItemModifyVO();
-		mimVO.setItem_num(61);
-		String[] detail_img = {"sda","asd"};
-//		mimVO.setDetail_img(detail_img);
-		//MgrDetailItemVO mdiVO = new MgrDetailItemVO();
-		//mdiVO.setItem_num(62);
-//		mdiVO.setDetail_img(detail_img);
-		
-//		System.out.println(MgrItemDAO.getInstance().updateDetailImg(mimVO));
-		
-		
-		//System.out.println(MgrItemDAO.getInstance().selectItemDetail(2));
-	}
-	
-	
-	
-	/*
-	 * public int deleteItem(int item_num ) { int cnt=0;
-	 * 
-	 * SqlSession ss = GetCollieHandler.getInstance().getSqlSession(); cnt =
-	 * ss.delete("deleteItem", item_num); ss.commit(); ss.close();
-	 * 
-	 * return cnt; }//deleteItem
-	 */	
-	//}//updateItem
-	
 	
 }//class

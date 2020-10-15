@@ -21,7 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import kr.co.collie.mgr.category.domain.CategoryListDomain;
+import kr.co.collie.mgr.category.domain.MgrCategoryDomain;
+import kr.co.collie.mgr.item.domain.MgrCateListDomain;
 import kr.co.collie.mgr.item.domain.MgrItemDetailDomain;
 import kr.co.collie.mgr.item.domain.MgrItemListDomain;
 import kr.co.collie.mgr.item.service.MgrItemService;
@@ -40,8 +41,8 @@ public class MgrItemController {
 		
 		MgrItemService mis=new MgrItemService();
 		
-		List<MgrItemListDomain> list = mis.getAllCate(irVO);
-		List<CategoryListDomain> cateList = mis.getCategory();
+		List<MgrItemListDomain> list = mis.getAllItem(irVO);
+		List<MgrCateListDomain> cateList = mis.getCategory();
 		
 		int totalCnt=mis.getTotalCnt(irVO);
 		String pagination=new PaginationService().getPagination(current_page, totalCnt);
@@ -70,118 +71,6 @@ public class MgrItemController {
 		return json;
 	}//
 	
-	
-	/**
-	 * 아이템 디테일 페이지 DB 값을 뿌려줌
-	 * @param item_num
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/item/detail.do")
-	public String getItemDetail(int item_num, Model model) {
-		
-		MgrItemService mis = new MgrItemService();
-		
-		MgrItemDetailDomain midd =  mis.getItemDetail(item_num);
-		
-		model.addAttribute("midd",midd);
-		
-		
-		
-		return "item/item_detail_frm";
-	}//getItemDetail
-	
-//	/**
-//	 * 아이템 이미지 추가를 위한 페이지
-//	 * @param request
-//	 * @param model
-//	 * @return
-//	 * @throws IOException
-//	 */
-//	@RequestMapping(value="/item/add_item_image.do", method = RequestMethod.GET)
-//	public String addItemImage(HttpServletRequest request, Model model )  {
-//		
-//		
-//		
-//		
-//		return "item/add_item_img_frm";
-//	}//addItemImage
-//	
-//	/**
-//	 * 아이템 이미지 추가하는 일
-//	 * @param request
-//	 * @param model
-//	 * @return
-//	 * @throws IOException
-//	 */
-//	@RequestMapping(value="/item/add_item_image_result.do", method = RequestMethod.POST)
-//	public String addItemImageResult(HttpServletRequest request, Model model ) throws IOException  {
-//		
-//		//업로드 파일이 저장될 폴더의 경로.
-//		String path="C:/Users/sist/git/marketcollie_manager/marketcollie_manager/WebContent/common/images/item";
-//		//업로드파일의 크기(byte) : 10MByte
-//		int maxSize = 1024 * 1024 * 10;
-//		//업로드를 수행할 MultipartRequest 생성 : upload수행
-//		MultipartRequest mr = new MultipartRequest(request, path, maxSize,"UTF-8", new DefaultFileRenamePolicy());
-//		//뷰에서 보여줄 값 설정
-//		
-//		model.addAttribute("file1_origin", mr.getOriginalFileName("file1"));
-//		model.addAttribute("file1_rename", mr.getFilesystemName("file1"));
-//		
-//		
-//		
-//		return "forward:add_item_img_result.jsp";
-//	}//addItemImage
-//	
-//	/**
-//	 * 디테일 이미지 추가하는 일
-//	 * @param request
-//	 * @param model
-//	 * @return
-//	 * @throws IOException
-//	 */
-//	@RequestMapping(value="/item/add_detail_image_result.do", method = RequestMethod.POST)
-//	public String addImageResult(HttpServletRequest request, Model model ) throws IOException  {
-//		
-//		//업로드 파일이 저장될 폴더의 경로.
-//		String path="C:/Users/sist/git/marketcollie_manager/marketcollie_manager/WebContent/common/images/item";
-//		//업로드파일의 크기(byte) : 10MByte
-//		int maxSize = 1024 * 1024 * 10;
-//		//업로드를 수행할 MultipartRequest 생성 : upload수행
-//		MultipartRequest mr = new MultipartRequest(request, path, maxSize,"UTF-8", new DefaultFileRenamePolicy());
-//		//뷰에서 보여줄 값 설정
-//		
-//		model.addAttribute("file1_origin", mr.getOriginalFileName("file1"));
-//		model.addAttribute("file1_rename", mr.getFilesystemName("file1"));
-//		
-//		
-//		
-//		return "forward:add_detail_img_result.jsp";
-//	}//addItemImage
-//	
-//	/**
-//	 * 디테일 이미지 추가하는 페이지
-//	 * @param request
-//	 * @return
-//	 */
-//	@RequestMapping(value = "/item/add_detail_image.do")
-//	public String addItemDetailImage(HttpServletRequest request) {
-//		
-//		
-//		return "item/add_detail_img_frm";
-//	}//addItemDetailImage
-//	
-//	/**
-//	 * 아이템 탭 이미지 추가하는 폼
-//	 * @param request
-//	 * @return
-//	 */
-//	@RequestMapping(value = "/item/add_item_tab_image.do")
-//	public String addItemTabImg(HttpServletRequest request) {
-//		
-//		return "";
-//	}//addItemTabImg
-	
 	/**
 	 * 아이템 추가를 위한 페이지
 	 * @param model
@@ -192,8 +81,8 @@ public class MgrItemController {
 	@RequestMapping(value="/item/add_form.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public String addItemForm( Model model ){
 		
-		
-		
+		List<MgrCateListDomain> list=new MgrItemService().getCategory();
+		model.addAttribute("cate_list", list);
 		
 		return "item/add_item_frm";
 	}//addItemForm
@@ -262,6 +151,25 @@ public class MgrItemController {
 	}//ioExceptionHandling
 	
 	/**
+	 * 아이템 디테일 페이지 DB 값을 뿌려줌
+	 * @param item_num
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/item/detail.do")
+	public String getItemDetail(int item_num, Model model) {
+		
+		MgrItemService mis = new MgrItemService();
+		MgrItemDetailDomain midd=mis.getItemDetail(item_num);
+		List<MgrCateListDomain> list=mis.getCategory();
+		
+		model.addAttribute("midd",midd);
+		model.addAttribute("cate_list", list);
+		
+		return "item/item_detail_frm";
+	}//getItemDetail
+	
+	/**
 	 * 아이템을 수정 하는 일
 	 * @param mimVO
 	 * @param model
@@ -315,25 +223,6 @@ public class MgrItemController {
 		
 		return url;
 	}//modifyItem
-	
-	/**
-	 * 아이템을 삭제하는 일
-	 * @param item_num
-	 * @param model
-	 * @return
-	 */
-	/*
-	 * @RequestMapping(value = "/item/remove_item.do") public String removeItem(int
-	 * item_num, Model model) { boolean flag = false;
-	 * 
-	 * MgrItemService mis = new MgrItemService();
-	 * 
-	 * flag = mis.removeItem(item_num);
-	 * 
-	 * 
-	 * return "redirect:remove_item_result.jsp"; }//removeItem
-	 */	
-	
 	
 }//class
 

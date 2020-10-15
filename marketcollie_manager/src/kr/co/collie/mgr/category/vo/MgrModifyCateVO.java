@@ -1,9 +1,9 @@
-package kr.co.collie.mgr.item.domain;
+package kr.co.collie.mgr.category.vo;
 
-public class MgrCateListDomain {
+public class MgrModifyCateVO {
+	
 	private int cate_num;
 	private String cate_name;
-	
 	public int getCate_num() {
 		return cate_num;
 	}
