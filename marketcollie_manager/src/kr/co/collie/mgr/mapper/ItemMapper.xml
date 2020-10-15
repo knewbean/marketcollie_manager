@@ -36,16 +36,15 @@
 	</select> 
   
    <insert id="insertItem" parameterType="kr.co.collie.mgr.item.vo.MgrItemAddVO" >
-  insert all
+  	insert all
 	into item(Item_num, cate_num, item_name, item_stock, item_price, item_unit, item_weight, item_guide, item_title, item_subtitle, item_detail, item_img)
-  values(seq_item_num.nextval, #{ cate_num } , #{ item_name }, #{ item_stock }, #{ item_price }, #{ item_unit }, #{ item_weight },
+  	values(seq_item_num.nextval, #{ cate_num } , #{ item_name }, #{ item_stock }, #{ item_price }, #{ item_unit }, #{ item_weight },
 								#{ item_guide }, #{ item_title }, #{ item_subtitle }, #{ item_detail }, #{ item_img } )
-								
 	<foreach item="detail_img" collection="detail_img" >
 		into image( item_num, detail_img )  
 		values( seq_item_num.currval, #{ detail_img } )      
 	</foreach>
-		select 1 from dual
+	select 1 from dual
     </insert>
     
   <update id="updateItem" parameterType="kr.co.collie.mgr.item.vo.MgrItemModifyVO">

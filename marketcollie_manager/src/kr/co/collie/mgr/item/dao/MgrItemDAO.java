@@ -87,8 +87,16 @@ public class MgrItemDAO {
 		
 		SqlSession ss = GetCollieHandler.getInstance().getSqlSession();
 		cnt = ss.update("updateItem",mimVO);
-		if(cnt!=0) {
+		if(cnt==1) {
 			ss.delete("deleteItem", mimVO.getItem_num());
+			
+			MgrDetailItemVO mdiVO=new MgrDetailItemVO();
+			mdiVO.setItem_num(mimVO.getItem_num());
+			for(int i=0; i<mimVO.getDetail_img().size(); i++) {
+				mdiVO.setDetail_img(mimVO.getDetail_img().get(i));
+				ss.insert("modifyItem", mdiVO);
+			}//end for
+			
 			ss.commit();
 		}else {
 			ss.rollback();
@@ -98,36 +106,17 @@ public class MgrItemDAO {
 		return cnt;
 	}//updateItem
 	
-	public int updateDetailImg( MgrItemModifyVO mmVO) {
-		int cnt = 0;
-		
-		SqlSession ss = GetCollieHandler.getInstance().getSqlSession();
-		MgrDetailItemVO mdiVO=new MgrDetailItemVO();
-		mdiVO.setItem_num(mmVO.getItem_num());
-		
-		for(int i=0; i<mmVO.getDetail_img().length; i++) {
-			mdiVO.setDetail_img(mmVO.getDetail_img()[i]);
-			ss.insert("modifyItem", mdiVO);
-			cnt++;
-		}//end for
-		
-		ss.commit();
-		ss.close();
-		
-		return cnt;
-	}//updateDetailImg
-	
 	public static void main(String[] args) {
 		
 		MgrItemModifyVO mimVO=new MgrItemModifyVO();
 		mimVO.setItem_num(61);
 		String[] detail_img = {"sda","asd"};
-		mimVO.setDetail_img(detail_img);
+//		mimVO.setDetail_img(detail_img);
 		//MgrDetailItemVO mdiVO = new MgrDetailItemVO();
 		//mdiVO.setItem_num(62);
 //		mdiVO.setDetail_img(detail_img);
 		
-		System.out.println(MgrItemDAO.getInstance().updateDetailImg(mimVO));
+//		System.out.println(MgrItemDAO.getInstance().updateDetailImg(mimVO));
 		
 		
 		//System.out.println(MgrItemDAO.getInstance().selectItemDetail(2));

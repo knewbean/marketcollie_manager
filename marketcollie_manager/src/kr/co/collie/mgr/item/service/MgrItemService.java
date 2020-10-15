@@ -99,7 +99,6 @@ public class MgrItemService {
 		MgrItemDAO miDAO = MgrItemDAO.getInstance();
 		flag = miDAO.insertItem(miaVO) != 0;
 		
-		
 		return flag;
 	}//addItem
 	
@@ -113,14 +112,13 @@ public class MgrItemService {
 		return flag;
 	}//modifyItem
 	
-	public boolean modifyDetailImg(MgrItemModifyVO mimVO) {
-		boolean flag = false;
-		
-		MgrItemDAO miDAO = MgrItemDAO.getInstance();
-		flag = miDAO.updateDetailImg(mimVO) != 0;
-		
-		return flag;
-	}//modifyDetailImg
+//	public boolean modifyDetailImg(MgrItemModifyVO mimVO) {
+//		boolean flag = false;
+//		
+//		MgrItemDAO miDAO = MgrItemDAO.getInstance();
+//		
+//		return flag;
+//	}//modifyDetailImg
 	
 	/*
 	 * public boolean removeItem(int item_num) { boolean flag = false;

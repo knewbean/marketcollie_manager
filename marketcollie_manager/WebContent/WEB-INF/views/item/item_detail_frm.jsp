@@ -97,17 +97,13 @@ $(function(){
 			
 	});//click
 	
+	$("#mtqBtn").click(function(){
+		
+		location.href="";
+		
+	})//click
+	
 	var windowObj;
-	
-	var popupWidth = 200;
-	var popupHeight = 300;
-
-	var popupX = (window.screen.width / 2) - (popupWidth / 2);
-	// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
-
-	var popupY= (window.screen.height / 2) - (popupHeight / 2);
-	// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
-	
 	/* 아이템 이미지 변경  */
 	$("#addImgBtn").click(function(){
 		
@@ -118,8 +114,18 @@ $(function(){
 			windowObj = window.open(popUrl,"",popOption);
 
 	});//click
+	
 	/* 디테일 이미지 변경 */
 	$("#modifyDetailBtn").click(function(){
+		
+		var popupWidth = 200;
+		var popupHeight = 300;
+
+		var popupX = (window.screen.width / 2) - (popupWidth / 2);
+		// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+
+		var popupY= (window.screen.height / 2) - (popupHeight / 2);
+		// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
 		
 		var popUrl = "add_detail_image.do";	//팝업창에 출력될 페이지 URL
 
@@ -233,7 +239,7 @@ function delForm(){
 	
 	<div id="container">
 	<div style="text-align: left">
-	<div style="margin-left:590px ; font-size: 30px" class="subtitle">상품 조회</div>
+	<span style="margin-left:590px ; font-size: 30px" class="subtitle">상품 조회</span><input type="button" id="mtqBtn" value="상품문의" style="margin-left: 200px; padding: 10px 10px 6px 6px;" class="collieBtnMain" />
 	<hr style="border: 1px solid #285943; width:1000px"/>
 	</div>
 		<div >
@@ -344,7 +350,7 @@ function delForm(){
 		</div>
 		</div>
 		</div>
-		<hr style="border: 1px solid #285943; width:1100px"/>
+		<hr style="border: 1px solid #285943; width:1000px"/>
 		<div style="height: 80px"></div>
 	</div>
 	
