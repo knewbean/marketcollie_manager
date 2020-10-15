@@ -12,7 +12,6 @@
 <style type="text/css"> 
 #container{ width: 70%; margin: 0px auto; min-height: 700px; margin-top:50px; }
 .collie_font {color:#285943; border-color: #77AF9C; }
-.col-form-label{ padding-right: 0px; padding-left: 50px }
 hr{ margin-top: 40px; }
 td{ width:100px; font-size: 18px; height:50px }
 .form-control{ width: 170px; }
@@ -29,7 +28,7 @@ $(function(){
 	$("#modifyBtn").click(function(){
 		
 			if($("#item_img").val()==""){
-				alert("물건명을 입력해주세요");
+				alert("물건명을 입력해주세요"); 
 				return;
 			}//end if
 			
@@ -241,7 +240,7 @@ function delForm(){
 		<div>
 		<form id="insertFrm" name="insertFrm" action="modify_item.do" method="post" >
 		<div>
-		<div style="margin-left: 220px; float:left;">
+		<div style="margin-left: 220px; float:left">
   				 <div id="changeVal"><img src="http://localhost/mgr/common/images/item/${ midd.item_img }"  width='150' height='150'/></div>
 			   <div style="font-size: 18px; text-align:center; background-color:#77AF9C; width: 150px; border: 1px solid #333" class="collie_font">대표 이미지</div>
 			   <div><input type="text" id="item_img" name="item_img" value="${ midd.item_img }" class="form-horizon" readonly="readonly" style="width: 150px; height: 35px"/>
