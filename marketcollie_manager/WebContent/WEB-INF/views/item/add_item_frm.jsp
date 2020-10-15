@@ -11,26 +11,12 @@
 
 <style type="text/css">
 #container{ width: 70%; margin: 0px auto; min-height: 700px; margin-top:50px; }
-#containerMenu{ width: 200px; float: left; }
-#menuTitle{ text-align: center; }
-.table-bordered{ width: 200px; text-align: left; margin-top: 30px; color: #666666; font-size: 15px; }
-.table-bordered td:hover{ background-color: #F7F7F7; color: #17462B }
-.table-bordered td{ cursor: pointer; }
-#qnaBox{ background-color: #F7F7F7; color: #666666; padding: 10px; font-size: 13px; padding-left: 20px }
-#qnaBox:hover{ cursor: pointer; }
-#cscBox{ color: #666666; font-size: 14px; margin-top: 70px }
-#contentWrap{ margin-left: 240px }
-#containerSubTitle{ border-bottom: 1px solid #333; margin-top: 30px; padding-bottom: 0px; color: #666666 }
-#containerContent{ margin-top: 90px }
-#passForm{ width: 620px; margin: 0px auto }
-.col-form-label{ padding-right: 0px; padding-left: 50px }
-#pass{ width:300px;  padding: 0px; margin-left: 60px }
+.collie_font {color:#285943; border-color: #77AF9C; }
 hr{ margin-top: 90px }
 td{ width:100px; font-size: 18px; height:50px }
 .form-control{ width: 170px; }
-.btn-primary{ background-color: #17462B; border-color: #17462B; margin:0px auto; margin-top: 30px; width: 250px; padding: 15px  }
-.btn-primary:hover, .btn-primary:active, .btn-primary:focus{ background-color: #17462B !important; }
-#btnDiv{ width: 250px; margin: 0px auto }
+.subtitle {color:#77AF9C; margin: 0px auto;  font-weight: bold; font-size:1.5rem; padding-top:3rem;}
+.collieBtnMain{ border: 1px solid #77AF9C; padding: 25px 25px 25px 25px; text-align:right;  margin-left:50px ; color: #285943; font-size: 15px; background-color: #77AF9C; }
 </style>
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -40,7 +26,7 @@ td{ width:100px; font-size: 18px; height:50px }
 <script type="text/javascript">
 $(function(){
 	$("#insertBtn").click(function(){
-		
+		 
 			if($("#item_img").val()==""){
 				alert("물건명을 입력해주세요");
 				return;
@@ -122,21 +108,37 @@ $(function(){
 
 	});//click
 	
-	
-	$("#item_img").change(function(){
-		alert("들어옴");
-		document.getElementById("changeVal").innerHTML = "<img src='http://localhost/mgr/upload_file/'"+imgSrc+"/>";
-	});
-	
-	$("#imgInput").change(function(){
-		   readURL(this);
-		});
-	
-	$("#detail_img").change(function(){
-		   readURL(this);
-		});
+	/* 디테일 이미지 변경 */
+	$("#modifyDetailBtn").click(function(){
+		
+		var popUrl = "add_detail_image.do";	//팝업창에 출력될 페이지 URL
 
-    
+		var popOption = "width=370, height=300, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+
+			windowObj = window.open(popUrl,"",popOption);
+
+	});//click
+	
+	$("#detail_img1").change(function(){
+		var imgSrc = document.getElementById("detail_img1").files[0].name; ;
+		document.getElementById("addDiv1").innerHTML = "<img src='http://localhost/mgr/common/images/item/"+imgSrc+"' width='150' height='150' />";
+	});//onchange
+	
+	$("#detail_img2").change(function(){
+		var imgSrc = document.getElementById("detail_img2").files[0].name; ;
+		document.getElementById("addDiv2").innerHTML = "<img src='http://localhost/mgr/common/images/item/"+imgSrc+"' width='150' height='150' />";
+	});//onchange
+	
+	$("#detail_img3").change(function(){
+		var imgSrc = document.getElementById("detail_img3").files[0].name; ;
+		document.getElementById("addDiv3").innerHTML = "<img src='http://localhost/mgr/common/images/item/"+imgSrc+"' width='150' height='150' />";
+	});//onchange
+	
+	$("#detail_img4").change(function(){
+		var imgSrc = document.getElementById("detail_img4").files[0].name; ;
+		document.getElementById("addDiv4").innerHTML = "<img src='http://localhost/mgr/common/images/item/"+imgSrc+"' width='150' height='150' />";
+	});//onchange
+	
 });//ready 
 
 var count = 0;
@@ -221,7 +223,15 @@ function readURL(input) {
 	function processImg(img){
 		var imgSrc = document.insertFrm.item_img.value;
 		if( img != ""){
-			document.getElementById("changeVal").innerHTML = "<img src='http://localhost/mgr/upload_file/"+imgSrc+"' width='150' height='150' />";
+			document.getElementById("changeVal").innerHTML = "<img src='http://localhost/mgr/common/images/item/"+imgSrc+"' width='150' height='150' />";
+		}//end if			
+	}//processImg
+	
+	function processDetailImg(img){
+		var detail = document.insertFrm.detailVal.value;
+		if( img != ""){
+			document.getElementById("receiveDetail").value = detail; 
+			document.getElementById("tab_img").innerHTML = "<img src='http://localhost/mgr/common/images/item/"+document.getElementById("receiveDetail").value+"' width='150' height='150' />";
 		}//end if			
 	}//processImg
 	
@@ -236,54 +246,63 @@ function readURL(input) {
 	<jsp:include page="/header.do" />
 	
 	<div id="container">
-	<div style="margin-left:550px ; font-size: 22px">상품 등록</div> 
-	<hr style="border: 1px solid #333">
-		<div style="border: 1px solid #333" >
+	<div style="text-align: left">
+	<div style="margin-left:590px ; font-size: 30px" class="subtitle">상품 등록</div> 
+	<hr style="border: 1px solid #285943; width:1000px"/>
+	</div>
+		<div >
 		<div>
 		<form id="insertFrm" name="insertFrm" action="add_item.do" method="post" >
 		<div>
-		<div style="margin-left: 220px; margin-top: 150px">
+		<div style="margin-left: 220px; float:left">
   				 <div id="changeVal"></div>
-			   <div>대표 이미지</div>
-			   <div><input type="text" id="item_img" name="item_img" class="form-control" readonly="readonly"/><input type="button" id="addImgBtn" value="이미지 추가"/></div>
+  				 <div><input type="text" id="item_img" name="item_img" class="form-horizon" readonly="readonly" style="width: 150px; height: 35px"/>
+			   <input type="button" id="addImgBtn" style="padding: 10px 10px 6px 6px; margin-left: 20px; border: 1px solid #333" class="collieBtnMain" value="이미지 추가" /></div>
+			   <!-- <div style="font-size: 18px; text-align:center; background-color:#77AF9C; width: 150px; border: 1px solid #333" class="collie_font">대표 이미지</div>
+			   <div><input type="text" id="item_img" name="item_img" class="form-control" readonly="readonly"/><input type="button" id="addImgBtn" value="이미지 추가"/></div> -->
 		</div>
 		</div>
 		
-		<div style="margin-left: 750px">
+		<div style="margin-left: 750px; margin-top: 80px">
 		<table>
 		<tr>
-		<td><span  style="width:80px; font-size: 18px">카테고리</span></td>
-		<td><select style="width: 120px" id="cate_num" name="cate_num" >
-			<option value=10>채소
-			<option value=20>정육
-			<option value=30>과일
-			<option value=40>빵
-			<option value=50>유제품
+		<td><span  style="width:80px; font-size: 18px" class="collie_font">카테고리</span></td>
+		<td><select style="width: 120px" id="cate_num" name="cate_num"  class="form-control" >
+			<option value=10 <c:if test="${midd.cate_num eq 10}">selected="selected"</c:if>>채소
+			<option value=20 <c:if test="${midd.cate_num eq 20}">selected="selected"</c:if>>정육
+			<option value=30 <c:if test="${midd.cate_num eq 30}">selected="selected"</c:if>>과일
+			<option value=40 <c:if test="${midd.cate_num eq 40}">selected="selected"</c:if>>빵
+			<option value=50 <c:if test="${midd.cate_num eq 50}">selected="selected"</c:if>>유제품
 		</select></td>
 		<tr>
-		<td>상품명</td> <td><input type="text" id="item_name" name="item_name" class="form-control"/></td>
+		<td class="collie_font">상품명</td> <td><input type="text" id="item_name" name="item_name" class="form-control" value="${ midd.item_name }"/></td>
 		</tr>
 		<tr>
-		<td>가격</td> <td><input type="text" id="item_price" name="item_price" class="form-control"/></td>
+		<td  class="collie_font">가격</td> <td><input type="text" id="item_price" name="item_price" class="form-control" value="${ midd.item_price }"/></td>
 		</tr>
 		<tr>
-		<td>중량/용량</td> <td><input type="text" id="item_weight" name="item_weight" class="form-control"/></td>
+		<td class="collie_font">중량/용량</td> <td><input type="text" id="item_weight" name="item_weight" class="form-control" value="${ midd.item_weight }"/></td>
 		</tr>
 		<tr>
-		<td>판매단위</td> <td><input type="text" id="item_unit" name="item_unit" class="form-control"/></td>
+		<td class="collie_font">판매단위</td> <td><input type="text" id="item_unit" name="item_unit" class="form-control" value="${ midd.item_unit }"/></td>
 		</tr>
 		<tr>
-		<td>재고</td> <td><input type="text" id="item_stock" name="item_stock" class="form-control"/></td>
+		<td class="collie_font">재고</td> <td><input type="text" id="item_stock" name="item_stock" class="form-control" value="${ midd.item_stock}"/></td>
 		</tr>
 		<tr>
-		<td>안내사항</td> <td><textarea id="item_guide" name="item_guide" class="form-control" style="resize: none; width: 300px; height: 200px"></textarea></td>
+		<td class="collie_font">안내사항</td> <td><textarea id="item_guide" name="item_guide" class="form-control" style="resize: none; width: 300px; height: 200px" ><c:out value="${ midd.item_guide }"></c:out></textarea></td>
 		</tr>
 		</table>
 		</div>
-		<div style="margin-top: 70px; margin-left: 120px">
-		<div style="margin-left: 480px; font-size: 20px">상품상세설명</div>
-		<div style="margin-left: 480px; font-size: 20px">상품상세설명</div>
+		<hr style="border: 1px solid #285943; width:1000px"/>
+		<div style="margin-top: 40px; margin-left: 180px">
+		<div style="margin-left: 400px; font-size: 25px" class="subtitle">상품상세설명</div>
+		
 		<!-- 상세 이미지 들어갈 곳 -->
+		<div style="margin-left:  330px; margin-top:30px">
+		<div id="tab_img" style="margin-left:  50px"></div>
+		<div style="margin-top: 30px"><input type="text" name="detail_img" id="receiveDetail" value="${ midd.detail_img[0] }" readonly="readonly" class="form-horizon" style="height: 40px" /><input type="button" id="modifyDetailBtn" value=" 이미지 등록" class="collieBtnMain" style="padding: 10px 10px 10px 10px; margin-left: 20px"/></div></div>
+		<input type="hidden" name="detailVal" id="detailVal"/>
 		<table style="margin-top: 130px; margin-bottom: 50px">
 		<tr>
 		<td><input type="email" id="item_title" name="item_title" class="form-control" style="width: 1000px"/></td>
@@ -292,23 +311,46 @@ function readURL(input) {
 		<td><input type="email" id="item_subtitle" name="item_subtitle" class="form-control" style="width: 1000px"/></td>
 		</tr>
 		<tr> 
-		<td><input type="email" id="item_detail" name="item_detail" class="form-control" style="width: 1000px"/></td>
+		<td><textarea id="item_detail" name="item_detail" class="form-control" style="resize: none; width: 1000px; height: 250px"></textarea></td>
 		</tr>
-		</table> 
+		</table>
 		</div>
-		<div style="margin-left: 650px; margin-top: 150px">
+		<div style="margin-left: 520px; margin-top: 80px">
 			<input type="hidden" name="count" value="0">
-			<input type="button" id="insertBtn" value="등록"/> 
-			<div style="margin-left: 400px; margin-top: 120px"><input type="button" value="사진추가" onclick="addForm()"/></div>
+		    <input type="button" id="insertBtn" value="등록" class="collieBtnMain" style="padding: 10px 100px 10px 100px; text-align: right;"/> 
+			<div style="margin-left: 400px; margin-top: 80px"><input type="button" value="사진추가" onclick="addForm()" class="collieBtnMain" style="padding: 10px 10px 10px 10px;"/></div>
 		</div>
-		<div>이미지 <input type="file" id ="detail_img" name="detail_img"/></div>
+		<div style="margin-left: 200px">
+		<div style="font-size: 25px; margin-bottom: 90px; margin-left: 420px" class="subtitle">이미지 선택</div>
+		<%-- <c:if test="${ midd.detail_img[1] ne null  }">
+		<div style="margin-left:  400px" id="addDiv1"><img src="http://localhost/mgr/common/images/item/${ midd.detail_img[1] }"  width='150' height='150'/></div>
+		</c:if> --%>
+		<div style="margin-left:  400px" id="addDiv1"></div>
+		<div>이미지 <input type="file" id ="detail_img1" name="detail_img"/></div>
+		<c:if test="${ midd.detail_img[2] ne null  }">
+		<div style="margin-left:  400px" id="addDiv2"><img src="http://localhost/mgr/common/images/item/${ midd.detail_img[2] }"  width='150' height='150'/></div>
+		</c:if>
+		<div style="margin-left:  400px" id="addDiv2"></div>
+		<div>이미지 <input type="file" id ="detail_img2" name="detail_img"/></div>
+		<c:if test="${ midd.detail_img[3] ne null  }">
+		<div style="margin-left:  400px" id="addDiv3"><img src="http://localhost/mgr/common/images/item/${ midd.detail_img[3] }"  width='150' height='150'/></div>
+		</c:if>
+		<div style="margin-left:  400px" id="addDiv3"></div>
+		<div>이미지 <input type="file" id ="detail_img3" name="detail_img"/></div>
+		<c:if test="${ midd.detail_img[4] ne null  }">
+		<div style="margin-left:  400px" id="addDiv4"><img src="http://localhost/mgr/common/images/item/${ midd.detail_img[4] }"  width='150' height='150'/></div>
+		</c:if>
+		<div style="margin-left:  400px" id="addDiv4"></div>
+		<div>이미지 <input type="file" id ="detail_img4" name="detail_img"/></div> 
 		<div id="addedFormDiv"></div>
+		</div>
 		</form>
-		<hr/>
-		</div>
-		<div></div>
+		
 		</div>
 		</div>
+		</div>
+		<hr style="border: 1px solid #285943; width:1100px"/>
+		<div style="height: 80px"></div>
 	</div>
 	
 	
