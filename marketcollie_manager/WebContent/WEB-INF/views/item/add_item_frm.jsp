@@ -30,7 +30,7 @@ $(function(){
 			if($("#item_img").val()==""){
 				alert("물건명을 입력해주세요");
 				return;
-			}//end if
+			}//end if 
 			
 			if($("#item_name").val().trim()==""){
 				alert("물건명을 입력해주세요");
