@@ -55,7 +55,7 @@ public class MgrItemController {
 	@ResponseBody
 	public String SearchItemList(String current_page, String cate_name, String search_word) throws NumberFormatException {
 		String json="";
-		if(current_page==null || "".equals(current_page) || "undefined".equals(current_page)) {
+		if(current_page==null || "".equals(current_page)) {
 			current_page="1";
 		}//end if
 		
