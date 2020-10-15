@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="/collie_user/common/css/common.css">
 
 <style type="text/css">
-#btnDiv{ width: 250px; margin: 0px auto }
+.subtitle {color:#77AF9C; margin: 0px auto;  font-weight: bold; font-size:1.5rem; padding-top:3rem;}
 </style> 
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -25,12 +25,10 @@ $(function(){
 </head>
 <body>
 			<form id="frm" action="add_item_image_result.do" method="post" enctype="multipart/form-data">
-			<div>
-	
-			<label>파일선택</label> <input type="file" id="file1" name="file1" class="inputBox"/><br/>
+			<label class="subtitle">파일선택</label>
+			<div style="margin-top: 20px" >
+			 <input type="file" id="file1" name="file1" style="border: 1px solid #A6A6A6" /> <input type="submit" value="업로드" class="btnLoc" id=btn /><br/>
 			
-			
-			<input type="submit" value="업로드" class="btnLoc" id=btn />
 			</div>
 			</form>
 </body>

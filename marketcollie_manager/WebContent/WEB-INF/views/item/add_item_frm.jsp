@@ -242,7 +242,7 @@ function readURL(input) {
 		<div>
 		<form id="insertFrm" name="insertFrm" action="add_item.do" method="post" >
 		<div>
-		<div style="margin-left:  220px; margin-top: 150px">
+		<div style="margin-left: 220px; margin-top: 150px">
   				 <div id="changeVal"></div>
 			   <div>대표 이미지</div>
 			   <div><input type="text" id="item_img" name="item_img" class="form-control" readonly="readonly"/><input type="button" id="addImgBtn" value="이미지 추가"/></div>
