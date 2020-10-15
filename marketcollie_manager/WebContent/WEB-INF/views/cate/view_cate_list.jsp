@@ -56,7 +56,7 @@ function movePage(current_page){
 	      		tab+='</thead>';
 	      		tab+='<tbody class="tbody-collie">';
 	      		$.each(jsonObj.cate_list,function(i, json){
-		      		tab+='<tr>';
+		      		tab+='<tr onclick="javascript:location.href=\'modify_cate_form.do?cate_num='+json.cate_num+'\'"  style="cursor: pointer;">';
 		      		tab+='<th>';
 		      		tab+=json.cate_num;
 		      		tab+='</th>';
@@ -101,7 +101,7 @@ function movePage(current_page){
 			  </thead>
 			  <tbody class="tbody-collie">
 			  	<c:forEach var="cate" items="${ cate_list }">
-				    <tr>
+				    <tr onclick="javascript:location.href='modify_cate_form.do?cate_num=${cate.cate_num}'" style="cursor: pointer;">
 				      <th><c:out value="${ cate.cate_num }"/></th>
 				      <td><c:out value="${ cate.cate_name }"/></td>
 				    </tr>

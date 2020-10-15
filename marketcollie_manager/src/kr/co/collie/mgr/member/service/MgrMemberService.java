@@ -6,7 +6,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import kr.co.collie.mgr.category.dao.MgrCategoryDAO;
-import kr.co.collie.mgr.category.domain.CategoryListDomain;
+import kr.co.collie.mgr.category.domain.MgrCategoryDomain;
 import kr.co.collie.mgr.member.dao.MgrMemberDAO;
 import kr.co.collie.mgr.member.domain.MgrMemberDetailDomain;
 import kr.co.collie.mgr.member.domain.MgrMemberListDomain;

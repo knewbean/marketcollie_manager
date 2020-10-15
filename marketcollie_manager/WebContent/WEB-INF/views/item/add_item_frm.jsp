@@ -161,13 +161,13 @@ function delForm(count){
 		<table>
 		<tr>
 		<td><span  style="width:80px; font-size: 18px" class="collie_font">카테고리</span></td>
-		<td><select style="width: 120px" id="cate_num" name="cate_num"  class="form-control" >
-			<option value=10>채소
-			<option value=20>정육
-			<option value=30>과일
-			<option value=40>빵
-			<option value=50>유제품
-		</select></td>
+		<td>
+		<select style="width: 120px" id="cate_num" name="cate_num"  class="form-control" >
+		<c:forEach var="cate" items="${ cate_list }">
+			<option value="${ cate.cate_num }" ><c:out value="${ cate.cate_name }"/>
+		</c:forEach>
+		</select>
+		</td>
 		<tr>
 		<td class="collie_font">상품명</td> <td><input type="text" id="item_name" name="item_name" class="form-control"/></td>
 		</tr>

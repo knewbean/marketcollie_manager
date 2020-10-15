@@ -3,77 +3,77 @@
 <mapper namespace="kr.co.collie.mgr.item">
 
 	<select id="selectItemList" resultType="kr.co.collie.mgr.item.domain.MgrItemListDomain" parameterType="kr.co.collie.mgr.pagination.ItemRangeVO">
-		SELECT ITEM_NUM, ITEM_PRICE, CATE_NUM, CATE_NAME, ITEM_NAME, ITEM_UNIT, ITEM_WEIGHT, ITEM_STOCK, TO_CHAR(INPUT_DATE,'YYYY-MM-DD') INPUT_DATE
-		FROM(SELECT I.ITEM_NUM, I.ITEM_PRICE, C.CATE_NUM, C.CATE_NAME, I.ITEM_NAME, I.ITEM_UNIT, I.ITEM_STOCK,
-					I.ITEM_WEIGHT, INPUT_DATE, row_number() over(order by i.item_num) rnum
-			 FROM ITEM I, CATEGORY C
-			 WHERE I.CATE_NUM=C.CATE_NUM
-			<if test='cate_name != null and cate_name != ""'>
-				and cate_name = #{cate_name}
-			</if>
-			<if test='search_word != null and search_word != ""'>
-				and item_name like '%'||#{search_word}||'%'
-			</if>
-			 )
-		where rnum between #{ start_num } and #{ end_num }
-	</select>
-		
-	<select id="selectItemListCnt" parameterType="kr.co.collie.mgr.pagination.ItemRangeVO" resultType="int"> 
-		SELECT count(*)
-		FROM ITEM I, CATEGORY C
-		WHERE I.CATE_NUM=C.CATE_NUM
+	SELECT ITEM_NUM, ITEM_PRICE, CATE_NUM, CATE_NAME, ITEM_NAME, ITEM_UNIT, ITEM_WEIGHT, ITEM_STOCK, TO_CHAR(INPUT_DATE,'YYYY-MM-DD') INPUT_DATE
+	FROM(SELECT I.ITEM_NUM, I.ITEM_PRICE, C.CATE_NUM, C.CATE_NAME, I.ITEM_NAME, I.ITEM_UNIT, I.ITEM_STOCK,
+				I.ITEM_WEIGHT, INPUT_DATE, row_number() over(order by i.item_num) rnum
+		 FROM ITEM I, CATEGORY C
+		 WHERE I.CATE_NUM=C.CATE_NUM
 		<if test='cate_name != null and cate_name != ""'>
 			and cate_name = #{cate_name}
 		</if>
 		<if test='search_word != null and search_word != ""'>
 			and item_name like '%'||#{search_word}||'%'
 		</if>
+		 )
+	where rnum between #{ start_num } and #{ end_num }
+	</select>
+		
+	<select id="selectItemListCnt" parameterType="kr.co.collie.mgr.pagination.ItemRangeVO" resultType="int"> 
+	SELECT count(*)
+	FROM ITEM I, CATEGORY C
+	WHERE I.CATE_NUM=C.CATE_NUM
+	<if test='cate_name != null and cate_name != ""'>
+		and cate_name = #{cate_name}
+	</if>
+	<if test='search_word != null and search_word != ""'>
+		and item_name like '%'||#{search_word}||'%'
+	</if>
 	</select>
 	
-	<select id="selectCategory" resultType="java.lang.String">
-	SELECT CATE_NAME
+	<select id="selectCategory" resultType="kr.co.collie.mgr.item.domain.MgrCateListDomain">
+	SELECT CATE_NAME, CATE_NUM
 	FROM CATEGORY
 	</select> 
   
-   <insert id="insertItem" parameterType="kr.co.collie.mgr.item.vo.MgrItemAddVO" >
-  	insert all
+	<insert id="insertItem" parameterType="kr.co.collie.mgr.item.vo.MgrItemAddVO" >
+	insert all
 	into item(Item_num, cate_num, item_name, item_stock, item_price, item_unit, item_weight, item_guide, item_title, item_subtitle, item_detail, item_img)
-  	values(seq_item_num.nextval, #{ cate_num } , #{ item_name }, #{ item_stock }, #{ item_price }, #{ item_unit }, #{ item_weight },
+	values(seq_item_num.nextval, #{ cate_num } , #{ item_name }, #{ item_stock }, #{ item_price }, #{ item_unit }, #{ item_weight },
 								#{ item_guide }, #{ item_title }, #{ item_subtitle }, #{ item_detail }, #{ item_img } )
 	<foreach item="detail_img" collection="detail_img" >
 		into image( item_num, detail_img )  
 		values( seq_item_num.currval, #{ detail_img } )      
 	</foreach>
 	select 1 from dual
-    </insert>
+	</insert>
     
-  <update id="updateItem" parameterType="kr.co.collie.mgr.item.vo.MgrItemModifyVO">
-  
-  update item
-  set  cate_num = #{ cate_num } , item_name = #{ item_name }, item_stock = #{ item_stock }, item_price = #{ item_price },
-  							item_unit =  #{ item_unit }, item_weight = #{ item_weight },
-							item_guide = #{ item_guide }, item_title = #{ item_title }, item_subtitle = #{ item_subtitle },
-							item_detail =  #{ item_detail }, item_img =#{ item_img }
-  where item_num = #{ item_num }
-  </update>
-  
-  <delete id="deleteItem" parameterType="int">
-  delete from image
-  where item_num=#{ item_num }
-  </delete>
-  
-    <insert id="modifyItem" parameterType="kr.co.collie.mgr.item.vo.MgrDetailItemVO" >
-    		insert into image( item_num, detail_img ) 
-    		values( #{ item_num }, #{ detail_img } )
-    </insert>
-  
-  <select id="selectItemDetail" parameterType="int" resultType="kr.co.collie.mgr.item.domain.MgrItemDetailDomain">
-select it.item_num ,ca.cate_num, it.item_price, it.item_stock, ca.cate_name, it.item_name, it.item_unit,
-		it.item_weight, it.item_img, it.item_guide, it.item_title, it.item_subtitle, it.item_detail
+	<update id="updateItem" parameterType="kr.co.collie.mgr.item.vo.MgrItemModifyVO">
+	update item
+	set cate_num = #{ cate_num } , item_name = #{ item_name }, item_stock = #{ item_stock }, item_price = #{ item_price },
+		item_unit =  #{ item_unit }, item_weight = #{ item_weight },
+		item_guide = #{ item_guide }, item_title = #{ item_title }, item_subtitle = #{ item_subtitle },
+		item_detail =  #{ item_detail }, item_img =#{ item_img }
+	where item_num = #{ item_num }
+	</update>
+	
+	<delete id="deleteItem" parameterType="int">
+	delete from image
+	where item_num=#{ item_num }
+	</delete>
+	
+	<insert id="modifyItem" parameterType="kr.co.collie.mgr.item.vo.MgrDetailItemVO" >
+	insert into image( item_num, detail_img ) 
+	values( #{ item_num }, #{ detail_img } )
+	</insert>
+	
+	<select id="selectItemDetail" parameterType="int" resultType="kr.co.collie.mgr.item.domain.MgrItemDetailDomain">
+	select it.item_num ,ca.cate_num, it.item_price, it.item_stock, ca.cate_name, it.item_name, it.item_unit,
+			it.item_weight, it.item_img, it.item_guide, it.item_title, it.item_subtitle, it.item_detail
 	from item it, category ca
 	where (it.cate_num = ca.cate_num) and it.item_num=#{ item_num } 
-  </select>
-  <select id="selectItemDetailImage" parameterType="int" resultType="String">
+	</select>
+	
+	<select id="selectItemDetailImage" parameterType="int" resultType="String">
 	select detail_img
 	from image
 	where item_num=#{ item_num } 
@@ -83,6 +83,6 @@ select it.item_num ,ca.cate_num, it.item_price, it.item_stock, ca.cate_name, it.
 	from image
 	where item_num=#{ item_num } 
 	and detail_img not like 'tab%'
-  </select>
-  
+	</select>
+	
 </mapper>

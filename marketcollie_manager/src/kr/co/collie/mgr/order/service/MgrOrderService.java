@@ -6,6 +6,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import kr.co.collie.mgr.order.dao.MgrOrderDAO;
+import kr.co.collie.mgr.order.domain.MgrOrderDetailDomain;
 import kr.co.collie.mgr.order.domain.MgrOrderListDomain;
 import kr.co.collie.mgr.order.domain.MgrOrderShippingDomain;
 import kr.co.collie.mgr.order.vo.MgrOrderShippingVO;
@@ -76,5 +77,13 @@ public class MgrOrderService {
 		
 		return flag;
 	}//modifyOrderShipping
+	
+	public MgrOrderDetailDomain getOrderDetail(int orderNum) {
+		MgrOrderDetailDomain modd=null;
+		
+		modd=MgrOrderDAO.getInstance().selectOrderDetail(orderNum);
+		
+		return modd;
+	}//getOrderDetail
 	
 }//class
