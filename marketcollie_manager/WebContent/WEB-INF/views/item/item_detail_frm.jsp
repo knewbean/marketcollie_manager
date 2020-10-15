@@ -29,7 +29,7 @@ $(function(){
 	$("#modifyBtn").click(function(){
 		
 			if($("#item_img").val()==""){
-				alert("물건명을 입력해주세요");
+				alert("물건명을 입력해주세요"); 
 				return;
 			}//end if
 			
