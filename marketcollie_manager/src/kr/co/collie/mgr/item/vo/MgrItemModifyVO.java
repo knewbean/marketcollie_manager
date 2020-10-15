@@ -1,9 +1,11 @@
 package kr.co.collie.mgr.item.vo;
 
+import java.util.List;
+
 public class MgrItemModifyVO {
 	private int item_num, cate_num, item_price, item_stock;
 	private String item_name, item_unit, item_weight, item_img, item_guide, item_title, item_subtitle, item_detail;
-	private String[] detail_img;
+	private List<String> detail_img;
 	
 	public int getItem_num() {
 		return item_num;
@@ -77,11 +79,18 @@ public class MgrItemModifyVO {
 	public void setItem_detail(String item_detail) {
 		this.item_detail = item_detail;
 	}
-	public String[] getDetail_img() {
+	public List<String> getDetail_img() {
 		return detail_img;
 	}
-	public void setDetail_img(String[] detail_img) {
+	public void setDetail_img(List<String> detail_img) {
 		this.detail_img = detail_img;
 	}
-	
+	@Override
+	public String toString() {
+		return "MgrItemModifyVO [item_num=" + item_num + ", cate_num=" + cate_num + ", item_price=" + item_price
+				+ ", item_stock=" + item_stock + ", item_name=" + item_name + ", item_unit=" + item_unit
+				+ ", item_weight=" + item_weight + ", item_img=" + item_img + ", item_guide=" + item_guide
+				+ ", item_title=" + item_title + ", item_subtitle=" + item_subtitle + ", item_detail=" + item_detail
+				+ ", detail_img=" + detail_img + "]";
+	}
 }
