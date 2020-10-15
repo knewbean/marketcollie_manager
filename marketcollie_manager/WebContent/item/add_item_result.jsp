@@ -11,24 +11,6 @@
  
 <style type="text/css">
 #container{ width: 70%; margin: 0px auto; min-height: 700px; margin-top:50px; }
-#containerMenu{ width: 200px; float: left; }
-#menuTitle{ text-align: center; }
-.table-bordered{ width: 200px; text-align: left; margin-top: 30px; color: #666666; font-size: 15px; }
-.table-bordered td:hover{ background-color: #F7F7F7; color: #17462B }
-.table-bordered td{ cursor: pointer; }
-#qnaBox{ background-color: #F7F7F7; color: #666666; padding: 10px; font-size: 13px; padding-left: 20px }
-#qnaBox:hover{ cursor: pointer; }
-#cscBox{ color: #666666; font-size: 14px; margin-top: 70px }
-#contentWrap{ margin-left: 240px }
-#containerSubTitle{ border-bottom: 1px solid #333; margin-top: 30px; padding-bottom: 0px; color: #666666 }
-#containerContent{ margin-top: 90px }
-#passForm{ width: 620px; margin: 0px auto }
-.col-form-label{ padding-right: 0px; padding-left: 50px }
-#pass{ width:300px;  padding: 0px; margin-left: 60px }
-hr{ margin-top: 90px }
-.btn-primary{ background-color: #17462B; border-color: #17462B; margin:0px auto; margin-top: 30px; width: 250px; padding: 15px  }
-.btn-primary:hover, .btn-primary:active, .btn-primary:focus{ background-color: #17462B !important; }
-#btnDiv{ width: 250px; margin: 0px auto }
 </style>
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -49,9 +31,12 @@ $(function(){
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	
 	<div id="container">
-		
-		아이템 등록이 완료되었습니다.
-		
+		<div style="text-align: center; font-size: 40px; color:#285943; border-color: #77AF9C;">
+			아이템 등록이 완료되었습니다.
+		</div>
+		<div style="text-align: center; ">
+		<input type="button" value="메인으로" />
+		</div>
 	</div>
 	
 	

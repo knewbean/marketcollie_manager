@@ -284,7 +284,7 @@ function readURL(input) {
 		<td class="collie_font">중량/용량</td> <td><input type="text" id="item_weight" name="item_weight" class="form-control" value="${ midd.item_weight }"/></td>
 		</tr>
 		<tr>
-		<td class="collie_font">판매단위</td> <td><input type="text" id="item_unit" name="item_unit" class="form-control" value="${ midd.item_unit }"/></td>
+		<td class="collie_font">판매단위</td> <td><input type="text" id="item_unit" name="item_unit" class="form-control" maxlength="3" value="${ midd.item_unit }"/></td>
 		</tr>
 		<tr>
 		<td class="collie_font">재고</td> <td><input type="text" id="item_stock" name="item_stock" class="form-control" value="${ midd.item_stock}"/></td>
