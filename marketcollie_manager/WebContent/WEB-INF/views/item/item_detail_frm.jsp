@@ -122,7 +122,11 @@ function delForm(count){
 		addedFormDiv.removeChild(addedDiv); // 폼 삭제 
     }//end if
 }//delForm
-	
+
+function itemQna(item_num) {
+	location.href="../item_qna/list.do?item_num="+item_num;
+}
+
 </script>
 </head>
 <body style="font-family: nanumbarungothic">
@@ -133,7 +137,8 @@ function delForm(count){
 	
 	<div id="container">
 	<div style="text-align: left">
-	<span style="margin-left:685px ; font-size: 30px" class="subtitle">상품 조회</span><input type="button" id="mtqBtn" value="상품문의" style="margin-left: 300px; padding: 10px 10px 6px 6px;" class="collieBtnMain" />
+	<span style="margin-left:685px ; font-size: 30px" class="subtitle">상품 조회</span>
+	<input type="button" id="mtqBtn" value="상품문의" onclick="itemQna(${ param.item_num });" style="margin-left: 300px; padding: 10px 10px 6px 6px;" class="collieBtnMain" />
 	<hr style="border: 1px solid #285943; width:1000px"/>
 	</div>
 		<div >
