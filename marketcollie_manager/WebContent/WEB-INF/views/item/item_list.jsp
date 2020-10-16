@@ -88,6 +88,12 @@ function searchItem(current_page){
 					table+='</thead>';
 					table+='<tbody class="tbody-collie">';
 					
+					if(jsonObj.item_list == ''){
+					table+='<tr>';
+					table+= '<td colspan="9" style="text-align: center;"> 검색 결과가 없습니다.</td>';
+					table+='</tr>';
+					
+					}
 					$.each(jsonObj.item_list, function(i,json) {
 						table+='<tr>';
 						table+='<td>'+json.cate_name+'</td>';
@@ -105,7 +111,12 @@ function searchItem(current_page){
 					table+='</tbody>';
 			        table+='</table>';
 			        $(".item-tab-div").html(table);
-					$("#pagination").html(jsonObj.paging)
+			        
+			        if(jsonObj.item_list != ''){
+						$("#pagination").html(jsonObj.paging);
+			        }else{
+						$("#pagination").html('<div></div>');
+			        }
 			}//end if
 		
 		}//success	
@@ -181,6 +192,11 @@ function itemReview(item_num) {
 			    </tr>
 			  </thead>
 			  <tbody class="tbody-collie">
+			  <c:if test="${empty item_list }">
+			  	<tr>
+			  	<td colspan="9" style="text-align: center;"> 검색 결과가 없습니다. </td>
+			  	</tr>
+			  </c:if>
 			  	<c:forEach var="item" items="${ item_list}">
 				    <tr>
 				      <td><c:out value="${item.cate_name}"/></td>
@@ -203,9 +219,8 @@ function itemReview(item_num) {
 		<div id="addDiv">
 			<input type="button" id="addBtn" value="등록" class="collieBtnItem" onclick="addItem()" >
 		</div>
-		
 		<div id="pagination">
-		<c:out value="${ paging }" escapeXml="false"/>
+			<c:out value="${ paging }" escapeXml="false"/>
 		</div>
 			
 		</div>
