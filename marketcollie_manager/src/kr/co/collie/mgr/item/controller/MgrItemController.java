@@ -34,8 +34,6 @@ import kr.co.collie.mgr.pagination.PaginationService;
 @Controller
 public class MgrItemController {
 	
-	private static String IMG_PATH = "C:/Users/sist39/git/marketcollie_user/collie_user/WebContent/common/images/item";
-	
 	@RequestMapping(value="/item/item_list.do", method = {GET,POST} )
 	public String SearchItem(Model model) {
 		int current_page=1;
@@ -104,9 +102,8 @@ public class MgrItemController {
 		
 		//파일 업로드 수행
 		String path="C:/Users/sist/git/marketcollie_manager/marketcollie_manager/WebContent/common/images/item";
-//		String path="C:/Users/sist24/git/marketcollie_manager/marketcollie_manager/WebContent/common/images/item";
 		int maxSize = 1024 * 1024 * 10;
-		MultipartRequest mr = new MultipartRequest(request, IMG_PATH, maxSize,"UTF-8", new DefaultFileRenamePolicy());
+		MultipartRequest mr = new MultipartRequest(request, path, maxSize,"UTF-8", new DefaultFileRenamePolicy());
 		
 		//파라메터 처리
 		//detail_img처리
@@ -137,7 +134,7 @@ public class MgrItemController {
 		MgrItemService mis = new MgrItemService();
 		flag = mis.addItem(miaVO);
 		if(flag) {
-			url="redirect:add_item_result.jsp";
+			url="add_item_result";
 		}//end if
 		
 		return url;
@@ -186,11 +183,8 @@ public class MgrItemController {
 		
 		//파일 업로드 수행
 		String path="C:/Users/sist/git/marketcollie_manager/marketcollie_manager/WebContent/common/images/item";
-//		String path="C:/Users/sist24/git/marketcollie_manager/marketcollie_manager/WebContent/common/images/item";
-
 		int maxSize = 1024 * 1024 * 10;
-		MultipartRequest mr = new MultipartRequest(request, IMG_PATH, maxSize,"UTF-8", new DefaultFileRenamePolicy());
-		
+		MultipartRequest mr = new MultipartRequest(request, path, maxSize,"UTF-8", new DefaultFileRenamePolicy());
 		//파라메터 처리
 		//detail_img처리
 		Enumeration<String> en=mr.getFileNames();
@@ -223,7 +217,7 @@ public class MgrItemController {
 		MgrItemService mis = new MgrItemService();
 		flag= mis.modifyItem(mimVO);
 		if(flag) {
-			url="redirect:modify_item_result.jsp";
+			url="modify_item_result";
 		}//end if
 		
 		return url;
