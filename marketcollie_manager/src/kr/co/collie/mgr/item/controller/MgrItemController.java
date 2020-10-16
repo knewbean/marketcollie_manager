@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import kr.co.collie.mgr.category.domain.MgrCategoryDomain;
 import kr.co.collie.mgr.item.domain.MgrCateListDomain;
 import kr.co.collie.mgr.item.domain.MgrItemDetailDomain;
 import kr.co.collie.mgr.item.domain.MgrItemListDomain;
@@ -134,7 +133,7 @@ public class MgrItemController {
 		MgrItemService mis = new MgrItemService();
 		flag = mis.addItem(miaVO);
 		if(flag) {
-			url="add_item_result";
+			url="item/add_item_result";
 		}//end if
 		
 		return url;
@@ -185,7 +184,6 @@ public class MgrItemController {
 		String path="C:/Users/sist/git/marketcollie_manager/marketcollie_manager/WebContent/common/images/item";
 		int maxSize = 1024 * 1024 * 10;
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize,"UTF-8", new DefaultFileRenamePolicy());
-		
 		//颇扼皋磐 贸府
 		//detail_img贸府
 		Enumeration<String> en=mr.getFileNames();
@@ -218,7 +216,7 @@ public class MgrItemController {
 		MgrItemService mis = new MgrItemService();
 		flag= mis.modifyItem(mimVO);
 		if(flag) {
-			url="modify_item_result";
+			url="item/modify_item_result";
 		}//end if
 		
 		return url;

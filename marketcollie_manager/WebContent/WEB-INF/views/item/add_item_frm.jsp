@@ -108,10 +108,6 @@ $(function(){
 			
 	});//click
 	
-		$("#detail_img0").change(function(){
-		document.getElementById("dd").innerHTML = "<img src='http://localhost/mgr/upload_file/'"+imgSrc+"/>";	
-		});//change
-	
 	});//ready 
 
 var count = 1;
