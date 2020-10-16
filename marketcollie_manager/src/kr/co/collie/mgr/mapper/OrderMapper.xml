@@ -21,4 +21,16 @@
 	where order_num=#{ order_num }
 	</insert>
 	
+	<select id="selectOrderDetail" parameterType="int" resultType="kr.co.collie.mgr.order.domain.MgrOrderDetailDomain">
+	select member_num, total_price, payment, to_char(input_date, 'yyyy-mm-dd') input_date, shipping_flag
+	from order_form
+	where order_num=#{order_num}
+	</select>
+	
+	<select id="selectOrderItem" parameterType="int" resultType="kr.co.collie.mgr.order.domain.MgrOrderItemDomain">
+	select oi.item_num, oi.item_cnt, i.item_name
+	from item i, order_item oi
+	where oi.order_num=#{ order_num } and i.item_num=oi.item_num
+	</select>
+	
 </mapper>

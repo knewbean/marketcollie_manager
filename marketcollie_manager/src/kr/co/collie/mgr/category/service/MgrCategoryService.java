@@ -7,15 +7,16 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import kr.co.collie.mgr.category.dao.MgrCategoryDAO;
-import kr.co.collie.mgr.category.domain.CategoryListDomain;
+import kr.co.collie.mgr.category.domain.MgrCategoryDomain;
+import kr.co.collie.mgr.category.vo.MgrModifyCateVO;
 import kr.co.collie.mgr.pagination.PaginationService;
 import kr.co.collie.mgr.pagination.RangeVO;
 import kr.co.collie.mgr.pagination.TotalCntVO;
 
 public class MgrCategoryService {
 	
-	public List<CategoryListDomain> getCategoryList(RangeVO rVO){
-		List<CategoryListDomain> list=null;
+	public List<MgrCategoryDomain> getCategoryList(RangeVO rVO){
+		List<MgrCategoryDomain> list=null;
 		
 		list=MgrCategoryDAO.getInstance().selectCategoryList(rVO);
 		
@@ -26,7 +27,7 @@ public class MgrCategoryService {
 		JSONObject json=new JSONObject();
 		
 		RangeVO rVO=new RangeVO(current_page); //RangeVO에 현재페이지를 넘겨주면 조회해야할 리스트의 시작번호, 끝번호를 초기화한다
-		List<CategoryListDomain> list=MgrCategoryDAO.getInstance().selectCategoryList(rVO); //RangeVO로 글의 리스트를 조회
+		List<MgrCategoryDomain> list=MgrCategoryDAO.getInstance().selectCategoryList(rVO); //RangeVO로 글의 리스트를 조회
 		
 		String flag="fail";
 		if(list!=null) {
@@ -66,5 +67,21 @@ public class MgrCategoryService {
 		
 		return flag;
 	}//addCatrgory
+	
+	public String getCategory(int cateNum) {
+		String cateName=null;
+		
+		cateName=MgrCategoryDAO.getInstance().selectCategory(cateNum);
+		
+		return cateName;
+	}//getCategory
+	
+	public boolean modifyCategory(MgrModifyCateVO mmcVO) {
+		boolean flag=false;
+		
+		flag=MgrCategoryDAO.getInstance().updateCategory(mmcVO)==1;
+		
+		return flag;
+	}//modifyCategory
 	
 }//class

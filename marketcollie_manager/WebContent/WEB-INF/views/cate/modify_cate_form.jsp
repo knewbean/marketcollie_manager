@@ -29,21 +29,21 @@
 <script type="text/javascript">
 $(function(){
 	
-	$("#modifyBtn").click(function(){
+	$("#cateAddBtn").click(function(){
 		
-		if($("#invoice_no").val().trim()==""){
-			alert("운송장번호를 입력해주세요");
-			$("#invoice_no").focus();
+		if($("#cate_name").val().trim()==""){
+			alert("카테고리 이름을 입력해주세요");
+			$("#cate_name").focus();
 			return;
 		}//end if
-		if($("#invoice_no").val().replace(/[0-9]/g, "") != ""){
-			alert("운송장번호는 숫자만 입력 가능합니다.");
-			$("#invoice_no").val("");
-			$("#invoice_no").focus();
+		if($("#cate_name").val().replace(/[ㄱ-힣A-Za-z]/g, "") != ""){
+			alert("카테고리 이름은 한글 또는 영문(대,소문자)만 입력 가능합니다.");
+			$("#cate_name").val("");
+			$("#cate_name").focus();
 			return;
 		}//end if
 		
-		$("#orderModifyFrm").submit();
+		$("#cateAddFrm").submit();
 		
 	});//click
 	
@@ -60,48 +60,28 @@ $(function(){
 	<div id="container">
 		
 		<div class="subtitle">
-			배송상태 변경
+			카테고리 변경
 		</div>
 		
 		<div class="tab-div" id="cateTableDiv">
-	      <form action="modify_shipping_process.do?currnet_page=${param.current_page}" method="post" id="orderModifyFrm">
-	      <input type="hidden" name="order_num" value="${ param.order_num }"/>
-	      <input type="hidden" name="current_page" value="${ current_page }"/>
 			<table class="table">
 			  <tbody class="tbody-collie">
 			    <tr>
-			    <th style="width: 250px; padding-top: 18px">주문번호</th>
-			    <td><c:out value="${ param.order_num }"/></td>
-			    </tr>
-			    <tr>
-			    <th style="width: 250px; padding-top: 18px">배송상태</th>
-			    <td><c:out value="${ shipping.shipping_flag }"/></td>
-			    </tr>
-			    <tr>
-			      <th style="width: 250px; padding-top: 18px">택배사</th>
+			      <th style="width: 200px; padding-top: 18px">이름</th>
 			      <td style="width: 200px; ">
-			      <select name="company">
-			      	<option value="01"<c:if test="${ shipping.company eq '01' }"> selected="selected"</c:if>>우체국택배</option>
-			      	<option value="04"<c:if test="${ shipping.company eq '04' }"> selected="selected"</c:if>>대한통운</option>
-			      	<option value="05"<c:if test="${ shipping.company eq '05' }"> selected="selected"</c:if>>한진택배</option>
-			      	<option value="06"<c:if test="${ shipping.company eq '06' }"> selected="selected"</c:if>>로젠택배</option>
-			      	<option value="08"<c:if test="${ shipping.company eq '08' }"> selected="selected"</c:if>>롯데택배</option>
-			      </select>
-			      </td>
-			    </tr>
-			    <tr>
-			      <th style="padding-top: 18px">운송장번호</th>
-			      <td>
-			      <input type="text" id="invoice_no" name="invoice_no" value="${ shipping.invoice_no }"/>
+			      <form action="modify_cate_process.do" method="post" id="cateAddFrm">
+			      <input type="hidden" id="cate_num" name="cate_num" value="${ param.cate_num }"/>
+			      <input type="text" id="cate_name" name="cate_name" value="${ cate_name }" class="collieText"/>
+			      <input type="text" hidden="hidden"/>
+			      </form>
 			      </td>
 			    </tr>
 			 </tbody>
 			</table>
-	      </form>
 		</div>
 		
 		<div class="btn-div">
-		<input type="button" value="변경" id="modifyBtn" class="collieBtnMain">
+		<input type="button" value="수정" id="cateAddBtn" class="collieBtnMain">
 		</div>
 		
 	</div>

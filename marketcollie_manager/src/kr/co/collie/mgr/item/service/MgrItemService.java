@@ -5,8 +5,8 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import kr.co.collie.mgr.category.domain.CategoryListDomain;
 import kr.co.collie.mgr.item.dao.MgrItemDAO;
+import kr.co.collie.mgr.item.domain.MgrCateListDomain;
 import kr.co.collie.mgr.item.domain.MgrItemDetailDomain;
 import kr.co.collie.mgr.item.domain.MgrItemListDomain;
 import kr.co.collie.mgr.item.vo.MgrItemAddVO;
@@ -17,7 +17,7 @@ import kr.co.collie.mgr.pagination.PaginationService;
 public class MgrItemService {
 	
 	
-	public List<MgrItemListDomain> getAllCate(ItemRangeVO irVO){
+	public List<MgrItemListDomain> getAllItem(ItemRangeVO irVO){
 		
 		List<MgrItemListDomain> list =null;
 		
@@ -75,8 +75,8 @@ public class MgrItemService {
 		return cnt;
 	}//getTotalCnt
 	
-	public List<CategoryListDomain> getCategory(){
-		List<CategoryListDomain> list = null;
+	public List<MgrCateListDomain> getCategory(){
+		List<MgrCateListDomain> list = null;
 		
 		list=MgrItemDAO.getInstance().selectCategory();
 		return list;
@@ -112,21 +112,5 @@ public class MgrItemService {
 		return flag;
 	}//modifyItem
 	
-//	public boolean modifyDetailImg(MgrItemModifyVO mimVO) {
-//		boolean flag = false;
-//		
-//		MgrItemDAO miDAO = MgrItemDAO.getInstance();
-//		
-//		return flag;
-//	}//modifyDetailImg
-	
-	/*
-	 * public boolean removeItem(int item_num) { boolean flag = false;
-	 * 
-	 * MgrItemDAO miDAO = MgrItemDAO.getInstance(); flag =
-	 * miDAO.deleteItem(item_num) != 0;
-	 * 
-	 * return flag; }//removeItem
-	 */	
 	
 }//class

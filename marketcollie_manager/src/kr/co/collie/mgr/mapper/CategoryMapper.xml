@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.collie.mgr.category">
 
-	<select id="selectCategoryList" parameterType="kr.co.collie.mgr.pagination.RangeVO" resultType="kr.co.collie.mgr.category.domain.CategoryListDomain">
+	<select id="selectCategoryList" parameterType="kr.co.collie.mgr.pagination.RangeVO" resultType="kr.co.collie.mgr.category.domain.MgrCategoryDomain">
 		select cate_num, cate_name
 		from(select cate_num, cate_name, row_number() over(order by cate_num) rnum
 			from category)
@@ -13,5 +13,17 @@
 		insert into category(cate_num, cate_name)
 		values(seq_cate_num.nextval, #{ cate_name })
 	</insert>
+	
+	<select id="selectCategory" parameterType="int" resultType="java.lang.String">
+		select cate_name
+		from category
+		where cate_num=#{ cate_num }
+	</select>
+	
+	<update id="updateCategory" parameterType="kr.co.collie.mgr.category.vo.MgrModifyCateVO">
+		update category
+		set cate_name=#{ cate_name }
+		where cate_num=#{ cate_num }
+	</update>
 	
 </mapper>

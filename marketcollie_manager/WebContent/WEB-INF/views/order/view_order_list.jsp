@@ -63,7 +63,7 @@ function movePage(current_page){
 	      		tab+='</thead>';
 	      		tab+='<tbody class="tbody-collie">';
 	      		$.each(jsonObj.order_list,function(i, json){
-		      		tab+='<tr>';
+		      		tab+='<tr onclick="orderDetail('+json.order_num+')" style="cursor: pointer;">';
 		      		tab+='<td>';
 		      		tab+=json.order_num;
 		      		tab+='</td>';
@@ -98,7 +98,10 @@ function movePage(current_page){
 
 function modifyShipping(orderNum){
 	location.href="modify_shipping_form.do?order_num="+orderNum+"&current_page="+c_page;
-	
+}//modifyShipping
+
+function orderDetail(orderNum){
+	location.href="detail.do?order_num="+orderNum+"&current_page="+c_page;
 }//modifyShipping
 
 </script>
@@ -129,7 +132,7 @@ function modifyShipping(orderNum){
 			  </thead>
 			  <tbody class="tbody-collie">
 			  	<c:forEach var="order" items="${ order_list }">
-				    <tr>
+				    <tr onclick="orderDetail(${order.order_num})" style="cursor: pointer;">
 				      <td>
 				      <c:out value="${ order.order_num }"/>
 				      </td>

@@ -5,7 +5,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import kr.co.collie.mgr.category.domain.CategoryListDomain;
+import kr.co.collie.mgr.category.domain.MgrCategoryDomain;
+import kr.co.collie.mgr.category.vo.MgrModifyCateVO;
 import kr.co.collie.mgr.dao.GetCollieHandler;
 import kr.co.collie.mgr.pagination.RangeVO;
 
@@ -23,8 +24,8 @@ public class MgrCategoryDAO {
 		return mcDAO;
 	}//getInstance
 	
-	public List<CategoryListDomain> selectCategoryList(RangeVO rVO){
-		List<CategoryListDomain> list=null;
+	public List<MgrCategoryDomain> selectCategoryList(RangeVO rVO){
+		List<MgrCategoryDomain> list=null;
 		
 		SqlSession ss=GetCollieHandler.getInstance().getSqlSession();
 		list=ss.selectList("selectCategoryList", rVO);
@@ -43,5 +44,26 @@ public class MgrCategoryDAO {
 		ss.close();
 		
 	}//insertCategory
+	
+	public String selectCategory(int cateNum) {
+		String cateName=null;
+		
+		SqlSession ss=GetCollieHandler.getInstance().getSqlSession();
+		cateName=ss.selectOne("kr.co.collie.mgr.category.selectCategory", cateNum);
+		
+		return cateName;
+	}//selectCategory
+	
+	public int updateCategory(MgrModifyCateVO mmcVO) {
+		int cnt=0;
+		SqlSession ss=GetCollieHandler.getInstance().getSqlSession();
+		cnt=ss.update("updateCategory", mmcVO);
+		if(cnt==1) {
+			ss.commit();
+		}//end if
+		ss.close();
+		
+		return cnt;
+	}//updateCategory
 	
 }//class
