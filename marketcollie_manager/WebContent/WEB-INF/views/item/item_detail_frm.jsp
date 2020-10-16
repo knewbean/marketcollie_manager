@@ -109,8 +109,9 @@ function addForm(){
     var addedFormDiv = document.getElementById("addedFormDiv");
     var str = "";
     str+="<div><img id='image_section"+count+"' /></div>";
-    str+="이미지 <input type='file' id='detail_img"+count+"' name='detail_img"+count+"'/>";
-    str+="<input type='button' value='삭제' onclick='delForm("+count+")'/><br>";
+    str+="<div style='margin-left: 380px; margin-top: 50px'><input type='file' id='detail_img"+count+"' name='detail_img"+count+"' style='border: 1px solid #333; width: 190px''/>";
+    str+="<input type='button' value='삭제' onclick='delForm("+count+")'/></div>";
+    
     // 추가할 폼(에 들어갈 HTML)
     var addedDiv = document.createElement("div"); // 폼 생성
     addedDiv.id = "added_"+count; // 폼 Div에 ID 부여 (삭제를 위해)
@@ -138,24 +139,22 @@ function delForm(count){
 	
 	<div id="container">
 	<div style="text-align: left">
-	<span style="margin-left:590px ; font-size: 30px" class="subtitle">상품 조회</span><input type="button" id="mtqBtn" value="상품문의" style="margin-left: 200px; padding: 10px 10px 6px 6px;" class="collieBtnMain" />
+	<span style="margin-left:685px ; font-size: 30px" class="subtitle">상품 조회</span><input type="button" id="mtqBtn" value="상품문의" style="margin-left: 300px; padding: 10px 10px 6px 6px;" class="collieBtnMain" />
 	<hr style="border: 1px solid #285943; width:1000px"/>
 	</div>
 		<div >
 		<div>
 		<form id="insertFrm" name="insertFrm" action="modify_item.do" method="post" enctype="multipart/form-data">
-		<div>
+		<div style="margin-left: 150px">
 		<div style="margin-left: 220px; float:left">
-  				 <div id="changeVal"><img src="http://localhost/mgr/common/images/item/${ midd.item_img }"  width='150' height='150'/></div>
-			   <div style="font-size: 18px; text-align:center; background-color:#77AF9C; width: 150px; border: 1px solid #333" class="collie_font">대표 이미지</div>
-			   
+  				 <div id="changeVal"><img src="/common/images/item/${ midd.item_img }"  width='190' height='190'/></div>
+			   <div style="font-size: 18px; text-align:center; background-color:#77AF9C; width: 190px; border: 1px solid #333" class="collie_font">대표 이미지</div>
 			<div>
-			<label>이미지추가</label><br/>
 			<input type="file" id="item_img" name="item_img"/>
 			</div>
 		</div>
 		</div>
-		<div style="margin-left: 750px; margin-top: 80px">
+		<div style="margin-left: 780px; margin-top: 80px">
 		<table>
 		<tr>
 		<td><span  style="width:80px; font-size: 18px" class="collie_font">카테고리</span></td>
@@ -187,8 +186,8 @@ function delForm(count){
 		</table>
 		</div>
 		<hr style="border: 1px solid #285943; width:1000px"/>
-		<div style="margin-top: 40px; margin-left: 180px">
-		<div style="margin-left: 400px; font-size: 25px" class="subtitle">상품상세설명</div>
+		<div style="margin-top: 40px; margin-left: 240px">
+		<div style="margin-left: 450px; font-size: 25px" class="subtitle">상품상세설명</div>
 		
 		<!-- 상세 이미지 들어갈 곳 -->
 		<table style="margin-top: 50px; margin-bottom: 50px">
@@ -207,20 +206,20 @@ function delForm(count){
 			<input type="hidden" name="count" value="0"/>
 			<!-- 파라미터로 item_num 받아놓은거 -->
 			<input type="hidden"  name="item_num" value="${ param.item_num }" /> 
-			<input type="button" id="modifyBtn" value="수정" class="collieBtnMain" style="padding: 10px 100px 10px 100px; text-align: right;"/> 
-			<div style="margin-left: 400px; margin-top: 80px"><input type="button" value="사진추가" onclick="addForm()" class="collieBtnMain" style="padding: 10px 10px 10px 10px;"/></div>
+			<input type="button" id="modifyBtn" value="수정" class="collieBtnMain" style="padding: 10px 100px 10px 100px; margin-left: 138px;"/>  
+			<div style="margin-left: 550px; margin-top: 80px"><input type="button" value="사진추가" onclick="addForm()" class="collieBtnMain" style="padding: 10px 10px 10px 10px;"/></div>
 		</div>
-		<div style="margin-left: 200px">
-		<div style="margin-left:  400px" id="addDiv0">
-		<div style="margin-left:  400px"><img src="http://localhost/mgr/common/images/item/${ midd.detail_img[0] }" id='image_section0' width="150" height="150'"/></div>
-		이미지 <input type='file' id='detail_img0' name='detail_img0' value="${ midd.detail_img[0] }"/>
+		<div style="margin-left: 300px; margin-top: 100px">
+		<div id="addDiv0">
+		<div style="margin-left: 380px"><img src="/common/images/item/${ midd.detail_img[0] }" id='image_section0' width="190" height="150'"/></div>
+		<div style="margin-left: 380px;" class="font"><input type='file' id='detail_img0' name='detail_img0' value="${ midd.detail_img[0] } " style="border: 1px solid #333; width: 190px" /></div>
 		</div>
 		<div id="addedFormDiv">
 		<c:forEach var="i" begin="1" end="${ midd.detail_img.size()-1 }" step="1">
-		<div style="margin-left:  400px" id="added_${ i }">
-		<div style="margin-left:  400px"><img src="http://localhost/mgr/common/images/item/${ midd.detail_img[i] }" id='image_section${ i }' width="150" height="150'"/></div>
-		이미지 <input type='file' id='detail_img${ i }' name='detail_img${ i }' value="${ midd.detail_img[i] }"/>
-		<input type='button' value='삭제' onclick='delForm(${ i })'/><br>
+		<div style="" id="added_${ i }">
+		<div style="margin-left: 380px; margin-top: 50px"><img src="/common/images/item/${ midd.detail_img[i] }" id='image_section${ i }' width="190" height="150'"/></div>
+		<div style="margin-left: 380px"><input type='file' id='detail_img${ i }' name='detail_img${ i }' value="${ midd.detail_img[i] }"  style="border: 1px solid #333; width: 190px" />
+		<input type='button' value='삭제' onclick='delForm(${ i })'/></div>
 		</div>
 		</c:forEach>
 		</div>
@@ -232,7 +231,7 @@ function delForm(count){
 		</div>
 		</div>
 		<hr style="border: 1px solid #285943; width:1000px"/>
-		<div style="height: 80px"></div>
+		<div style="height: 200px"></div>
 	</div>
 	
 	
