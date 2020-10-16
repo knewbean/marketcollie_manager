@@ -92,12 +92,6 @@ $(function(){
 			
 	});//click
 	
-	$("#mtqBtn").click(function(){
-		
-		location.href="";
-		
-	})//click
-	
 	$("#item_img").change(function(){
 		document.getElementById("changeVal").innerHTML = "<img src='http://localhost/mgr/upload_file/'"+imgSrc+"/>";
 	});

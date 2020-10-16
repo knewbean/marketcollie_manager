@@ -28,7 +28,7 @@ $(function(){
 	$("#insertBtn").click(function(){
 		 
 			if($("#item_img").val()==""){
-				alert("물건명을 입력해주세요");
+				alert("아이템의 이미지를 입력해주세요");
 				return;
 			}//end if 
 			
@@ -43,10 +43,9 @@ $(function(){
 				$("#item_price").focus();
 				return;
 			}//end if
-			
 		
 	      if($("#item_price").val().replace(/[0-9A-Za-z]/g, "") != ""){
-	    	  alert("가격은 숫자만 가능합니다.");
+	    	  alert("가격은 숫자만 입력 가능합니다.");
 	          $("#item_price").focus();
 	          return;
 	       }//end if
@@ -70,7 +69,7 @@ $(function(){
 			}//end if
 	       
 	      if($("#item_stock").val().replace(/[0-9A-Za-z]/g, "") != ""){
-	    	  alert("재고는 숫자만 가능합니다.");
+	    	  alert("재고는 숫자만 입력 가능합니다.");
 	          $("#item_stock").focus();
 	          return;
 	       }//end if
@@ -81,14 +80,26 @@ $(function(){
 				return;
 			}//end if
 			
-			if($("#item_img").val().trim()==""){
-				alert("이미지를 입력해주세요");
-				$("#item_guide").focus();
+			if($("#item_title").val().trim()==""){
+				alert("내용을 입력해주세요");
+				$("#item_title").focus();
+				return;
+			}//end if
+			
+			if($("#item_subtitle").val().trim()==""){
+				alert("내용을 입력해주세요");
+				$("#item_subtitle").focus();
+				return;
+			}//end if
+			
+			if($("#item_detail").val().trim()==""){
+				alert("내용을 입력해주세요");
+				$("#item_detail").focus();
 				return;
 			}//end if
 			
 			if($("#detail_img0").val().trim()==""){
-				alert("디테일 이미지를 입력해주세요");
+				alert("이미지를 입력해주세요");
 				return;
 			}//end if
 			
@@ -170,16 +181,16 @@ function delForm(count){
 		</select>
 		</td>
 		<tr>
-		<td class="collie_font">상품명</td> <td><input type="text" id="item_name" name="item_name" class="form-control"/></td>
+		<td class="collie_font">상품명</td> <td><input type="text" id="item_name"  maxlength="133" name="item_name" class="form-control"/></td>
 		</tr>
 		<tr>
-		<td  class="collie_font">가격</td> <td><input type="text" id="item_price" name="item_price" class="form-control"/></td>
+		<td  class="collie_font">가격</td> <td><input type="text" id="item_price" name="item_price" class="form-control" pattern="[0-9]+"/></td>
 		</tr>
 		<tr>
-		<td class="collie_font">중량/용량</td> <td><input type="text" id="item_weight" name="item_weight" class="form-control"/></td>
+		<td class="collie_font">중량/용량</td> <td><input type="text" id="item_weight" name="item_weight" maxlength="16" class="form-control"/></td>
 		</tr>
 		<tr>
-		<td class="collie_font">판매단위</td> <td><input type="text" id="item_unit" name="item_unit" class="form-control" value="${ midd.item_unit }"/></td>
+		<td class="collie_font">판매단위</td> <td><input type="text" id="item_unit" name="item_unit" maxlength="3" class="form-control" value="${ midd.item_unit }"/></td>
 		</tr>
 		<tr>
 		<td class="collie_font">재고</td> <td><input type="text" id="item_stock" name="item_stock" class="form-control"/></td>
