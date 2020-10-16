@@ -16,6 +16,7 @@
 .review-tab-div {margin: 0px auto; width:70%; padding: 1rem; margin-top: 10px}
 .table{ width: 1000px; margin: 0px auto }
 .thead-collie {color:#285943; background-color: #77AF9C; border-color: #77AF9C; text-align:center;}
+#noList{ text-align: center; padding-top: 40px }
 .tbody-collie {text-align:center;}
 #btnDiv{ width: 100px; margin: 0px auto }
 .btn-primary{ background-color: #5E7170; border-color: #5E7170; margin:0px auto; margin-top: 30px; width: 100px; padding: 8px  }
@@ -102,6 +103,10 @@ function moveToBack(){
 			      <th scope="col" style="width: 300px">작성일</th>
 			    </tr>
 			  </thead>
+			  <c:if test="${ empty review_list }">
+			  	<tr><td colspan="4" id="noList">상품후기가 없습니다.</td></tr>
+			  </c:if>
+			  <c:if test="${ not empty review_list }">
 			  <tbody class="tbody-collie">
 			  	<c:forEach var="mrld" items="${ review_list }">
 				    <tr style="cursor:pointer" onclick="gotoDetail('${ param.current_page }', ${ mrld.review_num });">
@@ -112,13 +117,16 @@ function moveToBack(){
 				    </tr>
 			  	</c:forEach>
 			 </tbody>
+			 </c:if>
 			</table>
 		</div>
 		<div id="btnDiv">
 			<button type="button" class="btn btn-primary" id="btn" onclick="moveToBack();">뒤로</button>
 		</div>
 		<div id="pagination">
+		<c:if test="${ not empty review_list }">
 			<c:out value="${ paging }" escapeXml="false"/>
+		</c:if>
 		</div>
 	</div>
 </div>
