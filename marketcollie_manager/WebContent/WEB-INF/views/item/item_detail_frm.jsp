@@ -209,7 +209,7 @@ function delForm(count){
 			<input type="button" id="modifyBtn" value="수정" class="collieBtnMain" style="padding: 10px 100px 10px 100px; margin-left: 138px;"/>  
 			<div style="margin-left: 550px; margin-top: 80px"><input type="button" value="사진추가" onclick="addForm()" class="collieBtnMain" style="padding: 10px 10px 10px 10px;"/></div>
 		</div>
-		<div style="margin-left: 300px; margin-top: 100px">
+		<div style="margin-left: 300px; margin-top: 100px"> 
 		<div id="addDiv0">
 		<div style="margin-left: 380px"><img src="/common/images/item/${ midd.detail_img[0] }" id='image_section0' width="190" height="150'"/></div>
 		<div style="margin-left: 380px;" class="font"><input type='file' id='detail_img0' name='detail_img0' value="${ midd.detail_img[0] } " style="border: 1px solid #333; width: 190px" /></div>
