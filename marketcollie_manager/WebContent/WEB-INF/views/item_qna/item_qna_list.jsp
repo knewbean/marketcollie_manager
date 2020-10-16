@@ -79,7 +79,7 @@ function movePage(current_page, item_num){
 }//movePage
 
 function moveToBack(item_num){
-	location.href = "../item/item_detail.do?item_num="+item_num;
+	location.replace("../item/detail.do?item_num="+item_num);
 }//moveToBack
 
 </script>

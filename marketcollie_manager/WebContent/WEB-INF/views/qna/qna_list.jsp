@@ -16,7 +16,6 @@
 .thead-collie {color:#285943; background-color: #77AF9C; border-color: #77AF9C; text-align:center;}
 .tbody-collie {text-align:center;}
 .active {cursor:pointer;}
-.page-item.active .page-link {background-color:#17462B; border-color:#17462B;}
 </style>
 
 <!-- Google CDN -->

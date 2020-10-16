@@ -78,7 +78,7 @@ function movePage(current_page, item_num){
 }//movePage
 
 function moveToBack(){
-	location.href = "../item/item_list.do";
+	location.href = "../item/item_list.do"; 
 }//moveToBack
 
 </script>
