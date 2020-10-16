@@ -119,9 +119,14 @@ var count = 100;
 function addForm(){
     var addedFormDiv = document.getElementById("addedFormDiv");
     var str = "";
-    str+="<div><img id='image_section"+count+"' /></div>";
-    str+="<div style='margin-left: 380px; margin-top: 50px'><input type='file' id='detail_img"+count+"' name='detail_img"+count+"' style='border: 1px solid #333; width: 190px''/>";
-    str+="<input type='button' value='삭제' onclick='delForm("+count+")'/></div>";
+    
+	str+='<div id="added_'+count+'" style="font-size: 16px; ">';
+	str+='<div id="detail_img_div'+count+'" style="margin-top: 50px"></div>';
+	str+='<div>';
+	str+='디테일 이미지<br/>';
+	str+='<input type="file" id="detail_img'+count+'" name="detail_img'+count+'" onchange="setThumbnail(event,\'detail_img_div'+count+'\')" style="width: 190px" />';
+	str+='<input type="button" value="삭제" onclick="delForm('+count+')"/></div>';
+	str+='</div>';
     
     // 추가할 폼(에 들어갈 HTML)
     var addedDiv = document.createElement("div"); // 폼 생성
@@ -140,9 +145,24 @@ function delForm(count){
     }//end if
 }//delForm
 
+function setThumbnail(event,div_id) { 
+	var reader = new FileReader(); 
+	reader.onload = function(event) { 
+		var img = document.createElement("img"); 
+		img.setAttribute("src", event.target.result); 
+		if(div_id=='item_img_div'){
+			img.setAttribute("style", "width: 150px; height: 200px"); 
+		}//end if
+		var div="div#"+div_id;
+		document.getElementById(div_id).innerHTML="";
+		document.querySelector(div).appendChild(img); 
+	}; 
+	reader.readAsDataURL(event.target.files[0]); 
+}//setThumbnail
+
 function itemQna(item_num) {
 	location.href="../item_qna/list.do?item_num="+item_num;
-}
+}//itemQna
 
 </script>
 </head>
@@ -163,10 +183,12 @@ function itemQna(item_num) {
 		<form id="insertFrm" name="insertFrm" action="modify_item.do" method="post" enctype="multipart/form-data">
 		<div style="margin-left: 150px">
 		<div style="margin-left: 220px; float:left">
-  				 <div id="changeVal"><img src="/common/images/item/${ midd.item_img }"  width='190' height='190'/></div>
-			   <div style="font-size: 18px; text-align:center; background-color:#77AF9C; width: 190px; border: 1px solid #333" class="collie_font">대표 이미지</div>
+  			<div id="item_img_div" style="width: 150px; height: 200px">
+  				<img src="/common/images/item/${ midd.item_img }"  style="width: 150px; height: 200px"/>
+  			</div>
+			<div style="font-size: 18px; text-align:center; background-color:#77AF9C; width: 150px; border: 1px solid #333" class="collie_font">대표 이미지</div>
 			<div>
-			<input type="file" id="item_img" name="item_img" style="width: 190px"/>
+			<input type="file" id="item_img" name="item_img" style="width: 200px" onchange="setThumbnail(event,'item_img_div')"/>
 			</div>
 		</div>
 		</div>
@@ -225,18 +247,31 @@ function itemQna(item_num) {
 			<input type="button" id="modifyBtn" value="수정" class="collieBtnMain" style="padding: 10px 100px 10px 100px; margin-left: 138px;"/> 
 			<div style="margin-left: 550px; margin-top: 80px"><input type="button" value="사진추가" onclick="addForm()" class="collieBtnMain" style="padding: 10px 10px 10px 10px;"/></div>
 		</div>
-		<div style="margin-left: 300px; margin-top: 100px"> 
-		<div id="addDiv0">
-		<div style="margin-left: 380px"><img src="/common/images/item/${ midd.detail_img[0] }" id='image_section0' width="190" height="150'"/></div>
-		<div style="margin-left: 380px;" class="font"><input type='file' id='detail_img0' name='detail_img0' value="${ midd.detail_img[0] } " style="border: 1px solid #333; width: 190px" /></div>
+		<div style="margin-top: 100px"> 
+		
+		<div id="addDiv0" style="font-size: 16px; ">
+		<div id="detail_img_div0">
+			<img src="/common/images/item/${ midd.detail_img[0] }" id='image_section0'/>
 		</div>
+		<div class="font">
+			디테일 이미지<br/>
+			<input type='file' id='detail_img0' name='detail_img0' onchange="setThumbnail(event,'detail_img_div0')" style="width: 190px" />
+		</div>
+		</div>
+		
 		<div id="addedFormDiv">
 		<c:forEach var="i" begin="1" end="${ midd.detail_img.size()-1 }" step="1">
-		<div style="" id="added_${ i }">
-		<div style="margin-left: 380px; margin-top: 50px"><img src="/common/images/item/${ midd.detail_img[i] }" id='image_section${ i }' width="190" height="150'"/></div>
-		<div style="margin-left: 380px"><input type='file' id='detail_img${ i }' name='detail_img${ i }' value="${ midd.detail_img[i] }"  style="border: 1px solid #333; width: 190px" />
+		
+		<div id="added_${ i }" style="font-size: 16px; ">
+		<div id="detail_img_div${ i }" style="margin-top: 50px">
+			<img src="/common/images/item/${ midd.detail_img[i] }" id='image_section${ i }'/>
+		</div>
+		<div>
+			디테일 이미지<br/>
+			<input type='file' id='detail_img${ i }' name='detail_img${ i }' onchange="setThumbnail(event,'detail_img_div${ i }')" value="${ midd.detail_img[i] }"  style="width: 190px" />
 		<input type='button' value='삭제' onclick='delForm(${ i })'/></div>
 		</div>
+		
 		</c:forEach>
 		</div>
 		
