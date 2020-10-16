@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,6 +33,12 @@ import kr.co.collie.mgr.pagination.PaginationService;
 
 @Controller
 public class MgrItemController {
+	
+//	private static String IMG_PATH = "C:/Users/sist39/git/marketcollie_user/collie_user/WebContent/common/images/item";
+	
+	@Value("${img_path}")
+	private String IMG_PATH;
+	
 	
 	@RequestMapping(value="/item/item_list.do", method = {GET,POST} )
 	public String SearchItem(Model model) {
@@ -100,9 +107,8 @@ public class MgrItemController {
 		boolean flag = false;
 		
 		//파일 업로드 수행
-		String path="C:/Users/sist/git/marketcollie_manager/marketcollie_manager/WebContent/common/images/item";
 		int maxSize = 1024 * 1024 * 10;
-		MultipartRequest mr = new MultipartRequest(request, path, maxSize,"UTF-8", new DefaultFileRenamePolicy());
+		MultipartRequest mr = new MultipartRequest(request, IMG_PATH, maxSize,"UTF-8", new DefaultFileRenamePolicy());
 		
 		//파라메터 처리
 		//detail_img처리
@@ -181,9 +187,9 @@ public class MgrItemController {
 		boolean flag = false;
 		
 		//파일 업로드 수행
-		String path="C:/Users/sist/git/marketcollie_manager/marketcollie_manager/WebContent/common/images/item";
 		int maxSize = 1024 * 1024 * 10;
-		MultipartRequest mr = new MultipartRequest(request, path, maxSize,"UTF-8", new DefaultFileRenamePolicy());
+		MultipartRequest mr = new MultipartRequest(request, IMG_PATH, maxSize,"UTF-8", new DefaultFileRenamePolicy());
+		
 		//파라메터 처리
 		//detail_img처리
 		Enumeration<String> en=mr.getFileNames();

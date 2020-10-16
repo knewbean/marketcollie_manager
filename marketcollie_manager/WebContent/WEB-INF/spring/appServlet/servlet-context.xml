@@ -20,7 +20,11 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
+	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<beans:property name="location" value="/WEB-INF/config/config.properties"/>
+    	<beans:property name="fileEncoding" value="UTF-8" />
+	</beans:bean>
+
 	<context:component-scan base-package="kr.co.collie.mgr" />
 	
 	
