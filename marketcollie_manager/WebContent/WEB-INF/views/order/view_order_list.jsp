@@ -63,20 +63,20 @@ function movePage(current_page){
 	      		tab+='</thead>';
 	      		tab+='<tbody class="tbody-collie">';
 	      		$.each(jsonObj.order_list,function(i, json){
-		      		tab+='<tr onclick="orderDetail('+json.order_num+')" style="cursor: pointer;">';
-		      		tab+='<td>';
+		      		tab+='<tr>';
+		      		tab+='<td onclick="orderDetail('+json.order_num+')" style="cursor: pointer;">';
 		      		tab+=json.order_num;
 		      		tab+='</td>';
-		      		tab+='<td>';
+		      		tab+='<td onclick="orderDetail('+json.order_num+')" style="cursor: pointer;">';
 		      		tab+=json.member_num;
 		      		tab+='</td>';
-		      		tab+='<td>';
+		      		tab+='<td onclick="orderDetail('+json.order_num+')" style="cursor: pointer;">';
 		      		tab+=(json.total_price * 1).toLocaleString();
 		      		tab+='</td>';
-		      		tab+='<td>';
+		      		tab+='<td onclick="orderDetail('+json.order_num+')" style="cursor: pointer;">';
 		      		tab+=json.shipping_flag;
 		      		tab+='</td>';
-		      		tab+='<td>';
+		      		tab+='<td onclick="orderDetail('+json.order_num+')" style="cursor: pointer;">';
 		      		tab+=json.input_date;
 		      		tab+='</td>';
 		      		tab+='<td>';
@@ -132,14 +132,14 @@ function orderDetail(orderNum){
 			  </thead>
 			  <tbody class="tbody-collie">
 			  	<c:forEach var="order" items="${ order_list }">
-				    <tr onclick="orderDetail(${order.order_num})" style="cursor: pointer;">
-				      <td>
+				    <tr>
+				      <td onclick="orderDetail(${order.order_num})" style="cursor: pointer;">
 				      <c:out value="${ order.order_num }"/>
 				      </td>
-				      <td><c:out value="${ order.member_num }"/></td>
-				      <td><fmt:formatNumber pattern="#,###" value="${ order.total_price }"/></td>
-				      <td><c:out value="${ order.shipping_flag }"/></td>
-				      <td><c:out value="${ order.input_date }"/></td>
+				      <td onclick="orderDetail(${order.order_num})" style="cursor: pointer;"><c:out value="${ order.member_num }"/></td>
+				      <td onclick="orderDetail(${order.order_num})" style="cursor: pointer;"><fmt:formatNumber pattern="#,###" value="${ order.total_price }"/></td>
+				      <td onclick="orderDetail(${order.order_num})" style="cursor: pointer;"><c:out value="${ order.shipping_flag }"/></td>
+				      <td onclick="orderDetail(${order.order_num})" style="cursor: pointer;"><c:out value="${ order.input_date }"/></td>
 				      <td>
 				      	<input type="button" value="배송정보 변경" onclick="modifyShipping(${ order.order_num })" class="collieBtnMain"/>
 				      </td>

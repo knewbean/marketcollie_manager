@@ -76,13 +76,13 @@ $(function(){
 			      <c:out value="${ order_detail.order_item[0].item_name }"/>(<c:out value="${ order_detail.order_item[0].item_num }"/>) <c:out value="${ order_detail.order_item[0].item_cnt }"/>개
 			      </td>
 			    </tr>
-			    <tr>
 			      <c:forEach begin="1" end="${ order_detail.order_item.size()-1 }" step="1" var="i">
+				    <tr>
 				      <td>
 				      <c:out value="${ order_detail.order_item[i].item_name }"/>(<c:out value="${ order_detail.order_item[i].item_num }"/>) <c:out value="${ order_detail.order_item[i].item_cnt }"/>개
 				      </td>
+				    </tr>
 			      </c:forEach>
-			    </tr>
 			 </tbody>
 			</table>
 		</div>

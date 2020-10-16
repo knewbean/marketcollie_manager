@@ -90,6 +90,11 @@ public class MgrItemService {
 		
 		midd = miDAO.selectItemDetail(item_num);
 		
+		List<String> list=midd.getDetail_img();
+		if( list.isEmpty() ) {
+			list.add("noImg.png");
+		}//end if
+		
 		return midd;
 	}//getItemDetail
 	
