@@ -162,7 +162,7 @@ function delForm(count){
 			<div>
 				<input type="file" id="item_img" name="item_img" style="width: 190px" />
 			</div>
-		</div>
+		</div> 
 		</div>
 		
 		<div style="margin-left: 750px; margin-top: 80px">
