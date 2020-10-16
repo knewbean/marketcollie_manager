@@ -44,7 +44,7 @@ $(function(){
 				return;
 			}//end if
 		
-	      if($("#item_price").val().replace(/[0-9A-Za-z]/g, "") != ""){
+	      if($("#item_price").val().replace(/[0-9]/g, "") != ""){
 	    	  alert("가격은 숫자만 입력 가능합니다.");
 	          $("#item_price").focus();
 	          return;
@@ -68,11 +68,11 @@ $(function(){
 				return;
 			}//end if
 	       
-	      if($("#item_stock").val().replace(/[0-9A-Za-z]/g, "") != ""){
-	    	  alert("재고는 숫자만 입력 가능합니다.");
-	          $("#item_stock").focus();
-	          return;
-	       }//end if
+			if($("#item_stock").val().replace(/[0-9]/g, "") != ""){
+		    	  alert("재고는 숫자만 입력 가능합니다.");
+		          $("#item_stock").focus();
+		          return;
+		       }//end if
 	       
 			if($("#item_guide").val().trim()==""){
 				alert("안내사항을 입력해주세요");
@@ -160,7 +160,7 @@ function delForm(count){
 			  <div style="font-size: 18px; text-align:center; background-color:#77AF9C; width: 190px; border: 1px solid #333" class="collie_font">대표 이미지</div>
 		</div>
 			<div>
-				<input type="file" id="item_img" name="item_img" />
+				<input type="file" id="item_img" name="item_img" style="width: 190px" />
 			</div>
 		</div>
 		</div>

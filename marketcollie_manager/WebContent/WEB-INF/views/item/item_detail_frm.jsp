@@ -28,64 +28,81 @@ $(function(){
 	
 	$("#modifyBtn").click(function(){
 		
-			if($("#item_name").val().trim()==""){
-				alert("물건명을 입력해주세요");
-				$("#item_name").focus();
-				return;
-			}//end if
-			
-			if($("#item_price").val().trim()==""){
-				alert("가격을 입력해주세요");
-				$("#item_price").focus();
-				return;
-			}//end if
-			
+		if($("#item_img").val()==""){
+			alert("아이템의 이미지를 입력해주세요");
+			return;
+		}//end if 
 		
-	      if($("#item_price").val().replace(/[0-9A-Za-z]/g, "") != ""){
-	    	  alert("가격은 숫자만 가능합니다.");
-	          $("#item_price").focus();
-	          return;
-	       }//end if
-	       
-			if($("#item_weight").val().trim()==""){
-				alert("중량/용량을 입력해주세요");
-				$("#item_weight").focus();
-				return;
-			}//end if
-	       
-			if($("#item_unit").val().trim()==""){
-				alert("판매단위를 입력해주세요");
-				$("#item_unit").focus();
-				return;
-			}//end if
-			
-			if($("#item_stock").val().trim()==""){
-				alert("재고를 입력해주세요");
-				$("#item_stock").focus();
-				return;
-			}//end if
-	       
-	      if($("#item_stock").val().replace(/[0-9A-Za-z]/g, "") != ""){
-	    	  alert("재고는 숫자만 가능합니다.");
+		if($("#item_name").val().trim()==""){
+			alert("물건명을 입력해주세요");
+			$("#item_name").focus();
+			return;
+		}//end if
+		
+		if($("#item_price").val().trim()==""){
+			alert("가격을 입력해주세요");
+			$("#item_price").focus();
+			return;
+		}//end if
+	
+      if($("#item_price").val().replace(/[0-9]/g, "") != ""){
+    	  alert("가격은 숫자만 입력 가능합니다.");
+          $("#item_price").focus();
+          return;
+       }//end if
+       
+		if($("#item_weight").val().trim()==""){
+			alert("중량/용량을 입력해주세요");
+			$("#item_weight").focus();
+			return;
+		}//end if
+       
+		if($("#item_unit").val().trim()==""){
+			alert("판매단위를 입력해주세요");
+			$("#item_unit").focus();
+			return;
+		}//end if
+		
+		if($("#item_stock").val().trim()==""){
+			alert("재고를 입력해주세요");
+			$("#item_stock").focus();
+			return;
+		}//end if
+       
+		if($("#item_stock").val().replace(/[0-9]/g, "") != ""){
+	    	  alert("재고는 숫자만 입력 가능합니다.");
 	          $("#item_stock").focus();
 	          return;
 	       }//end if
-	       
-			if($("#item_guide").val().trim()==""){
-				alert("안내사항을 입력해주세요");
-				$("#item_guide").focus();
-				return;
-			}//end if
-			
-			if($("#item_img").val().trim()==""){
-				alert("이미지를 입력해주세요");
-				return;
-			}//end if
-			
-			if($("#detail_img0").val().trim()==""){
-				alert("디테일 이미지를 입력해주세요");
-				return;
-			}//end if
+       
+		if($("#item_guide").val().trim()==""){
+			alert("안내사항을 입력해주세요");
+			$("#item_guide").focus();
+			return;
+		}//end if
+		
+		if($("#item_title").val().trim()==""){
+			alert("내용을 입력해주세요");
+			$("#item_title").focus();
+			return;
+		}//end if
+		
+		if($("#item_subtitle").val().trim()==""){
+			alert("내용을 입력해주세요");
+			$("#item_subtitle").focus();
+			return;
+		}//end if
+		
+		if($("#item_detail").val().trim()==""){
+			alert("내용을 입력해주세요");
+			$("#item_detail").focus();
+			return;
+		}//end if
+		
+		if($("#detail_img0").val().trim()==""){
+			alert("이미지를 입력해주세요");
+			return;
+		}//end if
 			
 	       
 		$("#insertFrm").submit();
@@ -149,7 +166,7 @@ function itemQna(item_num) {
   				 <div id="changeVal"><img src="/common/images/item/${ midd.item_img }"  width='190' height='190'/></div>
 			   <div style="font-size: 18px; text-align:center; background-color:#77AF9C; width: 190px; border: 1px solid #333" class="collie_font">대표 이미지</div>
 			<div>
-			<input type="file" id="item_img" name="item_img"/>
+			<input type="file" id="item_img" name="item_img" style="width: 190px"/>
 			</div>
 		</div>
 		</div>
@@ -204,20 +221,9 @@ function itemQna(item_num) {
 		<div style="margin-left: 520px; margin-top: 80px">
 			<input type="hidden" name="count" value="0"/>
 			<!-- 파라미터로 item_num 받아놓은거 -->
-<<<<<<< HEAD
-			<input type="hidden"  name="item_num" value="${ param.item_num }" />
-			<input type="button" id="modifyBtn" value="수정"/> 
-			<div style="margin-left: 400px; margin-top: 120px"><input type="button" value="사진추가" onclick="addForm()"/></div>
-=======
 			<input type="hidden"  name="item_num" value="${ param.item_num }" /> 
-<<<<<<< HEAD
-			<input type="button" id="modifyBtn" value="수정" class="collieBtnMain" style="padding: 10px 100px 10px 100px; text-align: right;"/> 
-			<div style="margin-left: 400px; margin-top: 80px"><input type="button" value="사진추가" onclick="addForm()" class="collieBtnMain" style="padding: 10px 10px 10px 10px;"/></div>
->>>>>>> refs/heads/main
-=======
-			<input type="button" id="modifyBtn" value="수정" class="collieBtnMain" style="padding: 10px 100px 10px 100px; margin-left: 138px;"/>  
+			<input type="button" id="modifyBtn" value="수정" class="collieBtnMain" style="padding: 10px 100px 10px 100px; margin-left: 138px;"/> 
 			<div style="margin-left: 550px; margin-top: 80px"><input type="button" value="사진추가" onclick="addForm()" class="collieBtnMain" style="padding: 10px 10px 10px 10px;"/></div>
->>>>>>> refs/heads/main
 		</div>
 		<div style="margin-left: 300px; margin-top: 100px"> 
 		<div id="addDiv0">
