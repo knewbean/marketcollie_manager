@@ -150,7 +150,7 @@ function itemReview(item_num) {
 					<select class="form-control" id="cate_name" name="cate_name">
 					<option value="">전체</option>
 					<c:forEach items="${ cate_list }" var="cate">
-						<option value="${ cate.cate_num }"><c:out value="${ cate.cate_name }"/></option>
+						<option value="${ cate.cate_name }"><c:out value="${ cate.cate_name }"/></option>
 					</c:forEach>
 					</select>
 			</div>
