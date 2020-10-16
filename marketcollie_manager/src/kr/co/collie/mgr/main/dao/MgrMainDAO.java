@@ -37,12 +37,4 @@ public class MgrMainDAO {
 		return mgrId;
 	}
 	
-	
-	public static void main(String[] args) throws NoSuchAlgorithmException {
-		MgrLoginVO loginVO = new MgrLoginVO();
-		loginVO.setId("admin1");
-		loginVO.setPass(DataEncrypt.messageDigest("MD5", "1111"));
-		String mld = MgrMainDAO.getInstance().selectMgrLogin(loginVO);
-		System.out.println(mld);
-	}
 }

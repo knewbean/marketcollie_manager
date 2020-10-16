@@ -39,7 +39,7 @@ public class MgrMemberController {
 	
 	@RequestMapping(value="/member/move_list.do", method=POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String moveCategoryList(int current_page) throws NumberFormatException {
+	public String moveMemberList(int current_page) throws NumberFormatException {
 		String json=null;
 		json=new MgrMemberService().moveMemberList(current_page);
 		return json;

@@ -55,7 +55,7 @@ public class MgrMainController {
 	
 	
 	@ExceptionHandler(NoSuchAlgorithmException.class)
-	public String noSuchAligorithmExcept(NoSuchAlgorithmException nsae) {
+	public String noSuchAlgorithmExcept(NoSuchAlgorithmException nsae) {
 		return "err/algorithm_except";
 	}
 	

@@ -49,13 +49,13 @@ public class MgrCategoryController {
 	}//moveCategoryList
 	
 	@RequestMapping(value="/category/add_cate_form.do", method=GET)
-	public String addCatgoryForm() {
+	public String addCategoryForm() {
 		
 		return "cate/add_cate_form";
 	}//addCategoryForm
 	
 	@RequestMapping(value="/category/add_cate_process.do", method=POST)
-	public String addCatgoryProcess(String cate_name) {
+	public String addCategoryProcess(String cate_name) {
 		String url="";
 		
 		if(new MgrCategoryService().addCategory(cate_name)) {
@@ -66,7 +66,7 @@ public class MgrCategoryController {
 	}//addCategoryForm
 	
 	@RequestMapping(value="/category/modify_cate_form.do", method=GET)
-	public String modifyCatgoryForm(String cate_num, Model model) throws NumberFormatException {
+	public String modifyCategoryForm(String cate_num, Model model) throws NumberFormatException {
 		int cateNum=Integer.parseInt(cate_num);
 		String cateName=new MgrCategoryService().getCategory(cateNum);
 		model.addAttribute("cate_name", cateName);
@@ -75,7 +75,7 @@ public class MgrCategoryController {
 	}//addCategoryForm
 	
 	@RequestMapping(value="/category/modify_cate_process.do", method=POST)
-	public String modifyCatgoryProcess(MgrModifyCateVO mmcVO) {
+	public String modifyCategoryProcess(MgrModifyCateVO mmcVO) {
 		String url="";
 		
 		if(new MgrCategoryService().modifyCategory(mmcVO)) {
