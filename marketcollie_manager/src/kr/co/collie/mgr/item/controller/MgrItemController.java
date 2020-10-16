@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import kr.co.collie.mgr.category.domain.MgrCategoryDomain;
 import kr.co.collie.mgr.item.domain.MgrCateListDomain;
 import kr.co.collie.mgr.item.domain.MgrItemDetailDomain;
 import kr.co.collie.mgr.item.domain.MgrItemListDomain;
@@ -134,7 +133,7 @@ public class MgrItemController {
 		MgrItemService mis = new MgrItemService();
 		flag = mis.addItem(miaVO);
 		if(flag) {
-			url="add_item_result";
+			url="item/add_item_result";
 		}//end if
 		
 		return url;
@@ -217,7 +216,7 @@ public class MgrItemController {
 		MgrItemService mis = new MgrItemService();
 		flag= mis.modifyItem(mimVO);
 		if(flag) {
-			url="modify_item_result";
+			url="item/modify_item_result";
 		}//end if
 		
 		return url;
