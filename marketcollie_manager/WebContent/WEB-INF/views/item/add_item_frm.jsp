@@ -154,7 +154,7 @@ function delForm(count){
 		<form id="insertFrm" name="insertFrm" action="add_item.do" method="post" enctype="multipart/form-data">
 		<div>
 		<div style="margin-left: 350px; float:left; ">
-		<div style="border: 1px solid  #D5D5D5; width: 192px">
+		<div style="border: 1px solid  #D5D5D5; width: 192px"> 
 			<div id="changeVal"></div>
 			<div id="item_img_div" style="width: 150px; height: 200px"></div>
 			  <div style="font-size: 18px; text-align:center; background-color:#77AF9C; width: 190px; border: 1px solid #333" class="collie_font">대표 이미지</div>
