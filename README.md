@@ -4,7 +4,7 @@
 ---
 쇼핑몰 마켓 컬리를 참조하여 만든 온라인 쇼핑몰의 관리자 페이지
 
-+ 개발 환경
++ 개발 환경  
 ![dev-env](https://user-images.githubusercontent.com/66762910/98081150-ee41ba00-1eb9-11eb-8c19-0a8536afcd64.png)
 
 
